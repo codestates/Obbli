@@ -5,13 +5,13 @@ const Application = require("../controllers/Application");
 //회원가입
 router.post("/", Person.Sign.Sign_up.post);
 //로그인
-router.post("/sign_in", Person.Sign.Sign_in.post);
+router.post("/sign-in", Person.Sign.Sign_in.post);
 //유저정보 요청
-router.get("/:person_uuid", Person.UserInfo.UserInfo.get);
+router.get("/", Person.UserInfo.UserInfo.get);
 //유저정보 수정
-router.patch("/:person_uuid", Person.UserInfo.UserInfo.patch);
+router.patch("/", Person.UserInfo.UserInfo.patch);
 //회원탈퇴
-router.delete("/:person_uuid", Person.UserInfo.UserInfo.delete);
+router.delete("/", Person.UserInfo.UserInfo.delete);
 //review 작성
 router.post("/:person_uuid/review", Person.Review.review.post);
 //user가 작성된 review 가져오기
