@@ -5,7 +5,6 @@ import "reflect-metadata";
 import { createConnection, getConnectionOptions } from "typeorm";
 import {Advert,Application,Org,Org_review,Person,Person_review,Position,Skill } from "./entity";
 
-
 const app = express();
 const port = 3000;
 
@@ -17,6 +16,7 @@ app.use("/person", indexRouter.Person);
 app.use("/org", indexRouter.Org);
 app.use("/advert", indexRouter.Advert);
 app.use("/application", indexRouter.Application);
+
 
 export default app;
 
