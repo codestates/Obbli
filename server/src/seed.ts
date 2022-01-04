@@ -1,8 +1,5 @@
-import 'reflect-metadata';
-import {
-  createConnection,
-  getConnectionOptions,
-} from 'typeorm';
+import "reflect-metadata";
+import { createConnection, getConnectionOptions } from "typeorm";
 
 import {
   Advert,
@@ -13,8 +10,8 @@ import {
   Person_review,
   Position,
   Skill,
-} from './entity';
-import dummyData from './static/dummyData';
+} from "./entity";
+import dummyData from "./static/dummyData";
 
 function convert(entity) {
   return entity.rows.map((item) => {
@@ -39,10 +36,14 @@ getConnectionOptions().then(async (config) => {
   const conn = await createConnection(config);
 
   for (let entity of config.entities) {
-    const data = convert(dummyData[entity['name']]);
-    await conn.createQueryBuilder().insert().into(entity).values(data).execute();
+    const data = convert(dummyData[entity["name"]]);
+    await conn
+      .createQueryBuilder()
+      .insert()
+      .into(entity)
+      .values(data)
+      .execute();
   }
 
   conn.close();
-
 });
