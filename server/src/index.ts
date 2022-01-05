@@ -4,7 +4,7 @@ const morgan = require("morgan");
 
 const app = express();
 const port = 3000;
-app.use(morgan("dev"));
+
 import "reflect-metadata";
 import { createConnection, getConnectionOptions } from "typeorm";
 import {

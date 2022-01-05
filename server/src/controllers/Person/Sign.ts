@@ -22,11 +22,11 @@ module.exports = {
         const refresh_Token = makejwt({ uuid, user_id, email }, "1d");
 
         res
-          .cookie("refresh_token", `bearer ${refresh_Token}`, {
+          .cookie("refresh_token", refresh_Token, {
             httpOnly: true,
           })
           .status(200)
-          .json({ access_token: access_Token });
+          .json({ access_token: `bearer ${access_Token}` });
       });
     },
   },
@@ -34,8 +34,7 @@ module.exports = {
   Sign_up: {
     post: async (req, res) => {
       //회원가입
-      const { user_id, pw_hash, realname, professional, history, email } =
-        req.body;
+      const { user_id, pw_hash, realname, professional, history, email } = req.body;
       //아이디 비밀번호 전달확인
       if (!user_id || !pw_hash) {
         res.status(400).json({ message: "write ID,PW" });
@@ -64,11 +63,11 @@ module.exports = {
           const refresh_Token = makejwt({ uuid, user_id, email }, "1d");
 
           res
-            .cookie("refresh_token", `bearer ${refresh_Token}`, {
+            .cookie("refresh_token", refresh_Token, {
               httpOnly: true,
             })
             .status(200)
-            .json({ access_token: access_Token });
+            .json({ access_token: `bearer ${access_Token}`});
         });
       }
     },

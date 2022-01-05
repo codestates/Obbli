@@ -21,8 +21,7 @@ module.exports = {
     patch: async (req, res) => {
       const solveData = solveToken(req.headers.access_token);
       const person_uuid: string = solveData.uuid;
-      const { user_id, realname, professional, history, email, cellular } =
-        req.body;
+      const { user_id, realname, professional, history, email, cellular } = req.body;
 
       await getConnection()
         .createQueryBuilder()
