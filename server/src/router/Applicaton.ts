@@ -1,11 +1,13 @@
 import * as route from "express";
-const Application = require("../controllers/Application");
+import { AppPosition } from "../controllers/Application";
+
 const router = route.Router();
 
 //application에 모집글의 포지션별의 uuid를 작성
 router.post(
   "/application/:position_uuid",
-  Application.Application.position.post
+  AppPosition.post
 );
 
-module.exports = router;
+export default router
+

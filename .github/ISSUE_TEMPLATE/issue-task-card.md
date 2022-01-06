@@ -13,9 +13,9 @@ assignees: ''
 - Detail: fix actions from client redux
 
 ### TODO
-1. [ ] Job1
-1. [ ] Job2
-1. [ ] Job3
+- [ ] Job1
+- [ ] Job2
+- [ ] Job3
 
 ### Estimated time
 > Pick one

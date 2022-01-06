@@ -3,15 +3,16 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  OneToMany
+  OneToMany,
+  BaseEntity,
 } from "typeorm";
 import { Advert } from "./Advert";
 import { Org_review } from "./Org_review";
 import { Person_review } from "./Person_review";
 
 @Entity()
-export class Org {
-  @PrimaryGeneratedColumn('uuid')
+export class Org extends BaseEntity {
+  @PrimaryGeneratedColumn("uuid")
   uuid: string;
 
   @Column()
@@ -26,7 +27,7 @@ export class Org {
   @Column()
   description: string;
 
-  @Column('datetime')
+  @Column("datetime")
   since: Date;
 
   @Column()
