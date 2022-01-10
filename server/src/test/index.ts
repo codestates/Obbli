@@ -11,6 +11,7 @@ import dummyData from '../static/dummyData';
 import person from './person';
 import orgTest from './org';
 import advertTest from './advert';
+import applicationTest from './application';
 
 env();
 
@@ -78,6 +79,7 @@ describe('Obbli API server', () => {
   person(server);
   orgTest(server);
   advertTest(server);
+  applicationTest(server);
 
   after(async () => {
     server.close();
