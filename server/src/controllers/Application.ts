@@ -1,8 +1,60 @@
+import { createConnection, getRepository } from "typeorm";
+import { Application, Position } from "../entity";
+import { verifyToken } from "../Util";
+
+interface TokenInfo {
+  uuid: string,
+  user_id: string,
+  created_at: Date
+}
+
+interface Person_App {
+    org_uuid: string
+    org_name: string,
+    part_name: string,
+    created_at: Date,
+    reviewed_at: Date | null,
+    hired_at: Date | null
+    review_uuid: string,
+    rating: number |null
+}
+
+interface Advert_App {
+  uuid: string,
+  person_uuid: string,
+  advert_uuid: string,
+  porg_uuid: string
+}
 
   const AppPerson= {
-    get: (req, res) => {
-      res.status(200).send("참여목록 가져오기");
+    get: async (req, res) => {
       //참여 목록가져오기
+      console.log(req.params.person_uuid)
+      const personInfo:TokenInfo = verifyToken(req.headers.authorization)
+
+      const appRepo = await getRepository(Application)
+      .createQueryBuilder('app')
+      .leftJoinAndSelect('app.Position','Position')
+      // .leftJoinAndSelect('Position.Advert','Advert')
+      // .leftJoinAndSelect('Advert.Org','Org')
+      .where('app.Person = :uuid',{uuid:personInfo.uuid})
+      .getMany()
+
+      console.log(appRepo)
+      // const posRepo = getRepository(Position)
+      // .createQueryBuilder('pos')
+      // .leftJoinAndSelect('pos.Advert','Position')
+      // .leftJoinAndSelect('pos.Skill','Application')
+      // .leftJoinAndSelect('pos.Application','Position')
+      // .where('app.Person = :uuid',{uuid:personInfo.uuid})
+      // .getMany()
+
+     
+
+      
+
+      return res.status(200)
+
     },
   }
   const  AppAdvert =  {

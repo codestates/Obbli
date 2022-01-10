@@ -70,6 +70,8 @@ export default {
     columns: ['person_uuid', 'position_uuid', 'created_at', 'received_at', 'hired_at'],
     rows: [
       ['c68dad62-f25f-4e62-8320-43c7bed458fe', 'd19061fe-6c80-41bc-9940-6e8eb2ac96e5', new Date('2021-12-01T17:38:01.192Z'), new Date('2021-12-01T17:38:32.091Z'), new Date('2021-12-01T17:38:41.193Z')],
+      ['654d1f39-a3f4-4f23-8312-ceafdaaa007d','4d34cbe4-f93b-4e18-a016-5e70847bb63a', new Date('2021-12-01T17:38:01.192Z'), new Date('2021-12-01T17:38:32.091Z'),null],
+      ['c68dad62-f25f-4e62-8320-43c7bed458fe','f5be84c1-9d77-48a3-8d94-a65da2ffe289', new Date('2021-12-03T12:11:23.576Z'),new Date('2021-12-01T17:38:32.091Z'),null]
     ],
   },
   Person_review: {

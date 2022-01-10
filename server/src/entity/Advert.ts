@@ -1,9 +1,9 @@
-import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
 import { Position } from './Position';
 import { Org } from './Org';
 
 @Entity()
-export class Advert {
+export class Advert extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
@@ -15,11 +15,12 @@ export class Advert {
 
   @Column()
   content: string;
+  
 
   @OneToMany(() => Position, (Position) => Position.Advert)
   Position: Position[];
 
-  @ManyToOne(() => Org, (Org) => Org.Advert)
+  @ManyToOne(() => Org, (Org) => Org.Advert,{onDelete:'CASCADE'})
   @JoinColumn({ name: 'org_uuid' })
   Org: Org;
 }

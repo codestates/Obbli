@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   BaseEntity,
+  Connection,
 } from "typeorm";
 import { Advert } from "./Advert";
 import { Org_review } from "./Org_review";
@@ -36,11 +37,14 @@ export class Org extends BaseEntity {
   @CreateDateColumn()
   readonly created_at: Date;
 
+  @Column({nullable:true})
+  deleted_at: Date;
+
   @OneToMany(() => Org_review, (Org_review) => Org_review.Org)
   Org_review: Org_review[];
 
-  @OneToMany(() => Person_review, (Person_review) => Person_review.Org)
-  Person_review: Person_review[];
+  // @OneToMany(() => Person_review, (Person_review) => Person_review.Org)
+  // Person_review: Person_review[];
 
   @OneToMany(() => Advert, (Advert) => Advert.Org)
   Advert: Advert[];

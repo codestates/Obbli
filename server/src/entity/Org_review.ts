@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -11,7 +12,7 @@ import { Org } from "./Org";
 import { Person } from "./Person";
 
 @Entity()
-export class Org_review {
+export class Org_review extends BaseEntity{
   @PrimaryColumn('uuid')
   person_uuid: string;
 
