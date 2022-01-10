@@ -41,7 +41,7 @@ export default (server) => {
     })
 
     it('Sign up', async () => {
-      const { data, status } = await axios.post('/person', newUser);
+      const { data, status } = await axios.post('/person', { ...newUser, pw_check: newUser.pw });
       expect(status).to.equal(201);
       expect(data).to.have.property('access_token').and.match(re.token);
       // TODO: change order with Sign-in to check if the data is inserted into DB
@@ -60,6 +60,7 @@ export default (server) => {
       const token = signToken({ uuid, user_id, created_at }, '1h');
       const newProfile = {
         name: 'updatedName',
+        skill: '플룻',
       }
       const { data, status } = await axios.patch(
         '/person',
@@ -68,7 +69,7 @@ export default (server) => {
       );
 
       expect(status).to.equal(200);
-      expect(data).to.have.keys(['realname', 'professional', 'skill', 'history']);
+      expect(data).to.have.keys(['name', 'professional', 'skill', 'history']);
       for (const key in newProfile) {
         expect(data[key]).to.equal(newProfile[key]);
       }

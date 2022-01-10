@@ -75,9 +75,9 @@ describe('Obbli API server', () => {
 
   person(server);
 
-  after(() => {
+  after(async () => {
     server.close();
-    db.close();
+    await db.close();
   });
 
 });
