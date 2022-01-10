@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -6,15 +7,15 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Org_review } from './Org_review';
-import { Person_review } from './Person_review';
-import { Application } from './Application';
-import { Skill } from './Skill';
+} from "typeorm";
+import { Org_review } from "./Org_review";
+import { Person_review } from "./Person_review";
+import { Application } from "./Application";
+import { Skill } from "./Skill";
 
 @Entity()
-export class Person {
-  @PrimaryGeneratedColumn('uuid')
+export class Person extends BaseEntity {
+  @PrimaryGeneratedColumn("uuid")
   uuid: string;
 
   @Column()
@@ -38,7 +39,7 @@ export class Person {
   @Column({ nullable: true })
   cellular: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: "uuid", nullable: true })
   skill_uuid: string;
 
   @CreateDateColumn()
@@ -53,7 +54,7 @@ export class Person {
   @OneToMany(() => Application, (Application) => Application.Person)
   Application: Application[];
 
-  @ManyToOne(type => Skill)
-  @JoinColumn({ name: 'skill_uuid' })
+  @ManyToOne((type) => Skill)
+  @JoinColumn({ name: "skill_uuid" })
   Skill: Skill;
 }

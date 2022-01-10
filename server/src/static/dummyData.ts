@@ -1,4 +1,12 @@
 export default {
+  Skill: {
+    columns: ['uuid', 'name'],
+    rows: [
+      ['f34a055c-34d3-4148-a2e3-c5e7ed715036', '지휘'],
+      ['0f42cfd2-fb3b-4f32-b9d5-765ae77ae290', '바이올린'],
+      ['8e9c0f01-9d19-4a9b-9f8f-cd64ea51f58e', '플룻'],
+    ],
+  },
   Person: {
     columns: ['uuid', 'user_id', 'pw_hash', 'realname', 'professional', 'skill_uuid', 'history', 'email', 'cellular'],
     rows: [
@@ -40,14 +48,6 @@ export default {
         '22',
         new Date('2021-12-22T19:19:00.965Z'),
       ],
-    ],
-  },
-  Skill: {
-    columns: ['uuid', 'name'],
-    rows: [
-      ['f34a055c-34d3-4148-a2e3-c5e7ed715036', '지휘'],
-      ['0f42cfd2-fb3b-4f32-b9d5-765ae77ae290', '바이올린'],
-      ['8e9c0f01-9d19-4a9b-9f8f-cd64ea51f58e', '플룻'],
     ],
   },
   Advert: {
