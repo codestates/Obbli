@@ -3,7 +3,7 @@ import { Position } from './Position';
 import { Org } from './Org';
 
 @Entity()
-export class Advert extends BaseEntity {
+export class Advert  {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
 

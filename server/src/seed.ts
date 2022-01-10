@@ -45,6 +45,5 @@ getConnectionOptions().then(async (config) => {
       .execute();
   }
 
-
   conn.close();
 });

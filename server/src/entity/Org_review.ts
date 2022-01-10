@@ -12,7 +12,7 @@ import { Org } from "./Org";
 import { Person } from "./Person";
 
 @Entity()
-export class Org_review extends BaseEntity{
+export class Org_review {
   @PrimaryColumn('uuid')
   person_uuid: string;
 
