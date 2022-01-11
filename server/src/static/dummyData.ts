@@ -51,14 +51,14 @@ export default {
     ],
   },
   Advert: {
-    columns: ['uuid', 'org_uuid', 'content', 'created_at'],
+    columns: ['uuid', 'org_uuid', 'title', 'body', 'active_until', 'event_at', 'location', 'created_at'],
     rows: [
-      ['44fa4a0e-be4a-4d9b-86ad-5764b7fe547f', '9c200b48-11bf-4500-adf3-f4f20ac592ad', '같이 할사람?', new Date('2021-12-01T17:35:01.192Z')],
-      ['e6cf98e6-15cc-4e2d-8588-2eb9cf4a102c', '76df7573-8f30-440c-8ded-c8598ba880a1', '모집합니다.', new Date('2021-12-14T15:11:04.847Z')],
+      ['44fa4a0e-be4a-4d9b-86ad-5764b7fe547f', '9c200b48-11bf-4500-adf3-f4f20ac592ad', '같이 할사람?', '한 명만 오면 고', new Date('2021-12-09T18:00:00.000Z'), new Date('2021-12-10T09:30:00.000Z'), '서울특별시 중구 세종대로 110', new Date('2021-12-01T17:35:01.192Z')],
+      ['e6cf98e6-15cc-4e2d-8588-2eb9cf4a102c', '76df7573-8f30-440c-8ded-c8598ba880a1', '모집합니다.', '일단 오세요', new Date('2021-12-23T15:00:00.000Z'), new Date('2021-12-30T13:30:00.000Z'), '서울특별시 송파구 올림픽로 25', new Date('2021-12-14T15:11:04.847Z')],
     ],
   },
   Position: {
-    columns: ['uuid', 'advert_uuid', 'skill_uuid', 'number'],
+    columns: ['uuid', 'advert_uuid', 'skill_uuid', 'quota'],
     rows: [
       ['d19061fe-6c80-41bc-9940-6e8eb2ac96e5', '44fa4a0e-be4a-4d9b-86ad-5764b7fe547f', '8e9c0f01-9d19-4a9b-9f8f-cd64ea51f58e', 1],
       ['f5be84c1-9d77-48a3-8d94-a65da2ffe289', '44fa4a0e-be4a-4d9b-86ad-5764b7fe547f', '0f42cfd2-fb3b-4f32-b9d5-765ae77ae290', 1],

@@ -10,12 +10,23 @@ export class Advert extends BaseEntity {
   @Column('uuid')
   org_uuid: string;
 
-  @CreateDateColumn()
-  readonly created_at: Date;
+  @Column()
+  title: string;
 
   @Column()
-  content: string;
-  
+  body: string;
+
+  @Column()
+  active_until: Date;
+
+  @Column()
+  event_at: Date;
+
+  @Column()
+  location: string;
+
+  @CreateDateColumn()
+  readonly created_at: Date;
 
   @OneToMany(() => Position, (Position) => Position.Advert)
   Position: Position[];

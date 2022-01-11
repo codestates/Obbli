@@ -1,5 +1,6 @@
 import {
   Column,
+  BaseEntity,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -11,7 +12,7 @@ import { Application } from "./Application";
 import { Skill } from "./Skill";
 
 @Entity()
-export class Position {
+export class Position extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
@@ -22,7 +23,7 @@ export class Position {
   skill_uuid: string;
 
   @Column()
-  number: number;
+  quota: number;
 
   @OneToMany(() => Application, (Application) => Application.Position)
   Application: Application;

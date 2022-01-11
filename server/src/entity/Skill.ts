@@ -1,5 +1,6 @@
 import {
   Column,
+  BaseEntity,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -10,7 +11,7 @@ import { Position } from "./Position";
 import { Person } from "./Person";
 
 @Entity()
-export class Skill {
+export class Skill extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
