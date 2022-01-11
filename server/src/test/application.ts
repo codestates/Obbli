@@ -29,7 +29,7 @@ export default (server) => {
       const token = signToken({ uuid, user_id, created_at }, '1h');
 
       const { data, status } = await axios.get(
-        `/person/${dummyUser.uuid}/application`,
+        `/person/application`,
         { headers: { Authorization: `Bearer ${token}` } },
       );
       expect(status).to.equal(200);
@@ -37,14 +37,12 @@ export default (server) => {
       for (const obj of data) {
         expect(obj).to.be.an('object');
         expect(obj).to.have.keys([
-          "org_uuid",
-          "org_name",
-          "part_name",
-          "created_at",
-          "reviewed_at",
-          "hired_at",
-          "review_uuid",
-          "rating",
+          'org_uuid',
+          'org_name',
+          'skill_name',
+          'created_at',
+          'received_at',
+          'hired_at',
         ]);
       }
     });
@@ -62,10 +60,10 @@ export default (server) => {
       for (const obj of data) {
         expect(obj).to.be.an('object');
         expect(obj).to.have.keys([
-          "uuid",
-          "person_uuid",
-          "advert_uuid",
-          "org_uuid",
+          'person_uuid',
+          'person_name',
+          'skill_name',
+          'professional,
         ]);
         expect(obj.advert_uuid).to.equal(dummyAdvert.uuid);
       }
@@ -81,7 +79,7 @@ export default (server) => {
       );
 
       expect(status).to.equal(201);
-      expect(data).to.have.key('uuid');
+      expect(data).to.have.key('created_at');
     });
 
   });
