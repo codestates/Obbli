@@ -43,7 +43,8 @@ export default (server) => {
       expect(status).to.equal(200);
       expect(data).to.have.keys(['description', 'headcount', 'name', 'since']);
       for (const key in data) {
-        expect(data[key]).to.equal(dummyOrg[key]);
+        const source = dummyOrg[key];
+        expect(data[key]).to.equal(source instanceof Date ? source.toISOString() : source);
       }
     });
 
