@@ -47,21 +47,6 @@ getConnectionOptions().then(async (config) => {
       .execute();
   }
 
-  // await conn
-  // .createQueryBuilder()
-  // .insert()
-  // .into(Org)
-  // .values(convert(dummyData.Org))
-  // .execute();
-  
-
-  // await conn 
-  // .createQueryBuilder()
-  // .insert()
-  // .into(Org)
-  // .values(convert(dummyData.Advert))
-  
-  // .execute();  
 
   conn.close();
 });
