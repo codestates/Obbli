@@ -37,7 +37,6 @@ getConnectionOptions().then(async (config) => {
 
   for (let entity of config.entities) {
     const data = convert(dummyData[entity["name"]]);
-    console.log(data)
     await conn
       .createQueryBuilder()
       .insert()
