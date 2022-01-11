@@ -55,10 +55,10 @@ export default (server) => {
     });
 
     it('Sign in', async () => {
-      const { uuid, user_id, created_at } = dummyOrg;
+      const { uuid, user_id, pw_hash: pw, created_at } = dummyOrg;
       const token = signToken({ uuid, user_id, created_at }, '1h');
 
-      const { data, status } = await axios.post('/org/sign-in', dummyOrg);
+      const { data, status } = await axios.post('/org/sign-in', { user_id, pw });
       expect(status).to.equal(200);
       expect(data).to.have.property('access_token');
     })
