@@ -55,8 +55,7 @@ export default (server) => {
     });
 
     it('Sign in', async () => {
-      const { uuid, user_id, pw_hash: pw, created_at } = dummyOrg;
-      const token = signToken({ uuid, user_id, created_at }, '1h');
+      const { user_id, pw_hash: pw } = dummyOrg;
 
       const { data, status } = await axios.post('/org/sign-in', { user_id, pw });
       expect(status).to.equal(200);

@@ -28,7 +28,7 @@ const SignIn = {
 
     if (!orgInfo) {
       return res.status(400).json({ message: "Data not found." });
-    } 
+    }
     else {
       const { uuid, user_id,created_at }:{uuid:string, user_id:string, created_at:Date} = orgInfo;
       const access_token:string = signToken({ uuid, user_id,created_at}, "1d");
@@ -48,18 +48,14 @@ const SignUp = {
 
     if (!user_id || !pw || !pw_check || !name ) {
       return res.status(400).json({ message: "항목을 전부 채워주세요" });
-    } 
+    }
     // TODO: validate pw_check
     // TODO: Do not use upsert
-    console.log('!!!!');
-    try {
     await Org.create({
       user_id: user_id,
       pw_hash: pw,
       name: name
     }).save();
-    } catch(e) { console.log(e); return res.status(400).send(); }
-    console.log('!!!!!!!!');
 
     await Org.findOne({ user_id: user_id }).then((result) => {
       const { uuid, user_id, created_at } = result;
