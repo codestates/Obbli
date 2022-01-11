@@ -26,11 +26,6 @@ const SignIn = {
     const { user_id , pw }:{user_id:string,pw:string} = req.body;
     const orgInfo:search_OrgInfo = await Org.findOne({ user_id: user_id ,pw_hash:pw, deleted_at:null});
 
-    // const test = Person.findOne({user_id:req.body.user_id, pw_hash:req.body.pw_hash})
-    // test.then(result => {
-    //   const test = {uuid:result.uuid,user_id:result.user_id, created_at:result.created_at}
-    //   console.log(`Beare ${signToken(test,'5d')}`)
-    // })
     if (!orgInfo) {
       return res.status(400).json({ message: "Data not found." });
     } 
