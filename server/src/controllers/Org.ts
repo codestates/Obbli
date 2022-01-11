@@ -67,7 +67,7 @@ const SignUp = {
 
       await Org.findOne({ user_id: user_id }).then((result) => {
         const { uuid, user_id, created_at } = result;
-        const access_Token:string = signToken({ uuid, user_id, created_at }, "1h");
+        const access_token:string = signToken({ uuid, user_id, created_at }, "1h");
         const refresh_token:string = signToken({ uuid, user_id, created_at }, "1d");
 
         return res
@@ -75,7 +75,7 @@ const SignUp = {
             httpOnly: true,
           })
           .status(201)
-          .json({ access_token: `bearer ${access_Token}` });
+          .json({ access_token: `bearer ${access_token}` });
       })
     }
   }
