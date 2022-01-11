@@ -16,7 +16,7 @@ function isAdvertList(arr: Object[]): Boolean {
     'location': false,
     'org_name': false,
     'title': false,
-    'until': false,
+    'active_until': false,
   }
 
   for (const obj of arr) {
@@ -39,7 +39,7 @@ const re = {
 const dummyAdvert = convert(dummyData.Advert)[0];
 const dummyOrg = convert(dummyData.Org).find(row => row.uuid === dummyAdvert.org_uuid);
 const updatedAdvert = {
-  content: 'Updated content',
+  body: 'Updated content',
 };
 
 export default (server) => {
@@ -56,7 +56,16 @@ export default (server) => {
       const { data, status } = await axios.get(`/advert/${dummyAdvert.uuid}`);
 
       expect(status).to.equal(200);
-      expect(data).to.have.keys(['uuid', 'content']);
+      expect(data).to.have.keys([
+        'active_until',
+        'body',
+        'event_at',
+        'location',
+        'org_name',
+        'positions',
+        'reviews',
+        'title',
+      ]);
     });
 
     it('Update Advert', async () => {
