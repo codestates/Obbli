@@ -25,26 +25,26 @@ export class Org extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column("datetime")
+  @Column({ nullable: true })
   since: Date;
 
-  @Column()
+  @Column({ nullable: true })
   headcount: number;
 
   @CreateDateColumn()
   readonly created_at: Date;
 
-  @Column({nullable:true})
+  @Column({ nullable:true })
   deleted_at: Date;
 
   @OneToMany(() => Org_review, (Org_review) => Org_review.Org)
   Org_review: Org_review[];
 
-  // @OneToMany(() => Person_review, (Person_review) => Person_review.Org)
-  // Person_review: Person_review[];
+  @OneToMany(() => Person_review, (Person_review) => Person_review.Org)
+  Person_review: Person_review[];
 
   @OneToMany(() => Advert, (Advert) => Advert.Org)
   Advert: Advert[];

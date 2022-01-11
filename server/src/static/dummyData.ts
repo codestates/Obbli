@@ -1,4 +1,12 @@
 export default {
+  Skill: {
+    columns: ['uuid', 'name'],
+    rows: [
+      ['f34a055c-34d3-4148-a2e3-c5e7ed715036', '지휘'],
+      ['0f42cfd2-fb3b-4f32-b9d5-765ae77ae290', '바이올린'],
+      ['8e9c0f01-9d19-4a9b-9f8f-cd64ea51f58e', '플룻'],
+    ],
+  },
   Person: {
     columns: ['uuid', 'user_id', 'pw_hash', 'realname', 'professional', 'skill_uuid', 'history', 'email', 'cellular'],
     rows: [
@@ -17,7 +25,7 @@ export default {
       '샬케04',
       '파란색 유니폼으로 로얄 블루스라는 애칭을 얻고 있으며, 90년대부터 2010년대 초반까지 독일에서 강호 축에 속했던 클럽이다',
       new Date('1980-05-15T00:00:00.000Z'),
-      '34',
+      34,
       new Date('2021-12-01T16:11:01.324Z'),
       ],
       [
@@ -27,7 +35,7 @@ export default {
         '레스터시티',
         '영국 잉글랜드 프리미어 리그의 프로 축구 클럽. 연고지는 레스터. 홈 구장은 킹 파워 스타디움.',
         new Date('2001-01-23T00:00:00.000Z'),
-        '75',
+        75,
         new Date('2021-12-09T09:04:01.099Z'),
       ],
       [
@@ -37,17 +45,9 @@ export default {
         '발렌시아FC',
         '스페인 프리메라 리가 소속의 팀으로 최근 수년간의 암흑기를 지나 다시 한 번 반등을 꿈꾸는 스페인 전통의 명문 클럽이다.',
         new Date('2011-04-19T00:00:00.000Z'),
-        '22',
+        22,
         new Date('2021-12-22T19:19:00.965Z'),
       ],
-    ],
-  },
-  Skill: {
-    columns: ['uuid', 'name'],
-    rows: [
-      ['f34a055c-34d3-4148-a2e3-c5e7ed715036', '지휘'],
-      ['0f42cfd2-fb3b-4f32-b9d5-765ae77ae290', '바이올린'],
-      ['8e9c0f01-9d19-4a9b-9f8f-cd64ea51f58e', '플룻'],
     ],
   },
   Advert: {
