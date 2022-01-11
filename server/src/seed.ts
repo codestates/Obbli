@@ -17,8 +17,7 @@ function convert(entity) {
   return entity.rows.map((item) => {
     return Object.fromEntries(item.map((v, i) => [entity.columns[i], v]));
   });
-}
-   
+}  
 
 getConnectionOptions().then(async (config) => {
   Object.assign(config, { dropSchema: true, synchronize: true });
@@ -38,7 +37,6 @@ getConnectionOptions().then(async (config) => {
 
   for (let entity of config.entities) {
     const data = convert(dummyData[entity["name"]]);
-    console.log(data)
     await conn
       .createQueryBuilder()
       .insert()
