@@ -43,7 +43,7 @@ interface Advert_App {
       .leftJoin('Advert.Org','Org')
       .where({person_uuid:personInfo.uuid})
       .getRawMany()
-      .then(err => {
+      .catch(err => {
         return res.status(500).json({message:'server ERROR, Please retry'})
       })
 

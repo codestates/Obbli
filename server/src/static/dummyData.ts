@@ -89,7 +89,6 @@ export default {
     columns: ['person_uuid', 'org_uuid', 'rating', 'comment', 'created_at'],
     rows: [
       ['c68dad62-f25f-4e62-8320-43c7bed458fe', '9c200b48-11bf-4500-adf3-f4f20ac592ad', 2, '양옹', new Date('2021-12-10T17:51:51.948Z') ],
-      ['c68dad62-f25f-4e62-8320-43c7bed458fe', 'f5be84c1-9d77-48a3-8d94-a65da2ffe289', 1, '멍멍', new Date('2021-12-10T17:51:51.948Z') ],
       ['8d74acce-3b44-42ad-a739-237cc7c1b098', '9c200b48-11bf-4500-adf3-f4f20ac592ad', 5, '꽥꽥', new Date('2021-12-10T17:51:51.948Z') ],
       ['654d1f39-a3f4-4f23-8312-ceafdaaa007d', '8e9712c5-4cdb-4aa6-9e97-9130bf8fa30c', 3, '어흥', new Date('2021-12-10T17:51:51.948Z') ],
     ],
