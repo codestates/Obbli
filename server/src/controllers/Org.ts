@@ -37,7 +37,7 @@ const SignIn = {
       return res
         .cookie("refresh_Token", refresh_token, { httpOnly: true })
         .status(200)
-        .json({ access_token: `bearer ${access_token}`});
+        .json({ access_token: `Bearer ${access_token}`});
     }
   },
 };
@@ -67,7 +67,7 @@ const SignUp = {
           httpOnly: true,
         })
         .status(201)
-        .json({ access_token: `bearer ${access_token}` });
+        .json({ access_token: `Bearer ${access_token}` });
     })
   }
 };
