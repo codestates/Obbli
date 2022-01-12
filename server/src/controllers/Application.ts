@@ -47,7 +47,7 @@ interface Advert_App {
         return res.status(500).json({message:'server ERROR, Please retry'})
       })
 
-      return res.status(200).send({AppList})
+      return res.status(200).send(AppList)
 
     },
   }
