@@ -17,17 +17,17 @@ router.patch("/", UserInfo.patch);
 //회원탈퇴
 router.delete("/", UserInfo.delete);
 //review 작성
-router.post("/:person_uuid/review", PersonReview.post);
+router.post("/review/:person_uuid", PersonReview.post);
 //user가 작성된 review 가져오기
-router.get("/:person_uuid/review", PersonReview.get);
+router.get("/review/:person_uuid", PersonReview.get);
 //작성한 review 수정하기 (:query를 하나로 합치는것 건의 & || - 사용 )
-router.patch("/:person_uuid/review/:org_uuid", PersonReview.patch);
+router.patch("/review/:person_uuid", PersonReview.patch);
 //작성한 review 삭제하기
-router.delete("/:person_uuid/review/:org_uuid", PersonReview.delete);
+router.delete("/review/:person_uuid", PersonReview.delete);
 
 //Application 부분
 //참여 목록 가져오기
-router.get("/:person_uuid/application", AppPerson.get);
+router.get("/application", AppPerson.get);
 
 export default router
 

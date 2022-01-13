@@ -1,0 +1,26 @@
+.headWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoImg {
+    width: 13%;
+}
+
+.naviList {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    list-style: none;
+}
+
+.naviButtom{
+    padding: 1vh 2.5vh;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    padding: 3vh;
+}

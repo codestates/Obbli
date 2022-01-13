@@ -1,0 +1,78 @@
+.mypageWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 80vh;
+}
+
+.mypageProfileWrap {
+    display: flex;
+    width: 100%;
+    height: 30vh;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mypageMenuWrap {
+  display: flex;
+  height: 40vh;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mypageProfile {
+  display: flex;
+  height: 25vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.profileImg {
+  height: 15vh;
+  width: 15vh;
+  border-radius: 100%;
+}
+
+.mypageHistoryWrap {
+  width: 70%;
+}
+
+.userInfoWrap {
+  display: flex;
+  justify-content: space-around;
+}
+
+.mypageInfoName {
+  padding: 3px;
+  width: 30vh;
+}
+
+.mypageInfo {
+  padding: 3px;
+  width: 30vh;
+  font-weight: bold;
+}
+
+.userHistory {
+  height: 15vh ;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  padding: 10px;
+}
+
+.mypageNav {
+    width: 95%;
+    padding: 10px;
+}
+.mypageBtu {
+    padding: 5px;
+}
+
+.mypageMenu {
+    height: 100%;
+    width: 100%;
+}

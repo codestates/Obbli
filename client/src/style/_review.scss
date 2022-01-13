@@ -1,0 +1,90 @@
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    justify-content: space-around;
+    padding: 0 0.2em;
+    text-align: center;
+    width: 5em;
+  }
+   
+  .star-rating input {
+    display: none;
+  }
+   
+  .star-rating label {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 2.3px;
+    -webkit-text-stroke-color: #2b2a29;
+    cursor: pointer;
+  }
+   
+  .star-rating :checked ~ label {
+    -webkit-text-fill-color: gold;
+  }
+   
+  .star-rating label:hover,
+  .star-rating label:hover ~ label {
+    -webkit-text-fill-color: #fff58c;
+  }
+
+  .reviewItemWrap {
+    display: flex;
+    width: 160px;
+    height: 150px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-style: solid;
+    margin: 5px;
+    padding-top: 10px;
+  }
+
+  .reviewStars {
+    width: 146.7px;
+  }
+
+  .star-ratings {
+    color: #aaa9a9; 
+    position: relative;
+    unicode-bidi: bidi-override;
+    width: max-content;
+    -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1.3px;
+    -webkit-text-stroke-color: #2b2a29;
+  }
+   
+  .star-ratings-fill {
+    color: #fff58c;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    overflow: hidden;
+    -webkit-text-fill-color: gold;
+    font-size: 1.5rem;
+    margin-left: 12px;
+  }
+   
+  .star-ratings-base {
+    z-index: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    margin-left: 12px;
+  }
+  
+  .reviewComment {
+    white-space: pre-line;
+  }
+
+  .showMore {
+    color: rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
+    font-size: 13px;
+  }
+
+  .reviewList {
+    display: flex;
+    list-style:none;
+  }

@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   BaseEntity,
+  Connection,
 } from "typeorm";
 import { Advert } from "./Advert";
 import { Org_review } from "./Org_review";
@@ -24,17 +25,20 @@ export class Org extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column("datetime")
+  @Column({ nullable: true })
   since: Date;
 
-  @Column()
+  @Column({ nullable: true })
   headcount: number;
 
   @CreateDateColumn()
   readonly created_at: Date;
+
+  @Column({ nullable:true })
+  deleted_at: Date;
 
   @OneToMany(() => Org_review, (Org_review) => Org_review.Org)
   Org_review: Org_review[];
