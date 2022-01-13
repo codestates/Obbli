@@ -14,7 +14,7 @@ import { Application } from "./Application";
 import { Skill } from "./Skill";
 
 @Entity()
-export class Person extends BaseEntity {
+export class Person extends BaseEntity{
   @PrimaryGeneratedColumn("uuid")
   uuid: string;
 

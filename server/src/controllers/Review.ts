@@ -1,5 +1,4 @@
-import { getConnection, getRepository } from "typeorm";
-import { Person_review,Org_review, Person} from "../entity";
+import { Person_review, Org_review, Person } from "../entity";
 import { verifyToken } from "../Util";
 
 interface TokenInfo {
@@ -8,85 +7,153 @@ interface TokenInfo {
   created_at: Date
 }
 
-
 const PersonReview = {
-  post: async (req, res):Promise<void> => {
-    const writerInfo:TokenInfo = verifyToken(req.headers.authorization)
-    const checkReview = await Person_review.findOne({org_uuid:writerInfo.uuid})
+  post: async (req, res): Promise<void> => {
+    //Review 작성(Person ===> Org)
+    const org_uuid: string = verifyToken(req.headers.authorization).uuid;
+    const person_uuid: string = req.params.person_uuid;
+    const checkReview = await Person_review.findOne({ org_uuid,person_uuid });
 
-    if(!writerInfo ){
-      return res.status(400).json({message:'You do not have permission'})
+    // 이미 리뷰르 작성했거나 토큰이 유효하지 않을경우
+    if (checkReview || !org_uuid) {
+      return res.status(401).json({ message: 'You do not have permission' });
     }
-    else{
-      const targetUuid:string = req.params.person_uuid
-      const { rating,comment }:{rating:number,comment:string} =req.body
-      //회원 고유의 Rating column이있어야 관리가 가능함
+    const { rating,comment }: { rating: number, comment: string } = req.body;
+    await Person_review.insert({ person_uuid, org_uuid, comment, rating })
+    .catch((err) => {
+      return res.status(500).json({ message: 'server ERROR, Please retry' });
+    });
 
-      const connection = getConnection();
-      // const newReview = await Person_review.create({
-      //   org_uuid:writerInfo.uuid,
-      //   rating: rating,
-      //   comment:comment
-      // }).save()
+    return res.status(201).json(req.body);
+  },
 
-      const newcomment = new Person_review()
-      newcomment.comment = comment,
-      newcomment.rating = rating,
-      newcomment.org_uuid = writerInfo.uuid
-      await connection.manager.save(newcomment)
-      
-      const personInfo = await Person.findOne({uuid:targetUuid})
-      console.log(personInfo)
-      const person = new Person()
-      person.user_id
-
-      // const person = new Person()
-      // person.Person_review = [newReview] 
-      // await connection.manager.save(person)
-  
-      return res.status(201).json({uuid:targetUuid});
+  get: async (req, res): Promise<void> => {
+    //user로 작성된 review 가져오기
+    const org_uuid: string = verifyToken(req.headers.authorization).uuid;
+    const person_uuid: string = req.params.person_uuid;
+    if (!org_uuid) {
+      return res.status(401).json({ message: 'You do not have permission' });
     }
+    const reviewList = await Person_review.find({
+      where: { person_uuid },
+      select: ['comment','rating'],
+    });
+    return res.status(200).json(reviewList);
   },
-  get: async (req, res):Promise<void> => {
-    //user가 작성된 review 가져오기
-    const targetUuid:string = req.params.person_uuid
 
-    const reviewList = await getRepository(Person_review)
-    .createQueryBuilder('rev')
-    .leftJoinAndSelect('rev.Person','Person_review')
-    .where('rev.person_uuid = :id',{id:targetUuid})
-    .getMany()
-
-    console.log(reviewList)
-    return res.status(200).json({reviewList})
-
-  },
-  patch: (req, res): void => {
+  patch: async (req, res): Promise<void> => {
     //작성한 review 수정하기
-    res.status(200).send("리뷰수정하기");
+    //수정할때 수정된 내용만 가져올건지 확인
+    const person_uuid: string = req.params.person_uuid;
+    const org_uuid: string = verifyToken(req.headers.authorization).uuid;
+    const { comment, rating } = req.body;
+
+    if (!org_uuid) {
+      return res.status(401).json({ message: 'You do not have permission' });
+    }
+    const updateReview = await Person_review.update(
+      { person_uuid, org_uuid },
+      { comment, rating },
+    ).catch((err) => {
+        return res.status(500).json({ message: 'server ERROR, Please retry' });
+    });
+    //업데이트할 대상이 없을경우
+    if (updateReview.affected === 0) {
+      return res.status(400).json({ message: "Not find review" });
+    }
+    return res.status(200).send({ comment, rating });
   },
-  delete: (req, res): void => {
-    //작성한 review 삭제하기
-    res.status(200).send("리뷰삭제하기");
+
+  delete: async (req, res): Promise<void> => {
+    const person_uuid: string = req.params.person_uuid;
+    const org_uuid: string = verifyToken(req.headers.authorization).uuid;
+
+    if (!org_uuid) {
+      return res.status(400).json({ message: 'You do not have permission' });
+    }
+    const deleteReview = await Person_review.delete({ person_uuid, org_uuid })
+      .catch((err) => {
+        return res.status(500).json({ message: 'server ERROR, Please retry' });
+      })
+    //삭제 대상 리뷰가 없을경우
+    if (deleteReview.affected === 0) {
+      return res.status(400).json({ message: "Not find review" });
+    }
+    return res.status(204).send();
   },
 };
 
 const OrgReview = {
-  post: (req, res) => {
-    //review 작성
-    res.status(200).send("review작성");
+  post: async (req, res):Promise<void> => {
+    //review 작성(person ===> Org)
+    const person_uuid: string = verifyToken(req.headers.authorization).uuid
+    const org_uuid: string = req.params.org_uuid
+    const checkReview = await Org_review.findOne({ org_uuid, person_uuid })
+
+    if (checkReview !== undefined) {
+      return res.status(200).send(checkReview);
+    }
+    const { rating, comment }: { rating: number, comment: string } = req.body;
+    await Org_review.insert({ person_uuid, org_uuid, comment, rating })
+      .catch((err) => {
+        return res.status(500).json({ message: 'server ERROR, Please retry' });
+      });
+    return res.status(201).json({ rating, comment });
   },
-  get: (req, res) => {
-    res.status(200).send("단체가 작성한 review가져오기");
+
+  get: async (req, res): Promise<void> => {
     //단체가 작성한 review 가져오기
+    const person_uuid: string = verifyToken(req.headers.authorization).uuid;
+    const org_uuid: string = req.params.org_uuid;
+    if (!person_uuid) {
+      return res.status(401).json({ message: 'You do not have permission' });
+    }
+    const reviewList = await Org_review.find({
+      where:{org_uuid},
+      select:['rating','comment'],
+    });
+    return res.status(200).json(reviewList);
   },
-  patch: (req, res) => {
-    res.status(200).send("작성한 review수정하기");
+
+  patch: async (req, res):Promise<void> => {
     //작성한 review 수정하기
+    const org_uuid: string = req.params.org_uuid;
+    const person_uuid: string = verifyToken(req.headers.authorization).uuid;
+    const { comment, rating } = req.body;
+
+    if(!person_uuid){
+      return res.status(401).json({ message: 'You do not have permission' });
+    }
+    const updateReview = await Org_review.update(
+      { person_uuid,org_uuid },
+      { comment, rating },
+    ).catch(err => {
+        return res.status(500).json({ message: 'server ERROR, Please retry' });
+    });
+    //업데이트할 대상이 없을경우
+    if (updateReview.affected === 0) {
+      return res.status(400).json({ message: "Not find review" });
+    }
+    return res.status(200).send({ comment, rating });
   },
-  delete: (req, res) => {
-    res.status(200).send("작성한 review삭제하기");
+
+  delete:async (req, res):Promise<void> => {
     //작성한 review 삭제하기
+    const org_uuid: string = req.params.org_uuid;
+    const person_uuid: string = verifyToken(req.headers.authorization).uuid;
+
+    if (!person_uuid) {
+      return res.status(400).json({ message: 'You do not have permission' });
+    }
+    const deleteReview = await Org_review.delete({ person_uuid, org_uuid })
+      .catch((err) => {
+        return res.status(500).json({ message: 'server ERROR, Please retry' });
+      });
+    //삭제 대상 리뷰가 없을경우
+    if(deleteReview.affected === 0) {
+      return res.status(400).json({ message: "Not find review" });
+    }
+    return res.status(204).send();
   },
 };
 

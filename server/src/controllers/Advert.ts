@@ -78,6 +78,7 @@ const Mainadvert = {
     return res.status(200).json(data);
 
   },
+  
   post: async (req, res):Promise<void> => {
 
     //게시글 작성하기
