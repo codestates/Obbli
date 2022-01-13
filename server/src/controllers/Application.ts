@@ -1,6 +1,3 @@
-import { EDEADLK } from "constants";
-import { channel } from "diagnostics_channel";
-import { stat } from "fs";
 import { getRepository } from "typeorm";
 import { Application, Person, Position, Advert } from "../entity";
 import { verifyToken } from "../Util";

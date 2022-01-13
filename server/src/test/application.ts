@@ -63,9 +63,8 @@ export default (server) => {
           'person_uuid',
           'person_name',
           'skill_name',
-          'professional,
+          'professional',
         ]);
-        expect(obj.advert_uuid).to.equal(dummyAdvert.uuid);
       }
     });
 
@@ -75,6 +74,7 @@ export default (server) => {
 
       const { data, status } = await axios.post(
         `/application/${dummyPosition.uuid}`,
+        {},
         { headers: { Authorization: `Bearer ${token}` } },
       );
 
