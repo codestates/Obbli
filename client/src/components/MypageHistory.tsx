@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import axios from 'axios';
+import React, {useState, useEffect} from 'react';
 
 interface mypageInfoType {
-    user_id: string,
+    user_id?: string,
     name: string,
     professional: boolean,
-    instrument: string,
+    skill: string,
     history: string
 }
 
@@ -15,14 +16,35 @@ interface historyType {
 
 function MypageHistory(props:historyType):JSX.Element {
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [pwChange, setPwChange] = useState({
+    pw:'',
+    pw_cheke:'',
+  })
 
   const controlInputValue = (key:string) => (e:any) => {
     props.setMypageInfo({ ...props.mypageInfo, [key]: e.target.value });
   };
 
+  const controlInputPw = (key:string) => (e:any) => {
+    setPwChange({ ...pwChange, [key]: e.target.value});
+  };
+
   const onClickUpdate = () => {
     // TODO: axios fetch 정보 수정
-    setIsEditing(false);
+    if(pwChange.pw !== pwChange.pw_cheke){
+      alert('비밀번호가 다릅니다.')
+      return;
+    }
+    axios.patch(`/person`)
+    .then((res)=> {
+      props.setMypageInfo({
+        name:props.mypageInfo.name,
+        professional: props.mypageInfo.professional,
+        skill:props.mypageInfo.skill,
+        history: props.mypageInfo.history
+      })
+      setIsEditing(false)
+    })
   }
 
   const onClickCancel = () => {
@@ -30,7 +52,9 @@ function MypageHistory(props:historyType):JSX.Element {
     setIsEditing(false);
   }
 
-    // TODO: axios get 기관 정보 가져오기
+  useEffect(() => {
+    
+  }, [])
 
   return (
     <>
@@ -39,15 +63,21 @@ function MypageHistory(props:historyType):JSX.Element {
       <div className="userInfoWrap">
         <div>
           <div className="mypageInfoName">아이디</div>
-          <input type="id" value={props.mypageInfo.user_id} onChange={controlInputValue('user_id')} />
+          <div className="mypageInfo">{props.mypageInfo.user_id}</div>
           <div className="mypageInfoName">이름</div>
-          <input type="name" value={props.mypageInfo.name} onChange={controlInputValue('realname')} />
+          <input type="text" value={props.mypageInfo.name} onChange={controlInputValue('realname')} />
         </div>
         <div>
           <div className="mypageInfoName">악기</div>
-          <input type="instrument" value={props.mypageInfo.instrument} onChange={controlInputValue('instrument')} />
+          <input type="text" value={props.mypageInfo.skill} onChange={controlInputValue('skill')} />
           <div className="mypageInfoName">전공 여부</div>
           <div className="mypageInfo">{props.mypageInfo.professional ? '전공' : null}</div>
+        </div>
+        <div className="pwChangeWrap">
+          <div className="mypageInfoName">비밀번호</div>
+          <input type="password" value={pwChange.pw} onChange={controlInputPw('pw')} />
+          <div className="mypageInfoName">비밀번호 확인</div>
+          <input type="password" value={pwChange.pw_cheke} onChange={controlInputPw('pw_cheke')} />
         </div>
       </div>
       <div className="userHistory">
@@ -69,7 +99,7 @@ function MypageHistory(props:historyType):JSX.Element {
         </div>
         <div>
           <div className="mypageInfoName">악기</div>
-          <div className="mypageInfo">{props.mypageInfo.instrument}</div>
+          <div className="mypageInfo">{props.mypageInfo.skill}</div>
           <div className="mypageInfoName">전공 여부</div>
           <div className="mypageInfo">{props.mypageInfo.professional ? '전공' : null}</div>
         </div>

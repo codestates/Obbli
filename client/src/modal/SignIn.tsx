@@ -3,8 +3,7 @@ import React, {useState} from 'react';
 
 interface UserStateType {
   isSignedIn: boolean,
-  accessToken: string,
-  uuid: string,
+  accessToken: string
 }
 
 interface LoginModal {
@@ -25,7 +24,7 @@ function SignIn (props: LoginModal):JSX.Element {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
     id: '',
     pw: '',
-    permission:'person'
+    permission:'person',
   })
 
   const controlInput = (key:string) => (e:any) => {
@@ -33,23 +32,20 @@ function SignIn (props: LoginModal):JSX.Element {
   };
 
   const handleLogin = () => {
-    axios.post(`/${loginInfo.permission}/sign-in`,{
-      user_id: loginInfo.id,
-      pw: loginInfo.pw
-    },
-    { headers: { "Content-Type": "application/json" }})
-    .then(({data: {uuid, access_token: accessToken}})=>{
-      console.log('핑')
-      props.setUserState({
-        isSignedIn: true,
-        accessToken,
-        uuid
-      })
-    })
-    .then(()=>{
+    if(!loginInfo.id || !loginInfo.pw) {
+      setErrorMessage("아이디와 비밀번호를 확인해주세요!");
+      return;
+    }
+    axios.post(`/${loginInfo.permission}/sign-in`,
+    { user_id: loginInfo.id, pw: loginInfo.pw },
+    { headers: { "Content-Type": "application/json" } }
+    ).then(({ data: { access_token: accessToken } })=> {
+      localStorage.setItem('accessToken', accessToken);
+      axios.defaults.headers.common.authorization = accessToken;
+      props.setUserState({ isSignedIn: true, accessToken });
       props.setIsSignInVisible(false);
     })
-    .catch((err)=> setErrorMessage('아이디와 비밀번호를 확인하세요!'))
+    .catch((err)=> console.log(err))
   }
 
   const changeModal = () => {
@@ -65,7 +61,7 @@ function SignIn (props: LoginModal):JSX.Element {
         <div className="signInWrap" onClick={(e) => e.stopPropagation()}>
           <div className="signInLogo">로그인</div>
           <div className="signInChoiseWrap">
-              <input type="radio" id="perLogin" name="permission" value="person" onChange={controlInput('permission')} />
+              <input type="radio" id="perLogin" name="permission" value="person" defaultChecked onChange={controlInput('permission')} />
               <label htmlFor="perLogin" className="permissionPerson">개인회원</label>
               <input type="radio" id="orgLogin" name="permission" value="org" onChange={controlInput('permission')} />
               <label htmlFor="orgLogin" className="permissionOrg">단체회원</label>

@@ -4,19 +4,18 @@ import { useNavigate } from 'react-router';
 import MypageHistory from '../components/MypageHistory'
 import ReviewItem from '../components/ReviewItem'
 import ReviewModal from '../modal/ReviewModal';
+import AdvListItem from "../components/AdvListItem";
 
 
 interface UserStateType {
     isSignedIn: boolean,
     accessToken: string,
-    uuid: string,
 }
 
 interface MypageInfoType{
-    user_id: string,
     name: string,
     professional: boolean,
-    instrument: string,
+    skill: string,
     history: string
 }
 
@@ -32,39 +31,11 @@ interface ReviewInfoType {
   comment : string
 }
 
-const listData = [
-  {
-    key : 1,
-    username : '김코딩',
-    rating : 4,
-    comment : "K-오케스트라 여윽시 최고다, 역시 이런 무대를 설수 있다니"
-  },
-  {
-    key : 2,
-    username : '나코딩',
-    rating : 4,
-    comment : "역시 K-오케스트라 여윽시 최고다, 이런 무대를 설수 있다니"
-  },
-  {
-    key : 3,
-    username : '박코딩',
-    rating : 4,
-    comment : "아무리 그래도 K-오케스트라 여윽시 최고다, 이런 무대를 설수 있다니"
-  },
-  {
-    key : 4,
-    username : '이코딩',
-    rating : 4,
-    comment : "역시는 역시 K-오케스트라 여윽시 최고다, 이런 무대를 설수 있다니"
-  }
-]
-
 function MypagePerson(props:MypageType):JSX.Element {
   const [mypageInfo, setMypageInfo] = useState<MypageInfoType>({
-    user_id: '',
     name: '',
     professional: false,
-    instrument: '',
+    skill: '',
     history: ``
   })
   const [selectMenu, setSelectMenu] = useState<string>('adv')
@@ -74,16 +45,16 @@ function MypagePerson(props:MypageType):JSX.Element {
     rating : 0,
     comment : ''
   })
+  const [adverts, setAdverts] = useState([]);
   const navigate = useNavigate();
 
   const fetchUserInfo = () => {
     axios.get(`/person`)
     .then(res => {
       setMypageInfo({
-        user_id:'',
         name: res.data.name,
         professional: res.data.professional,
-        instrument: res.data.skill,
+        skill: res.data.skill,
         history: res.data.history
       })
     })
@@ -99,23 +70,21 @@ function MypagePerson(props:MypageType):JSX.Element {
 
   const controlAccount = () => {
     // TODO: axios delete 보내기
-    axios.delete(`/person/${props.userState.uuid}`)
+    axios.delete(`/person`)
     .then(res=>{
       props.setUserState({...props.userState, isSignedIn:false});
       navigate('/');
     })
   }
-
     // TODO: axios get 공고 및 리뷰 가져오기
 
-    useEffect(() => {
-      fetchUserInfo()
-      setReviewInfoList(listData)
+  useEffect(() => {
+    fetchUserInfo()
   }, [])
 
   return (
     <>
-    {true
+    {props.userState.isSignedIn
     ? (
       <div className="mypageWrap">
         <ReviewModal {... {isReviewVisible, setIsReviewVisible, data, selectMenu}} />
@@ -138,7 +107,20 @@ function MypagePerson(props:MypageType):JSX.Element {
             {/* 공고 메뉴 + 리뷰 상태(써야하는지 썼는지 수정할지)
                 리뷰만 모아서 보기 */
               selectMenu === 'adv' ? (
-                <div>advadv</div>
+                <div className = "advertListWarp">
+                    <table className="advListTable">
+                <thead>
+                        <th>행사 장소</th>
+                        <th>업체 이름</th>
+                        <th>공고 제목</th>
+                        <th>모집 기한</th>
+                        <th>비고</th>
+                </thead>
+                {adverts.map((el: any)=>{
+                    return <AdvListItem uuid={el.uuid} location={el.location} org_name={el.org_name} title={el.title} active_until={el.active_until}></AdvListItem>
+                })}
+            </table>
+                </div>
               ) : selectMenu === 'reviewToMe' ? (
                 // TODO: 가져온 리뷰를 연결
                 <ul className="reviewList">

@@ -2,8 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface UserStateType {
   isSignedIn: boolean,
-  accessToken: string,
-  uuid: string,
+  accessToken: string
 }
 
 interface UseModal {

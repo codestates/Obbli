@@ -1,17 +1,9 @@
 import React, {useState} from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import Topnavigation from './components/TopNavigation';
-import Footer from './components/Footer';
-import SignIn from './modal/SignIn';
-import SignUp from './modal/SignUp';
-// import ReviewModal from './modal/ReviewModal';
-=======
 import TopNavigation from './components/TopNavigation';
 import Footer from './components/Footer';
 import SignIn from './modal/SignIn';
 import SignUp from './modal/SignUp';
->>>>>>> e9a6d8c (Client: Fix mypage and components name)
 import MypagePerson from './pages/MypagePerson';
 import MypageOrg from './pages/MypageOrg';
 import Home from './pages/Home';
@@ -20,26 +12,44 @@ import Advertise from './pages/Advertise'
 import AdvView from './pages/AdvView';
 import AdvertiseWrite from './pages/AdvertiseWrite';
 import AdvMap from './components/AdvMap';
+import axios from 'axios';
 
-interface UserStateType {
+export interface UserStateType {
   isSignedIn: boolean,
-  accessToken: string,
-  uuid: string,
+  accessToken: string
 }
 
 function App() {
+  const accessToken = localStorage.getItem('accessToken');
+  if (accessToken) {
+    axios.defaults.headers.common.authorization = accessToken;
+  }
+
   const [isSignInVisible, setIsSignInVisible] = useState<boolean>(false)
   const [isSignUpVisible, setIsSignUpVisible] = useState<boolean>(false)
+  const navigate = useNavigate();
   const [userState, setUserState] = useState<UserStateType>({
-    isSignedIn: false,
-    accessToken:'',
-    uuid: '',
+    isSignedIn: Boolean(accessToken),
+    accessToken: accessToken ?? '',
   })
+
+  const onClickSignOut = () => {
+    axios.post(`/sign-out`, {})
+    .then(res => {
+      setUserState({
+        isSignedIn: false,
+        accessToken: '',
+      })
+    })
+    .then(()=> {
+      navigate('/')
+    })
+    }
 
   return (
     <div className="App">
       <nav>
-        <TopNavigation {...{ userState, setUserState, setIsSignInVisible}} />
+        <TopNavigation {...{ userState, setUserState, setIsSignInVisible, onClickSignOut}} />
       </nav>
       <div className="body">
         <SignIn {... {isSignInVisible, setIsSignInVisible, setIsSignUpVisible, setUserState}} />
