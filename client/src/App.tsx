@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Topnavigation from './components/topNavigation';
-import Footer from './components/footer';
-import SignIn from './modal/signIn';
-import SignUp from './modal/signUp';
+import Topnavigation from './components/TopNavigation';
+import Footer from './components/Footer';
+import SignIn from './modal/SignIn';
+import SignUp from './modal/SignUp';
 // import ReviewModal from './modal/ReviewModal';
 import MypagePerson from './pages/MypagePerson';
 import MypageOrg from './pages/MypageOrg';
