@@ -100,13 +100,14 @@ const Advertise: React.FC =  () => {
       axios.get('/advert')
           .then((resp) => { setAdverts(resp.data); });
     }, [])
+    //목록 정상 출력!
 
     // function currentPosts(tmp:{uuid:string,content:{location:string, org_name:string, title:string, active_until:string}}[]) {
     //     let currentPosts:any[] = [];
     //     currentPosts = tmp.slice(indexOfFirst, indexOfLast);
     //     return currentPosts;
     // }
-
+    
 
     return(
         <div className="advertise">
@@ -118,7 +119,7 @@ const Advertise: React.FC =  () => {
             {
                 isAdmin ? <Link to={`/advert/write`}><button className="advwritebtn" type="button">작성하기</button></Link> : null
             }
-            <Pagination postsPerPage={postsPerPage} totalPosts={dummy.length} paginate={setCurrentPage}/>
+            {/* <Pagination postsPerPage={postsPerPage} totalPosts={dummy.length} paginate={setCurrentPage}/> */}
         </div>
 
 

@@ -44,6 +44,7 @@ function App() {
             <Route path="advert" element={<Advertise/>}></Route>
             <Route path="advert/:uuid" element={<AdvView />} />
             <Route path="advert/write" element={<AdvertiseWrite />} />
+            <Route path="advert/edit/:uuid" element={<AdvertiseWrite />} />
           </Route>
         </Routes>
       </div>

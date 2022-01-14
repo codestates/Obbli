@@ -6,7 +6,7 @@ type AddressProps = {
 }
 
 
-const AdvMap: React.FC<AddressProps> =  (props:AddressProps) => {
+const AdvMap: React.FC<AddressProps> =  ({org_address}) => {
 
     useEffect(() => {
         var infowindow = new kakao.maps.InfoWindow({zIndex:1});
@@ -19,7 +19,7 @@ const AdvMap: React.FC<AddressProps> =  (props:AddressProps) => {
 
         var ps = new kakao.maps.services.Places(); 
 
-        ps.keywordSearch(props.org_address, placesSearchCB); 
+        ps.keywordSearch(org_address, placesSearchCB)
         
         function placesSearchCB (data:any, status:any, pagination:any) {
             if (status === kakao.maps.services.Status.OK) {
@@ -60,11 +60,11 @@ const AdvMap: React.FC<AddressProps> =  (props:AddressProps) => {
         
     }, []);
 
-    console.log(props.org_address)
+    console.log(org_address)
 
     return(
         <div className="advMap">
-            <div><span>공연 장소 : {props.org_address}</span></div>
+            <div><span>공연 장소 : {org_address}</span></div>
             <div  className="location"></div>
        </div>
         
