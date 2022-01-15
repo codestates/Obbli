@@ -2,14 +2,7 @@ import axios from 'axios';
 import { expect } from 'chai';
 
 import dummyData from '../static/dummyData';
-import { signToken } from '../Util';
-
-// TODO: move `convert()` to utils module
-function convert(entity) {
-  return entity.rows.map((item) => {
-    return Object.fromEntries(item.map((v, i) => [entity.columns[i], v]));
-  });
-}
+import { convert, genAuthHeader } from './utils';
 
 function isAdvertList(arr: Object[]): Boolean {
   const _map = {
@@ -31,16 +24,12 @@ function isAdvertList(arr: Object[]): Boolean {
   return true;
 }
 
-const re = {
-  uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
-  token: /^bearer [a-z0-9\-_]*?\.[a-z0-9\-_]*?\.[a-z0-9\-_]*?$/i,
-}
-
 const dummyAdvert = convert(dummyData.Advert)[0];
 const dummyOrg = convert(dummyData.Org).find(row => row.uuid === dummyAdvert.org_uuid);
 const updatedAdvert = {
   body: 'Updated content',
 };
+const authHeader = genAuthHeader(dummyOrg);
 
 export default (server) => {
   describe('Advertisement API', () => {
@@ -69,13 +58,10 @@ export default (server) => {
     });
 
     it('Update Advert', async () => {
-      const { uuid, user_id, created_at } = dummyOrg;
-      const token = signToken({ uuid, user_id, created_at }, '1h');
-
       const { data, status } = await axios.patch(
         `/advert/${dummyAdvert.uuid}`,
         updatedAdvert,
-        { headers: { Authorization: `Bearer ${token}` } },
+        authHeader
       );
 
       expect(status).to.equal(200);
@@ -85,13 +71,7 @@ export default (server) => {
     });
 
     it('Delete Advert', async () => {
-      const { uuid, user_id, created_at } = dummyOrg;
-      const token = signToken({ uuid, user_id, created_at }, '1h');
-
-      const { status } = await axios.delete(
-        `/advert/${dummyAdvert.uuid}`,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
+      const { status } = await axios.delete(`/advert/${dummyAdvert.uuid}`, authHeader);
 
       expect(status).to.equal(204);
     });

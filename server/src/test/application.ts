@@ -2,36 +2,22 @@ import axios from 'axios';
 import { expect } from 'chai';
 
 import dummyData from '../static/dummyData';
-import { signToken } from '../Util';
+import { convert, genAuthHeader, re } from './utils';
 
-// // TODO: move `convert()` to utils module
-function convert(entity) {
-  return entity.rows.map((item) => {
-    return Object.fromEntries(item.map((v, i) => [entity.columns[i], v]));
-  });
-}
-
-const re = {
-  uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
-  token: /^bearer [a-z0-9\-_]*?\.[a-z0-9\-_]*?\.[a-z0-9\-_]*?$/i,
-}
-
-const dummyUser = convert(dummyData.Person)[0];
+const dummyPerson = convert(dummyData.Person)[0];
 const dummyAdvert = convert(dummyData.Advert)[0];
 const dummyOrg = convert(dummyData.Org).find(obj => obj.uuid === dummyAdvert.org_uuid);
 const dummyPosition = convert(dummyData.Position).find(obj => obj.advert_uuid === dummyAdvert.uuid);
+
+const personAuthHeader = genAuthHeader(dummyPerson);
+const orgAuthHeader = genAuthHeader(dummyOrg);
 
 export default (server) => {
   describe('Application API', () => {
 
     it('Get a list of applications made by a person', async () => {
-      const { uuid, user_id, created_at } = dummyUser;
-      const token = signToken({ uuid, user_id, created_at }, '1h');
+      const { data, status } = await axios.get(`/person/application`, personAuthHeader);
 
-      const { data, status } = await axios.get(
-        `/person/application`,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
       expect(status).to.equal(200);
       expect(data).to.be.an('array');
       for (const obj of data) {
@@ -48,13 +34,11 @@ export default (server) => {
     });
 
     it('Get a list of applications made to an advert', async () => {
-      const { uuid, user_id, created_at } = dummyOrg;
-      const token = signToken({ uuid, user_id, created_at }, '1h');
-
       const { data, status } = await axios.get(
         `/advert/${dummyAdvert.uuid}/application`,
-        { headers: { Authorization: `Bearer ${token}` } },
+        orgAuthHeader
       );
+
       expect(status).to.equal(200);
       expect(data).to.be.an('array');
       for (const obj of data) {
@@ -69,13 +53,10 @@ export default (server) => {
     });
 
     it('Make an application to an advert', async () => {
-      const { uuid, user_id, created_at } = dummyUser;
-      const token = signToken({ uuid, user_id, created_at }, '1h');
-
       const { data, status } = await axios.post(
         `/application/${dummyPosition.uuid}`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } },
+        personAuthHeader
       );
 
       expect(status).to.equal(201);

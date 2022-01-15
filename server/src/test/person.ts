@@ -2,40 +2,22 @@ import axios from 'axios';
 import { expect } from 'chai';
 
 import dummyData from '../static/dummyData';
-import { signToken } from '../Util';
-
-// // TODO: move `convert()` to utils module
-function convert(entity) {
-  return entity.rows.map((item) => {
-    return Object.fromEntries(item.map((v, i) => [entity.columns[i], v]));
-  });
-}
-
-const re = {
-  uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
-  token: /^bearer [a-z0-9\-_]*?\.[a-z0-9\-_]*?\.[a-z0-9\-_]*?$/i,
-}
+import { convert, genAuthHeader, re } from './utils';
 
 const newUser = {
   user_id: 'tester',
   pw: 'password',
   name: 'testuser',
 };
-
 const dummyUser = convert(dummyData.Person)[0];
+const authHeader = genAuthHeader(dummyUser);
 
 export default (server) => {
 
   describe('Person membership API', () => {
 
     it('Get person profile', async () => {
-      const { uuid, user_id, created_at } = dummyUser;
-      const token = signToken({ uuid, user_id, created_at }, '1h');
-
-      const { data, status } = await axios.get(
-        '/person',
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
+      const { data, status } = await axios.get('/person', authHeader);
       expect(status).to.equal(200);
       expect(data).to.have.keys(['realname', 'professional', 'skill', 'history']);
     })
@@ -56,17 +38,11 @@ export default (server) => {
     });
 
     it('Update profile', async () => {
-      const { uuid, user_id, created_at } = dummyUser;
-      const token = signToken({ uuid, user_id, created_at }, '1h');
       const newProfile = {
         name: 'updatedName',
         skill: '플룻',
       }
-      const { data, status } = await axios.patch(
-        '/person',
-        newProfile,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const { data, status } = await axios.patch('/person', newProfile, authHeader);
 
       expect(status).to.equal(200);
       expect(data).to.have.keys(['name', 'professional', 'skill', 'history']);
@@ -77,9 +53,7 @@ export default (server) => {
     })
 
     it('Unregister', async () => {
-      const { uuid, user_id, created_at } = dummyUser;
-      const token = signToken({ uuid, user_id, created_at }, '1h');
-      const { status } = await axios.delete('/person', { headers: { Authorization: `Bearer ${token}` } });
+      const { status } = await axios.delete('/person', authHeader);
 
       expect(status).to.equal(204);
       // TODO: check if data is deleted from DB
