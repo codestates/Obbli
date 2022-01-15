@@ -41,14 +41,18 @@ export default (server) => {
 
       expect(status).to.equal(200);
       expect(data).to.be.an('array');
-      for (const obj of data) {
-        expect(obj).to.be.an('object');
-        expect(obj).to.have.keys([
-          'person_uuid',
-          'person_name',
+      for (const skill of data) {
+        expect(skill).to.be.an('object');
+        expect(skill).to.have.keys([
+          'position_uuid',
           'skill_name',
-          'professional',
+          'person',
         ]);
+        expect(skill.person).to.be.an('array');
+        for (const person of skill.person) {
+          expect(person).to.be.an('object');
+          expect(person).to.have.keys(['uuid', 'name', 'professional']);
+        }
       }
     });
 
