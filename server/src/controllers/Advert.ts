@@ -144,7 +144,6 @@ const Mainadvert = {
     }
 
     const advertwriter = await Advert.findOne({ uuid: target_uuid });
-    
     if (writerInfo.uuid !== advertwriter.org_uuid) {
       return res.status(401).json({});
     } 
