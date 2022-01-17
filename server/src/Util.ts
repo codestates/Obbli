@@ -18,14 +18,19 @@ import { bcrypt } from 'bcrypt'
     return token;
   }
 
-  export function verifyToken(token:string):DataCase{
-    const target = token.split(' ')[1]
-    const key:string = process.env.JWT_KEY;
-    const result:DataCase = verify(target, key);
-    return result;
+  export function verifyToken(token:string){
+    try{
+      const target = token.split(' ')[1]
+      const key:string = process.env.JWT_KEY;
+      const result:DataCase = verify(target, key);
+      return result;
+    }
+    catch{
+      return undefined
+    }
   }
   
   export function hashPassword(word):string{
     return bcrypt.hashSync(word, 10);
-  }
+  } 
 

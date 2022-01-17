@@ -137,47 +137,50 @@ const Mainadvert = {
     if (!req.headers.authorization) {
       return res.status(401).json({});
     }
-
-    const { title, body, active_until, event_at, location } = req.body;
     const target_uuid: string = req.params.advert_uuid;
-    const writerInfo: string = verifyToken(req.headers.authorization).uuid;
-    console.log(writerInfo);
-    if (!writerInfo) {
-      return res.status(401).json({});
-    } else {
-      const data = { title, body, active_until, event_at, location };
-      for (const key in data) {
-        if (data[key] === undefined) {
-          delete data[key];
-        }
-      }
-      const advertwriter = await Advert.findOne({
-        org_uuid: writerInfo,
-        uuid: target_uuid,
-      });
-      if (!advertwriter) {
-        return res.status(401).json({});
-      } else {
-        await Advert.update({ uuid: target_uuid }, data);
+    const writerInfo = verifyToken(req.headers.authorization);
+    if(!writerInfo){
+      return res.status(401).json({})
+    }
 
-        const row = await Advert.findOne({ uuid: target_uuid });
-        const {
-          uuid: _,
-          org_uuid: __,
-          created_at: ___,
-          ...updatedAdvert
-        } = row;
-        return res.status(200).json(updatedAdvert);
+    const advertwriter = await Advert.findOne({
+      uuid: target_uuid,
+    });
+    
+    if (writerInfo.uuid !== advertwriter.org_uuid) {
+      return res.status(401).json({});
+    } 
+    
+    const { title, body, active_until, event_at, location } = req.body;
+    const data = { title, body, active_until, event_at, location };
+    for (const key in data) {
+      if (data[key] === undefined) {
+        delete data[key];
       }
     }
+    
+    await Advert.update({ uuid: target_uuid }, data);
+
+    const row = await Advert.findOne({ uuid: target_uuid });
+    const {
+      uuid: _,
+      org_uuid: __,
+      created_at: ___,
+      ...updatedAdvert
+    } = row;
+    return res.status(200).json(updatedAdvert);
+     
   },
   delete: (req, res) => {
     //게시글 삭제하기
+    if (!req.headers.authorization) {
+      return res.status(401).json({});
+    }
     const target_uuid: string = req.params.advert_uuid;
-    const writerInfo: string = verifyToken(req.headers.authorization).uuid;
+    const writerInfo = verifyToken(req.headers.authorization);
 
     if (!writerInfo) {
-      return res.status(400).json({ message: "이런사람 없습니다." });
+      return res.status(400).json({});
     } else {
       Advert.delete({ uuid: target_uuid });
       return res.status(204).send();
