@@ -1,21 +1,23 @@
+import axios from 'axios';
 import React, {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router';
 import MypageHistory from '../components/MypageHistory'
 import ReviewItem from '../components/ReviewItem'
 import ReviewModal from '../modal/ReviewModal';
+import MypageAdvMenu from '../components/MypageAdvMenu'
 
 
 interface UserStateType {
-    isSignedIn: boolean,
-    accessToken: string,
-    uuid: string,
+  isSignedIn: boolean,
+  accessToken: string,
 }
 
-interface mypageInfoType{
-    user_id: string,
-    name: string,
-    professional: boolean,
-    instrument: string,
-    history: string
+interface MypageInfoType{
+  uuid: string,
+  name: string,
+  professional: boolean,
+  skill: string,
+  history: string
 }
 
 interface MypageType {
@@ -30,48 +32,36 @@ interface ReviewInfoType {
   comment : string
 }
 
-const listData = [
-  {
-    key : 1,
-    username : '김코딩',
-    rating : 4,
-    comment : "K-오케스트라 여윽시 최고다, 역시 이런 무대를 설수 있다니"
-  },
-  {
-    key : 2,
-    username : '나코딩',
-    rating : 4,
-    comment : "역시 K-오케스트라 여윽시 최고다, 이런 무대를 설수 있다니"
-  },
-  {
-    key : 3,
-    username : '박코딩',
-    rating : 4,
-    comment : "아무리 그래도 K-오케스트라 여윽시 최고다, 이런 무대를 설수 있다니"
-  },
-  {
-    key : 4,
-    username : '이코딩',
-    rating : 4,
-    comment : "역시는 역시 K-오케스트라 여윽시 최고다, 이런 무대를 설수 있다니"
-  }
-]
-
 function MypagePerson(props:MypageType):JSX.Element {
-  const [mypageInfo, setMypageInfo] = useState<mypageInfoType>({
-    user_id: 'kimcoding',
-    name: '김코딩',
-    professional: true,
-    instrument: '바이올린',
-    history: `2022 신년 연주회 \n dksldksl`
+  const [mypageInfo, setMypageInfo] = useState<MypageInfoType>({
+    uuid: '',
+    name: '',
+    professional: false,
+    skill: '',
+    history: ``
   })
-  const [selectMenu, setSelectMenu] = useState<string>('adv')
+  const [selectMenu, setSelectMenu] = useState<string>('advPerson')
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false)
   const [reviewInfoList, setReviewInfoList] = useState<ReviewInfoType[]>([])
   const [data, setData] = useState({
     rating : 0,
     comment : ''
   })
+  const [advertList, setAdvertList] = useState<any>([]);
+  const navigate = useNavigate();
+
+  const fetchUserInfo = () => {
+    axios.get(`/person`)
+    .then(res => {
+      setMypageInfo({
+        uuid: res.data.uuid,
+        name: res.data.name,
+        professional: res.data.professional,
+        skill: res.data.skill,
+        history: res.data.history
+      })
+    })
+  }
 
   const clickReview = (data:ReviewInfoType) => {
     setData({
@@ -82,21 +72,46 @@ function MypagePerson(props:MypageType):JSX.Element {
   }
 
   const controlAccount = () => {
-    // TODO: axios delete 보내기
+    axios.delete(`/person`)
+    .then(res=>{
+      props.setUserState({...props.userState, isSignedIn:false});
+      navigate('/');
+    })
   }
 
-    // TODO: axios get 공고 및 리뷰 가져오기
-
-    useEffect(() => {
-      setReviewInfoList(listData)
+  useEffect(() => {
+    fetchUserInfo()
   }, [])
+
+  // 메뉴 정보인 selectMenu가 바뀔떄마다 메뉴에 맞게 axios콜 해주기
+  // 모든 리뷰를 가져온뒤 uuid_person이 같은거만 나타냄
+  useEffect(() => {
+    if(selectMenu === 'advPerson'){
+      // TODO: 회원이 지원한 공고 가져오기
+      axios.get('/person/application')
+      .then(res => {
+        setAdvertList(res.data)
+      })
+    }else if(selectMenu === 'reviewToMe'){
+      axios.get(`/person/review/${mypageInfo.uuid}`)
+      .then(res => {
+        setReviewInfoList(res.data)
+      })
+    }else if(selectMenu === 'reviewFromMe'){
+      // TODO: 회원이 남긴 리뷰둘 가져오기
+      axios.get(`/person/review`)
+      .then(res => {
+        setReviewInfoList(res.data)
+      })
+    }
+  }, [selectMenu])
 
   return (
     <>
-    {props.userState.isSignedIn
+    {true
     ? (
       <div className="mypageWrap">
-        <ReviewModal {... {isReviewVisible, setIsReviewVisible, data, selectMenu}} />
+        <ReviewModal {... {isReviewVisible, setIsReviewVisible, data, selectMenu, mypageInfo}} />
         <div className="mypageProfileWrap">
           <div className="mypageProfile">
             <img className="profileImg" src={require('../img/user.png')} />
@@ -108,37 +123,49 @@ function MypagePerson(props:MypageType):JSX.Element {
         </div>
         <div className="mypageMenuWrap">
           <div className="mypageNav">
-              <span className="mypageBtu" onClick={() => {setSelectMenu('adv')}}>공고</span>
+              <span className="mypageBtu" onClick={() => {setSelectMenu('advPerson')}}>공고</span>
               <span className="mypageBtu" onClick={() => {setSelectMenu('reviewToMe')}}>나에대한리뷰</span>
               <span className="mypageBtu" onClick={() => {setSelectMenu('reviewFromMe')}}>내가쓴리뷰</span>
           </div>
           <div className="mypageMenu">
-            {/* 공고 메뉴 + 리뷰 상태(써야하는지 썼는지 수정할지)
-                리뷰만 모아서 보기 */
-              selectMenu === 'adv' ? (
-                <div>advadv</div>
-              ) : selectMenu === 'reviewToMe' ? (
-                // TODO: 가져온 리뷰를 연결
-                <ul className="reviewList">
-                  {reviewInfoList.map((data, key)=>{
-                    return (
-                    <li onClick={()=>clickReview(data)} key={key}>
-                      <ReviewItem  {... {data}} />
-                    </li>)
+            {selectMenu === 'advPerson' ? (
+              <div>
+                {/* 가져온 공고를 MypageAdvMenu 컴포넌트에 전송 */}
+                <table className="advListTable">
+                  <thead>
+                    <th>업체 이름</th>
+                    <th>지원 악기</th>
+                    <th>합격 여부</th>
+                    <th>리뷰</th>
+                  </thead>
+                  {advertList.map((el: any) => {
+                    return <MypageAdvMenu {... {el, setIsReviewVisible}}></MypageAdvMenu>
                   })}
-                </ul>
-              ) : selectMenu === 'reviewFromMe' ? (
-                // TODO: 가겨온 리뷰를 연결
-                <ul className="reviewList">
-                  {reviewInfoList.map((data, key)=>{
-                    return (
-                    <li onClick={()=>clickReview(data)} key={key}>
-                      <ReviewItem  {... {data}} />
-                    </li>)
-                  })}
-                </ul>
-              ) : null
-              }
+                </table>
+              </div>
+             ) : selectMenu === 'reviewToMe' ? (
+              // TODO: 가져온 리뷰를 연결
+              <ul className="reviewList">
+                {reviewInfoList.map((data, key)=>{
+                  return (
+                  <li onClick={()=>clickReview(data)} key={key}>
+                    <div>{data.username}이 남긴 리뷰</div>
+                    <ReviewItem  {... {data}} />
+                  </li>)
+                })}
+              </ul>
+            ) : selectMenu === 'reviewFromMe' ? (
+              // TODO: 가겨온 리뷰를 연결
+              <ul className="reviewList">
+                {reviewInfoList.map((data, key)=>{
+                  return (
+                  <li onClick={()=>clickReview(data)} key={key}>
+                    <ReviewItem  {... {data}} />
+                  </li>)
+                })}
+              </ul>
+            ) : null
+            }
           </div>
         </div>
       </div>

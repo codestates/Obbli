@@ -1,46 +1,63 @@
 import React, {useState} from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Topnavigation from './components/TopNavigation';
+import TopNavigation from './components/TopNavigation';
 import Footer from './components/Footer';
 import SignIn from './modal/SignIn';
 import SignUp from './modal/SignUp';
-// import ReviewModal from './modal/ReviewModal';
 import MypagePerson from './pages/MypagePerson';
 import MypageOrg from './pages/MypageOrg';
 import AdvFilter from './pages/AdvFilter';
+import Home from './pages/Home';
 import './App.css';
 import Advertise from './pages/Advertise'
 import AdvView from './pages/AdvView';
 import AdvertiseWrite from './pages/AdvertiseWrite';
 import AdvMap from './components/AdvMap';
+import axios from 'axios';
 
-
-interface UserStateType {
+export interface UserStateType {
   isSignedIn: boolean,
   accessToken: string,
-  uuid: string,
 }
 
 function App() {
+  const accessToken = localStorage.getItem('accessToken');
+  if (accessToken) {
+    axios.defaults.headers.common.authorization = accessToken;
+  }
+
   const [isSignInVisible, setIsSignInVisible] = useState<boolean>(false)
   const [isSignUpVisible, setIsSignUpVisible] = useState<boolean>(false)
-  const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false)
+  const navigate = useNavigate();
   const [userState, setUserState] = useState<UserStateType>({
-    isSignedIn: false,
-    accessToken:'',
-    uuid: '',
+    isSignedIn: Boolean(accessToken),
+    accessToken: accessToken ?? '',
   })
+
+  const onClickSignOut = () => {
+    axios.post(`/sign-out`, {})
+    .then(res => {
+      setUserState({
+        isSignedIn: false,
+        accessToken: '',
+      })
+    })
+    .then(()=> {
+      navigate('/')
+    })
+    }
 
   return (
     <div className="App">
       <nav>
-        <Topnavigation {...{ userState, setUserState, setIsSignInVisible}} />
+        <TopNavigation {...{ userState, setUserState, setIsSignInVisible, onClickSignOut}} />
       </nav>
       <div className="body">
         <SignIn {... {isSignInVisible, setIsSignInVisible, setIsSignUpVisible, setUserState}} />
         <SignUp {... {isSignUpVisible, setIsSignUpVisible, setUserState}} />
         <Routes>
           <Route path="/">
+            <Route index element={<Home />} />
             <Route path="/mypageperson" element={<MypagePerson {... {userState, setUserState }}/>} />
             <Route path="/mypageorg" element={<MypageOrg {... {userState, setUserState }}/>} />
             <Route path="advert" element={<Advertise/>}></Route>

@@ -8,4 +8,6 @@ router.post("/:position_uuid",AppPosition.post);
 //recevied, hired 테스트 
 router.patch("/", AppPosition.patch);
 
+
 export default router
+

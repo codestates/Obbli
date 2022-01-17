@@ -4,7 +4,6 @@ import { useState } from "react";
 interface UserStateType {
     isSignedIn: boolean,
     accessToken: string,
-    uuid: string,
   }
 
 interface LoginModal {
@@ -19,10 +18,7 @@ interface SignUPType {
     pw_check: string,
     name: string,
     permission: string
-  }
-
-  const API_SERVER:string = '';
-  
+  }  
 
 function SignUp( props:LoginModal ):JSX.Element {
   const [errorMessage, setErrorMessage] = useState<string>('');  
@@ -42,31 +38,27 @@ function SignUp( props:LoginModal ):JSX.Element {
     const {user_id, pw, pw_check, name, permission} = signUpInfo;
     
     if(pw !== pw_check){
-        setErrorMessage('비밀번호가 다릅니다.')
-    }else if(!user_id || !pw || !pw_check || !name){
-        setErrorMessage('모든 칸을 채워주세요!')
-    }else{
-        // TODO: axios:get후에 아이디 비교 후 중복 필터
-        // TODO: axios:post 할때 맨드포인트에 permission으로 단체와 개인회원 구분
-        setErrorMessage('가입 가능합니다!')
-
-        // axios.post(API_SERVER + `/${permission}/sign-up`, {
-        //     user_id,
-        //     pw,
-        //     name
-        // })
-        // .then(({data: {uuid, access_token: accessToken}})=>{
-        //       props.setUserState({
-        //         isSignedIn: true,
-        //         accessToken,
-        //         uuid
-        //       })
-        // })
-        // .then(()=>{
-          props.setIsSignUpVisible(false);
-        // })
-        // .catch((err)=> console.log(err))
+      setErrorMessage('비밀번호가 다릅니다.')
+      return;
     }
+    if(!user_id || !pw || !pw_check || !name){
+      setErrorMessage('모든 칸을 채워주세요!')
+      return ;
+    }
+    // TODO: axios:post 할때 맨드포인트에 permission으로 단체와 개인회원 구분
+    setErrorMessage('가입 가능합니다!')
+    axios.post(`/${permission}`, {
+      user_id,
+      pw,
+      pw_check,
+      name
+    })
+    .then(({data: {access_token: accessToken}})=>{
+      axios.defaults.headers.common.authorization = accessToken;
+      props.setUserState({ isSignedIn: true, accessToken })
+      props.setIsSignUpVisible(false);
+    })
+    .catch((err)=> console.log(err))
   }
 
   return (
@@ -77,10 +69,10 @@ function SignUp( props:LoginModal ):JSX.Element {
             <div className="signInWrap" onClick={(e) => e.stopPropagation()}>
             <div className="signInLogo">회원가입</div>
               <div className="signInChoiseWrap">
-                <input type="radio" id="orgLogin" name="rating" value="org" onChange={controlInput('permission')} />
-                <label htmlFor="5-stars" className="star pr-4">단체회원</label>
-                <input type="radio" id="perLogin" name="rating" value="person" onChange={controlInput('permission')} />
-                <label htmlFor="4-stars" className="star">개인회원</label>
+                <input type="radio" id="perLogin" name="permission" value="person" onChange={controlInput('permission')} />
+                <label htmlFor="perLogin" className="permissionPerson">개인회원</label>
+                <input type="radio" id="orgLogin" name="permission" value="org" onChange={controlInput('permission')} />
+                <label htmlFor="orgLogin" className="permissionOrg">단체회원</label>
               </div>
               <div className="signInInputWrap">
                 <div>아이디</div>

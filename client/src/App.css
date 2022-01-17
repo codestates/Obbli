@@ -109,7 +109,8 @@ footer {
 .star-ratings-fill {
   color: #fff58c;
   padding: 0;
-  position: absolute;
+  position: relative;
+  top: 14px;
   z-index: 1;
   display: flex;
   overflow: hidden;
@@ -120,6 +121,8 @@ footer {
 .star-ratings-base {
   z-index: 0;
   padding: 0;
+  position: relative;
+  bottom: 14px;
   font-size: 1.5rem;
   margin-left: 12px; }
 
@@ -133,7 +136,9 @@ footer {
 
 .reviewList {
   display: flex;
-  list-style: none; }
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: space-between; }
 
 .mypageWrap {
   display: flex;
@@ -199,8 +204,10 @@ footer {
   padding: 5px; }
 
 .mypageMenu {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
   height: 100%;
-  width: 100%; }
+  width: 100vh; }
 
 .App {
   height: 100vh; }
@@ -218,9 +225,6 @@ section {
   position: relative;
   width: 100%;
   height: 100vh; }
-
-footer {
-  position: relative; }
 
 body {
   margin-top: 10vh; }
