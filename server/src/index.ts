@@ -8,8 +8,6 @@ import {Advert,Application,Org,Org_review,Person,Person_review,Position,Skill } 
 import dotenv from 'dotenv';
 
 dotenv.config();
-
-dotenv.config();
 const app = express();
 const port = process.env.APP_PORT;
 
