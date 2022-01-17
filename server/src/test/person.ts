@@ -39,7 +39,7 @@ export default (server) => {
       });
 
       it('Access without token', async function() {
-        await request(axios.get, '/person', 500);
+        await request(axios.get, '/person', 401);
       });
 
       it('Access with invalid token', async () => {

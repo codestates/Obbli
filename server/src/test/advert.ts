@@ -93,13 +93,13 @@ export default (server) => {
       });
 
       it('Access without token', async function () {
-        await request(axios.patch, `/org/${dummyAdvert.uuid}`, 401, updatedAdvert);
+        await request(axios.patch, `/advert/${dummyAdvert.uuid}`, 401, updatedAdvert);
       });
       it('Access with invalid token', async function () {
-        await requestWithInvalidToken(axios.patch, `/org/${dummyAdvert.uuid}`, 401, updatedAdvert, {});
+        await requestWithInvalidToken(axios.patch, `/advert/${dummyAdvert.uuid}`, 401, updatedAdvert, {});
       });
       it('Access to unauthorized target', async function () {
-        await request(axios.patch, `/org/${dummyAdvert.uuid}`, 401, updatedAdvert, fakeAuthHeader);
+        await request(axios.patch, `/advert/${dummyAdvert.uuid}`, 401, updatedAdvert, fakeAuthHeader);
       });
     });
 
@@ -111,13 +111,13 @@ export default (server) => {
       });
 
       it('Access without token', async function () {
-        await request(axios.delete, `/org/${dummyAdvert.uuid}`, 401);
+        await request(axios.delete, `/advert/${dummyAdvert.uuid}`, 401);
       });
       it('Access with invalid token', async function () {
-        await requestWithInvalidToken(axios.delete, `/org/${dummyAdvert.uuid}`, 401);
+        await requestWithInvalidToken(axios.delete, `/advert/${dummyAdvert.uuid}`, 401);
       });
       it('Access to unauthorized target', async function () {
-        await request(axios.delete, `/org/${dummyAdvert.uuid}`, 401, fakeAuthHeader);
+        await request(axios.delete, `/advert/${dummyAdvert.uuid}`, 401, fakeAuthHeader);
       });
     });
 
