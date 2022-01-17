@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 
 interface mypageInfoType {
-    user_id?: string,
+    uuid: string,
     name: string,
     professional: boolean,
     skill: string,
@@ -38,6 +38,7 @@ function MypageHistory(props:historyType):JSX.Element {
     axios.patch(`/person`)
     .then((res)=> {
       props.setMypageInfo({
+        uuid: props.mypageInfo.uuid,
         name:props.mypageInfo.name,
         professional: props.mypageInfo.professional,
         skill:props.mypageInfo.skill,
@@ -63,7 +64,7 @@ function MypageHistory(props:historyType):JSX.Element {
       <div className="userInfoWrap">
         <div>
           <div className="mypageInfoName">아이디</div>
-          <div className="mypageInfo">{props.mypageInfo.user_id}</div>
+          <div className="mypageInfo">{}</div>
           <div className="mypageInfoName">이름</div>
           <input type="text" value={props.mypageInfo.name} onChange={controlInputValue('realname')} />
         </div>
@@ -93,7 +94,7 @@ function MypageHistory(props:historyType):JSX.Element {
       <div className="userInfoWrap">
         <div>
           <div className="mypageInfoName">아이디</div>
-          <div className="mypageInfo">{props.mypageInfo.user_id}</div>
+          <div className="mypageInfo">{}</div>
           <div className="mypageInfoName">이름</div>
           <div className="mypageInfo">{props.mypageInfo.name}</div>
         </div>

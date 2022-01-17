@@ -2,21 +2,22 @@ import React, {useState, useEffect} from 'react';
 import MypageOrgInfo from '../components/MypageOrgInfo'
 import ReviewItem from '../components/ReviewItem'
 import ReviewModal from '../modal/ReviewModal';
-import AdvListItem from "../components/AdvListItem";
+import MypageAdvMenu from '../components/MypageAdvMenu'
 import axios from 'axios'
 import { useNavigate } from 'react-router';
 
 
 interface UserStateType {
-    isSignedIn: boolean,
-    accessToken: string,
+  isSignedIn: boolean,
+  accessToken: string,
   }
 
 interface MypageInfoType{
-    name: string,
-    description: string,
-    since: string,
-    headcount: number
+  uuid: string,
+  name: string,
+  description: string,
+  since: string,
+  headcount: number
 }
 
 interface MypageType {
@@ -32,19 +33,20 @@ interface ReviewInfoType {
 
 function MypageOrg(props:MypageType):JSX.Element {
   const [mypageInfo, setMypageInfo] = useState<MypageInfoType>({
+    uuid: '',
     name: '',
     description: '',
     since: '',
     headcount: 0
   })
-  const [selectMenu, setSelectMenu] = useState<string>('adv')
+  const [selectMenu, setSelectMenu] = useState<string>('advOrg')
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false)
   const [reviewInfoList, setReviewInfoList] = useState<ReviewInfoType[]>([])
   const [data, setData] = useState({
     rating : 0,
     comment : ''
   })
-  const [adverts, setAdverts] = useState([]);
+  const [advertList, setAdvertList] = useState([]);
   const navigate = useNavigate();
 
   const clickReview = (data:ReviewInfoType) => {
@@ -59,6 +61,7 @@ function MypageOrg(props:MypageType):JSX.Element {
     axios.get(`/org`)
     .then(res => {
       setMypageInfo({
+        uuid: res.data.uuid,
         name: res.data.name,
         description: res.data.description,
         since: res.data.since,
@@ -76,18 +79,38 @@ function MypageOrg(props:MypageType):JSX.Element {
     })
   }
 
-    // TODO: axios get 공고 및 리뷰 가져오기
-
   useEffect(() => {
     fetchUserInfo()
   }, [])
+
+    // 메뉴 정보인 selectMenu가 바뀔떄마다 메뉴에 맞게 axios콜 해주기
+  useEffect(() => {
+    if(selectMenu === 'advOrg'){
+      // TODO: 공고에 지원한 지원자 현황
+      axios.get(`/advert/{advert_uuid}/application`)
+      .then(res => {
+        setAdvertList(res.data)
+      })
+    }else if(selectMenu === 'reviewToMe'){
+      axios.get(`/org/review/${mypageInfo.uuid}`)
+      .then(res => {
+        setReviewInfoList(res.data)
+      })
+    }else if(selectMenu === 'reviewFromMe'){
+      // TODO: 회원이 남긴 리뷰둘 가져오기
+      axios.get(`/org/review`)
+      .then(res => {
+        setReviewInfoList(res.data)
+      })
+    }
+  }, [selectMenu])
 
   return (
     <>
     {props.userState.isSignedIn
     ? (
       <div className="mypageWrap">
-        <ReviewModal {... {isReviewVisible, setIsReviewVisible, data, selectMenu}} />
+        <ReviewModal {... {isReviewVisible, setIsReviewVisible, data, selectMenu, mypageInfo}} />
         <div className="mypageProfileWrap">
           <div className="mypageProfile">
             <img className="profileImg" src={require('../img/user.png')} />
@@ -99,28 +122,28 @@ function MypageOrg(props:MypageType):JSX.Element {
         </div>
         <div className="mypageMenuWrap">
           <div className="mypageNav">
-              <span className="mypageBtu" onClick={() => {setSelectMenu('adv')}}>공고</span>
+              <span className="mypageBtu" onClick={() => {setSelectMenu('advOrg')}}>공고</span>
               <span className="mypageBtu" onClick={() => {setSelectMenu('reviewToMe')}}>나에대한리뷰</span>
               <span className="mypageBtu" onClick={() => {setSelectMenu('reviewFromMe')}}>내가쓴리뷰</span>
           </div>
           <div className="mypageMenu">
             {/* 공고 메뉴 + 리뷰 상태(써야하는지 썼는지 수정할지)
                 리뷰만 모아서 보기 */
-              selectMenu === 'adv' ? (
-                <div className = "advertListWarp">
-                  <table className="advListTable">
-                    <thead>
-                      <th>행사 장소</th>
-                      <th>업체 이름</th>
-                      <th>공고 제목</th>
-                      <th>모집 기한</th>
-                      <th>비고</th>
-                    </thead>
-                      {adverts.map((el: any)=>{
-                        return <AdvListItem uuid={el.uuid} location={el.location} org_name={el.org_name} title={el.title} active_until={el.active_until}></AdvListItem>
-                      })}
-                  </table>
-                </div>
+              selectMenu === 'advOrg' ? (
+              <div>
+                {/* 가져온 공고를 MypageAdvMenu 컴포넌트에 전송 */}
+                <table className="advListTable">
+                  <thead>
+                    <th>업체 이름</th>
+                    <th>지원 악기</th>
+                    <th>합격 여부</th>
+                    <th>리뷰</th>
+                  </thead>
+                  {advertList.map((el: any) => {
+                    return <MypageAdvMenu {... {el, setIsReviewVisible}}></MypageAdvMenu>
+                  })}
+                </table>
+              </div>
               ) : selectMenu === 'reviewToMe' ? (
                 // TODO: 가져온 리뷰를 reviewItem에 하나씩 넘겨줌
                 <ul className="reviewList">

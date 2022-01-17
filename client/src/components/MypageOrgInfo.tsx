@@ -2,10 +2,11 @@ import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 
 interface mypageInfoType{
-    name: string,
-    description: string,
-    since: string,
-    headcount: number
+  uuid: string,
+  name: string,
+  description: string,
+  since: string,
+  headcount: number
 }
 
 interface historyType {
@@ -37,6 +38,7 @@ function MypageOrgInfo(props:historyType):JSX.Element {
     axios.patch(`/org`)
     .then((res)=> {
       props.setMypageInfo({
+        uuid: props.mypageInfo.uuid,
         name:props.mypageInfo.name,
         description: props.mypageInfo.description,
         since:props.mypageInfo.since,

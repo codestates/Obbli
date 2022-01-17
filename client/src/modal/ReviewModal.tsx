@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useEffect } from "react"
 
 interface ReviewInfoType {
@@ -5,11 +6,23 @@ interface ReviewInfoType {
   comment : string
 }
 
+interface MypageInfoType{
+  uuid: string,
+  name: string,
+  professional?: boolean,
+  skill?: string,
+  history?: string,
+  description?: string,
+  since?: string,
+  headcount?: number
+}
+
 interface ReviewType {
   isReviewVisible: boolean,
   setIsReviewVisible: React.Dispatch<React.SetStateAction<boolean>>
   data : ReviewInfoType,
-  selectMenu: string
+  selectMenu: string,
+  mypageInfo: MypageInfoType
 }
 
 function ReviewModal(props: ReviewType):JSX.Element {
@@ -29,10 +42,48 @@ function ReviewModal(props: ReviewType):JSX.Element {
 
   const handleReview = () => {
     //TODO: axios post
+    if(!reviewInfo.rating && !reviewInfo.comment){
+      alert('별점 혹은 내용을 작성해주세요!')
+      return;
+    }
+
+    if(props.selectMenu === "advPerson"){
+      axios.post(`/person/review/${props.mypageInfo.uuid}`, {
+        rating: reviewInfo.rating,
+        comment: reviewInfo.comment
+      })
+      .then(res => {
+        props.setIsReviewVisible(false)
+      })
+      .catch(err => console.log(err))
+    }else if(props.selectMenu === "advOrg"){
+      axios.post(`/org/review/${props.mypageInfo.uuid}`, {
+        rating: reviewInfo.rating,
+        comment: reviewInfo.comment
+      })
+      .then(res => {
+        props.setIsReviewVisible(false)
+      })
+      .catch(err => console.log(err))
+    }
   }
 
-  //TODO: uuid를 받아온다면 fetch
-
+  const onClickDeleteRiview = () => {
+    if(props.selectMenu === "advPerson"){
+      axios.delete(`/person/review/${props.mypageInfo.uuid}`)
+      .then(res => {
+        props.setIsReviewVisible(false)
+      })
+      .catch(err => console.log(err))
+    }else if(props.selectMenu === "advOrg"){
+      axios.delete(`/org/review/${props.mypageInfo.uuid}`)
+      .then(res => {
+        props.setIsReviewVisible(false)
+      })
+      .catch(err => console.log(err))
+    }
+  }
+  
   return (
     <>
       {props.isReviewVisible
@@ -77,7 +128,11 @@ function ReviewModal(props: ReviewType):JSX.Element {
                 {props.data.comment}
               </div>
               <div className="reviewBtu">
-                {props.selectMenu !== 'reviewToMe' ? <div className="btn" onClick={()=>setIsEditing(true)}>수정하기</div> : null}
+                {props.selectMenu !== 'reviewToMe' ?
+                <div>
+                  <span className="btn" onClick={()=>setIsEditing(true)}>수정하기</span>
+                  <span className="btn" onClick={onClickDeleteRiview} >삭제하기</span>
+                </div> : null}
               </div>
             </div>
           </div>
