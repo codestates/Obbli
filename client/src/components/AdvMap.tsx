@@ -2,12 +2,16 @@ import React, {useEffect} from "react";
 const  kakao  = (window as any).kakao;
 
 type AddressProps = {
-    org_address:string
+    location:string
 }
 
 
-const AdvMap: React.FC<AddressProps> =  ({org_address}) => {
 
+const AdvMap: React.FC<AddressProps> =  ({location}) => {
+
+    
+
+    
     useEffect(() => {
         var infowindow = new kakao.maps.InfoWindow({zIndex:1});
         const container = document.querySelector('.location');
@@ -16,12 +20,15 @@ const AdvMap: React.FC<AddressProps> =  ({org_address}) => {
 			level: 3
 		};
         const map = new kakao.maps.Map(container, options);
+        
 
         var ps = new kakao.maps.services.Places(); 
 
-        ps.keywordSearch(org_address, placesSearchCB)
+        console.log(location)
+        ps.keywordSearch(location, placesSearchCB); 
         
-        function placesSearchCB (data:any, status:any, pagination:any) {
+        function placesSearchCB (data:any, status:any, pagination:any ) {
+            console.log(data)
             if (status === kakao.maps.services.Status.OK) {
         
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
@@ -36,6 +43,7 @@ const AdvMap: React.FC<AddressProps> =  ({org_address}) => {
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
                 map.setBounds(bounds);
             } 
+            
         }
         
         // 지도에 마커를 표시하는 함수입니다
@@ -58,13 +66,12 @@ const AdvMap: React.FC<AddressProps> =  ({org_address}) => {
 
 
         
-    }, []);
+    }, [location]);
 
-    console.log(org_address)
 
     return(
         <div className="advMap">
-            <div><span>공연 장소 : {org_address}</span></div>
+            <div><span>공연 장소 : {location}</span></div>
             <div  className="location"></div>
        </div>
         

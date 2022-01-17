@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AdvPositionAdd from '../components/AdvPositionAdd'
 import { useNavigate, useParams } from 'react-router-dom';
+import AdvMap from "../components/AdvMap";
 
 
 
@@ -24,9 +25,6 @@ const AdvertiseWrite: React.FC =  () => {
         body:'',
     })
 
-    console.log(userInput)
-       
-   
     const controlInputValue = (e:any, key:string) => {
         setUserInput({...userInput, [key]:e.target.value})
         
@@ -104,8 +102,12 @@ const AdvertiseWrite: React.FC =  () => {
                 <tbody>
                     <tr>
                       <td><input type="text" value={userInput.location} onChange={(e)=>{controlInputValue(e, 'location')}}></input></td>
+                      
                     </tr>
                 </tbody>
+                    {/* <tr>
+                        <td><AdvMap location={userInput.location} /></td>
+                    </tr> */}
                     
             </table>
 

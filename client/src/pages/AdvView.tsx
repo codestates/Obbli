@@ -80,7 +80,7 @@ const AdvView : React.FC =  () => {
                         })}
             </table>
             <h3>Performance place</h3>
-            <AdvMap org_address={ advert.location }/>
+            <AdvMap location={ advert.location }/>
             <h3>Review</h3>
             <table className="advViewTable">
                 <thead>

@@ -7,11 +7,13 @@ import SignUp from './modal/SignUp';
 // import ReviewModal from './modal/ReviewModal';
 import MypagePerson from './pages/MypagePerson';
 import MypageOrg from './pages/MypageOrg';
+import AdvFilter from './pages/AdvFilter';
 import './App.css';
 import Advertise from './pages/Advertise'
 import AdvView from './pages/AdvView';
 import AdvertiseWrite from './pages/AdvertiseWrite';
 import AdvMap from './components/AdvMap';
+
 
 interface UserStateType {
   isSignedIn: boolean,
@@ -45,6 +47,7 @@ function App() {
             <Route path="advert/:uuid" element={<AdvView />} />
             <Route path="advert/write" element={<AdvertiseWrite />} />
             <Route path="advert/edit/:uuid" element={<AdvertiseWrite />} />
+            <Route path="filter" element={<AdvFilter />} />
           </Route>
         </Routes>
       </div>
