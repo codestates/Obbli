@@ -35,7 +35,7 @@ export default (server) => {
       it('Get person profile', async function() {
         const { data, status } = await axios.get('/person', authHeader);
         expect(status).to.equal(200);
-        expect(data).to.have.keys(['realname', 'professional', 'skill', 'history']);
+        expect(data).to.have.keys(['uuid', 'realname', 'professional', 'skill', 'history']);
       });
 
       it('Access without token', async function() {
@@ -109,7 +109,7 @@ export default (server) => {
         const { data, status } = await axios.patch('/person', newProfile, authHeader);
 
         expect(status).to.equal(200);
-        expect(data).to.have.keys(['name', 'professional', 'skill', 'history']);
+        expect(data).to.have.keys(['uuid', 'name', 'professional', 'skill', 'history']);
         for (const key in newProfile) {
           expect(data[key]).to.equal(newProfile[key]);
         }
