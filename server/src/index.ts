@@ -20,7 +20,6 @@ app.use(cors({
   preflightContinue: false,
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
 }));
-app.use(morgan("dev"));
 
 app.use("/person", indexRouter.Person);
 app.use("/org", indexRouter.Org);
@@ -31,6 +30,7 @@ app.use("/application", indexRouter.Application);
 export default app;
 
 if (!module.parent) {
+  app.use(morgan("dev"));
   getConnectionOptions().then((config) => {
     Object.assign(config, {
       entities: [Skill,Person,Org,Advert,Position,Application,Org_review,Person_review,],
