@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios'
+import config from './app.config';
+
+axios.defaults.baseURL = config.API_HOST;
 
 ReactDOM.render(
   <React.StrictMode>

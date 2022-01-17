@@ -15,15 +15,14 @@ const Pagination: React.FC<PageProps> =  ({postsPerPage, totalPosts, paginate} :
         pageNumbers.push(result)
 
     }
-    console.log(pageNumbers)
 
     return(
         <div className="pagination">
-            {pageNumbers.map((el)=>{
+            {pageNumbers.map((el, key)=>{
                 
                 return (
                     <ul>
-                        <li className="page-link" onClick={()=>{paginate(el)}}><span >{el}</span></li>
+                        <li className="page-link" onClick={()=>{paginate(el)}}><span key={key} >{el}</span></li>
                     </ul>
                 )
             })}

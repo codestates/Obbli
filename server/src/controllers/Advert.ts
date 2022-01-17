@@ -1,63 +1,62 @@
+import { off } from "process";
 import { Advert, Org, Org_review, Position, Skill } from "../entity";
 import { verifyToken } from "../Util";
 
 interface TokenInfo {
-  uuid: string,
-  user_id: string,
-  created_at: Date
+  uuid: string;
+  user_id: string;
+  created_at: Date;
 }
-
-// interface AdvertInfo {
-//     uuid: string ,
-//     org_uuid: string
-//     created_at: Date,
-//     content:string
-// }
 
 const advertList = {
   get: async (req, res): Promise<void> => {
     //게시글 가져오기
     const advertList = await Advert.createQueryBuilder()
-      .select(['title', 'location', 'org.name as org_name', 'active_until'])
-      .innerJoin('Org', 'org')
+      .select([
+        "Advert.uuid as uuid",
+        "title",
+        "location",
+        "org.name as org_name",
+        "active_until",
+      ])
+      .innerJoin("Org", "org")
       .execute();
-    // const advartList = await Advert.find({
-    //   select: ['uuid', 'title', 'location', 'Org.name AS org_name', 'active_until'],
-    //   relations: ['Org'],
-    // });
     return res.status(200).json(advertList);
   },
 };
 
 const Mainadvert = {
-  get: async (req, res):Promise<void> => {
+  get: async (req, res): Promise<void> => {
     //게시글 선택시 자세한 정보 가져오기
-    const uuid: string = req.params.advert_uuid
+    const uuid: string = req.params.advert_uuid;
+
+    const matching = await Advert.findOne({ uuid });
+    if (!matching) {
+      return res.status(404).json({});
+    }
 
     const positions = await Advert.createQueryBuilder()
       .select([
-        'title',
-        'body',
-        'skill.name as skill_name',
-        'position.quota as quota',
-        'active_until',
-        'location',
-        'event_at',
-        'org.name as org_name',
-        'org.uuid as org_uuid',
+        "title",
+        "body",
+        "skill.name as skill_name",
+        "position.quota as quota",
+        "active_until",
+        "location",
+        "event_at",
+        "org.name as org_name",
+        "org.uuid as org_uuid",
       ])
-      .innerJoin('Org', 'org', 'org.uuid = Advert.org_uuid')
-      .innerJoin('Position', 'position', 'position.advert_uuid = Advert.uuid')
-      .innerJoin('Skill', 'skill', 'skill.uuid = position.skill_uuid')
-      .where('Advert.uuid = :uuid', { uuid })
+      .innerJoin("Org", "org", "org.uuid = Advert.org_uuid")
+      .innerJoin("Position", "position", "position.advert_uuid = Advert.uuid")
+      .innerJoin("Skill", "skill", "skill.uuid = position.skill_uuid")
+      .where("Advert.uuid = :uuid", { uuid })
       .execute();
 
     const reviews = await Org_review.find({
       where: { org_uuid: positions[0].org_uuid },
-      select: ['comment', 'rating'],
+      select: ["comment", "rating"],
     });
-
-    // TODO: error handling when nothing is selected
 
     const data: {
       title?: string;
@@ -70,22 +69,35 @@ const Mainadvert = {
       reviews?: Array<Object>;
     } = { reviews };
 
-    for (const key of ['title', 'body', 'active_until', 'location', 'event_at', 'org_name']) {
+    for (const key of [
+      "title",
+      "body",
+      "active_until",
+      "location",
+      "event_at",
+      "org_name",
+    ]) {
       data[key] = positions[0][key];
     }
-    data.positions = positions.map(obj => ({ skill_name: obj.skill_name, quota: obj.quota }));
+    data.positions = positions.map((obj) => ({
+      skill_name: obj.skill_name,
+      quota: obj.quota,
+    }));
 
     return res.status(200).json(data);
-
   },
-  
-  post: async (req, res):Promise<void> => {
 
+  post: async (req, res): Promise<void> => {
     //게시글 작성하기
     const verifyTarget: TokenInfo = verifyToken(req.headers.authorization);
-    const { title, body, active_until, event_at, location, positions } = req.body;
+    const { title, body, active_until, event_at, location, positions } =
+      req.body;
 
-    if ([title, body, active_until, event_at, location, positions].includes(undefined)) {
+    if (
+      [title, body, active_until, event_at, location, positions].includes(
+        undefined
+      )
+    ) {
       return res.status(400).send();
     }
     if (!Array.isArray(positions) || positions.length === 0) {
@@ -94,7 +106,7 @@ const Mainadvert = {
 
     const writerInfo = await Org.findOne(
       { uuid: verifyTarget.uuid },
-      { select: ['uuid'] }
+      { select: ["uuid"] }
     );
 
     if (!writerInfo) {
@@ -120,41 +132,55 @@ const Mainadvert = {
     }
 
     return res.status(201).json({ uuid: advert_uuid });
-
   },
   patch: async (req, res) => {
+    if (!req.headers.authorization) {
+      return res.status(401).json({});
+    }
 
     const { title, body, active_until, event_at, location } = req.body;
-    const target_uuid: string = req.params.advert_uuid
+    const target_uuid: string = req.params.advert_uuid;
     const writerInfo: string = verifyToken(req.headers.authorization).uuid;
+    console.log(writerInfo);
+    if (!writerInfo) {
+      return res.status(401).json({});
+    } else {
+      const data = { title, body, active_until, event_at, location };
+      for (const key in data) {
+        if (data[key] === undefined) {
+          delete data[key];
+        }
+      }
+      const advertwriter = await Advert.findOne({
+        org_uuid: writerInfo,
+        uuid: target_uuid,
+      });
+      if (!advertwriter) {
+        return res.status(401).json({});
+      } else {
+        await Advert.update({ uuid: target_uuid }, data);
 
-    if(!writerInfo){
-      return res.status(400).json({message:'이런사람 없습니다.'})
+        const row = await Advert.findOne({ uuid: target_uuid });
+        const {
+          uuid: _,
+          org_uuid: __,
+          created_at: ___,
+          ...updatedAdvert
+        } = row;
+        return res.status(200).json(updatedAdvert);
+      }
     }
-
-    const data = { title, body, active_until, event_at, location };
-    for (const key in data) {
-      if (data[key] === undefined) { delete data[key]; }
-    }
-
-    await Advert.update({ uuid: target_uuid }, data);
-
-    const row = await Advert.findOne({ uuid: target_uuid });
-    const { uuid: _, org_uuid: __, created_at: ___, ...updatedAdvert } = row;
-    return res.status(200).json(updatedAdvert);
-
   },
   delete: (req, res) => {
     //게시글 삭제하기
-    const target_uuid:string = req.params.advert_uuid
-    const writerInfo:string = verifyToken(req.headers.authorization).uuid;
+    const target_uuid: string = req.params.advert_uuid;
+    const writerInfo: string = verifyToken(req.headers.authorization).uuid;
 
-    if(!writerInfo){
-      return res.status(400).json({message:'이런사람 없습니다.'})
-    }
-    else{
-      Advert.delete({uuid: target_uuid})
-    return res.status(204).send();
+    if (!writerInfo) {
+      return res.status(400).json({ message: "이런사람 없습니다." });
+    } else {
+      Advert.delete({ uuid: target_uuid });
+      return res.status(204).send();
     }
   },
 };

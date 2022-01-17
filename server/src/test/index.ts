@@ -12,8 +12,14 @@ import person from './person';
 import orgTest from './org';
 import advertTest from './advert';
 import applicationTest from './application';
+import { convert } from './utils';
 
 env();
+
+// Timeout before mocha does
+axios.defaults.timeout = 1000;
+// Do not throw on 300<= status codes
+axios.defaults.validateStatus = function (status) { return true; }
 
 // TODO: move interface definitions to a separate module
 interface AddressInfo {
@@ -22,21 +28,14 @@ interface AddressInfo {
   port: number;
 }
 
-// TODO: move utility functions to utils module
-function convert(entity) {
-  return entity.rows.map((item) => {
-    return Object.fromEntries(item.map((v, i) => [entity.columns[i], v]));
-  });
-}
-
 const server = createServer(app);
 let db: Connection;
 // TODO: use separate DB for test by declaring multiple profiles in ormconfig.js
 
 // TODO: run only specific test(s) provided as arguments
-describe('Obbli API server', () => {
+describe('Obbli API server', function () {
 
-  before(async () => {
+  before(async function () {
     const config = await getConnectionOptions();
     Object.assign(config, {
       dropSchema: true,
@@ -81,9 +80,9 @@ describe('Obbli API server', () => {
   advertTest(server);
   applicationTest(server);
 
-  after(async () => {
-    server.close();
-    await db.close();
+  after(function () {
+    db.close().then(() => console.log('DB connection closed'));
+    server.close(() => console.log('Server closed'));
   });
 
 });

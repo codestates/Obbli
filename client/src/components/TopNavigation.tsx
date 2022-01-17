@@ -26,12 +26,12 @@ function Topnavigation(props: UseModal) {
           {props.userState.isSignedIn
           ? (
           <ul className="naviList">
-            <li className="naviButtom" onClick={() => navigate('/advList')}>공고보기</li>
+            <li className="naviButtom" onClick={() => navigate('/advert')}>공고보기</li>
             <li className="naviButtom" onClick={() => props.setUserState({...props.userState, isSignedIn:false})}>로그아웃</li>
           </ul>
           ) : (
           <ul className="naviList">
-            <li className="naviButtom" onClick={() => navigate('/advList')}>공고보기</li>
+            <li className="naviButtom" onClick={() => navigate('/advert')}>공고보기</li>
             <li className="naviButtom" onClick={handleModal}>로그인</li>
           </ul>
           )}
