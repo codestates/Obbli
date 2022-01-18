@@ -138,14 +138,15 @@ const OrgInfo = {
   patch: async (req, res): Promise<void> => {
     if (!req.headers.authorization) {
       return res.status(401).json({});
-    } else if (req.body.user_id) {
+    } 
+    else if (req.body.user_id) {
       return res.status(401).json({});
     }
 
-    const uuid: string = verifyToken(req.headers.authorization).uuid;
-
-    if (!uuid) {
-      return res.status(400).json({ message: "Data not found" });
+    const orgInfo:TokenInfo= verifyToken(req.headers.authorization);
+    
+    if (!orgInfo) {
+      return res.status(401).json({});
     } else {
       interface Change_Case {
         name: string | null;
@@ -161,8 +162,8 @@ const OrgInfo = {
         }
       });
 
-      await Org.update({ uuid: uuid }, newData);
-      const updatedData: search_OrgInfo = await Org.findOne({ uuid });
+      await Org.update({ uuid: orgInfo.uuid }, newData);
+      const updatedData: search_OrgInfo = await Org.findOne({ uuid:orgInfo.uuid });
       const { name, description, since, headcount } = updatedData;
 
       return res.status(200).send({ name, description, since, headcount });
@@ -173,16 +174,23 @@ const OrgInfo = {
     //단체정보 삭제하기
     if (!req.headers.authorization) {
       return res.status(401).json({});
-    } else {
-      const targetUuid: string = verifyToken(req.headers.authorization).uuid;
-      const matching = await Org.findOne({ uuid: targetUuid });
+    } 
+    
+      const orgInfo: TokenInfo = verifyToken(req.headers.authorization);
+      
+      if(!orgInfo){
+        return res.status(401).json({})
+      }
+
+      const matching = await Org.findOne({ uuid: orgInfo.uuid, deleted_at:null });
+      
       if (!matching) {
         return res.status(404).json({});
-      } else {
-        await Org.update({ uuid: targetUuid }, { deleted_at: Date() });
+      } 
+      else {
+        await Org.update({ uuid: orgInfo.uuid }, { deleted_at: Date() });
         return res.status(204).send();
       }
-    }
   },
 };
 

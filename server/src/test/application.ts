@@ -116,7 +116,7 @@ export default (server) => {
       });
 
       it('Access without token', async function() {
-        await request(axios.patch, `/application`, 401, body);
+      await request(axios.patch, `/application`, 401, body);
       });
       it('Access with invalid token', async function() {
         await requestWithInvalidToken(axios.patch, `/application`, 401, body, {});

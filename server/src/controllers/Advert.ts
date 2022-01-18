@@ -143,9 +143,7 @@ const Mainadvert = {
       return res.status(401).json({})
     }
 
-    const advertwriter = await Advert.findOne({
-      uuid: target_uuid,
-    });
+    const advertwriter = await Advert.findOne({ uuid: target_uuid });
     
     if (writerInfo.uuid !== advertwriter.org_uuid) {
       return res.status(401).json({});
@@ -171,17 +169,28 @@ const Mainadvert = {
     return res.status(200).json(updatedAdvert);
      
   },
-  delete: (req, res) => {
+  delete: async (req, res) => {
     //게시글 삭제하기
     if (!req.headers.authorization) {
+
       return res.status(401).json({});
     }
     const target_uuid: string = req.params.advert_uuid;
-    const writerInfo = verifyToken(req.headers.authorization);
+    
+    const writerInfo:TokenInfo = verifyToken(req.headers.authorization);
 
     if (!writerInfo) {
-      return res.status(400).json({});
-    } else {
+      return res.status(401).json({});
+    } 
+
+    // const advertautho:object =Advert.findOne({uuid:target_uuid, org_uuid:writerInfo.uuid})
+    
+    const advert = await Advert.findOne({ uuid: target_uuid });
+
+    if( advert.org_uuid !== writerInfo.uuid ){
+      return res.status(401).json({});
+    }
+    else {
       Advert.delete({ uuid: target_uuid });
       return res.status(204).send();
     }

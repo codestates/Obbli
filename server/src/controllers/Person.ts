@@ -4,6 +4,12 @@ import { Person } from "../entity/Person";
 import { Skill } from "../entity/Skill";
 import { signToken, verifyToken, hashPassword } from "../Util";
 
+interface TokenInfo {
+  uuid: string;
+  user_id: string;
+  created_at: Date;
+}
+
 const SignIn = {
   post: (req, res): void => {
     const { user_id, pw } = req.body;
@@ -80,13 +86,16 @@ const SignOut = {
 const UserInfo = {
   get: async (req, res) => {
     if (!req.headers.authorization) {
-      return res.status(500).json({});
+      return res.status(401).json({});
     }
 
-    const person_uuid: string = verifyToken(req.headers.authorization).uuid;
 
+    const person:TokenInfo = verifyToken(req.headers.authorization);
+    if(!person){
+      return res.status(401).json({})
+    }
     const row = await Person.findOne({
-      where: { uuid: person_uuid },
+      where: { uuid: person.uuid },
       select: ["uuid", "realname", "professional", "history"],
       relations: ["Skill"],
     });
@@ -103,7 +112,7 @@ const UserInfo = {
 
       return res
         .status(200)
-        .json({ realname, professional, history, skill, uuid: person_uuid });
+        .json({ realname, professional, history, skill, uuid: person });
     }
   },
 
@@ -112,10 +121,10 @@ const UserInfo = {
       return res.status(401).json({});
     }
 
-    const person_uuid: string = verifyToken(req.headers.authorization).uuid;
+    const person:TokenInfo = verifyToken(req.headers.authorization);
     const targetData = { ...req.body };
 
-    if (req.body.user_id) {
+    if (req.body.user_id || !person) {
       return res.status(401).json({});
     }
 
@@ -136,13 +145,13 @@ const UserInfo = {
     if (skill_name !== undefined) {
       setter += `, skill_uuid = (SELECT uuid from skill where name = '${skill_name}')`;
     }
-    const raw = `UPDATE person set ${setter} where uuid = '${person_uuid}'`;
+    const raw = `UPDATE person set ${setter} where uuid = '${person.uuid}'`;
 
     const result = await Person.query(raw);
 
     // TODO: use one DB call for update and select?
     const row = await Person.findOne({
-      where: { uuid: person_uuid },
+      where: { uuid: person.uuid },
       select: ["uuid", "history", "professional", "realname"],
       relations: ["Skill"],
     });
@@ -157,7 +166,7 @@ const UserInfo = {
         professional: row.professional,
         name: row.realname,
         skill: row.Skill.name,
-        uuid: person_uuid,
+        uuid: person.uuid,
       });
     }
   },
@@ -169,14 +178,20 @@ const UserInfo = {
       return res.status(401).json({});
     }
 
-    const person_uuid: string = verifyToken(req.headers.authorization).uuid;
+    const person:TokenInfo = verifyToken(req.headers.authorization);
 
-    const invalid = await Person.findOne({ uuid: person_uuid });
+    if(!person){
+      return res.status(401).json({})
+    }
+
+    const invalid = await Person.findOne({ uuid: person.uuid });
+    
     if (!invalid) {
       return res.status(404).json({});
     } else {
-      await Person.findOne({ uuid: person_uuid });
-      res.clearCookie("refresh_token").status(204).send();
+      // await Person.findOne({ uuid: person.uuid });
+      // await Person.update({ uuid: person.uuid }, { deleted_at: Date() });
+   res.clearCookie("refresh_token").status(204).send();
     }
   },
 };
