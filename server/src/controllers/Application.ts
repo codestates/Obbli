@@ -196,7 +196,7 @@ const AppPosition = {
       person_uuid: string;
       state: string;
     }
-    console.log(req.body)
+    
     const { position_uuid, person_uuid, state }: incomingData = req.body;
     const org:TokenInfo = verifyToken(req.headers.authorization);
     
@@ -216,7 +216,7 @@ const AppPosition = {
     if(checkUnauth.length === 0){
       return res.status(401).json({})
     }
-    
+    console.log(req.body)
     console.log("Person" + person_uuid)
     console.log("Position::" + position_uuid)
     console.log("Org::" + org.uuid)
