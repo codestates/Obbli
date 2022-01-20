@@ -30,26 +30,24 @@ const SignIn = {
     });
 
     if (!orgInfo) {
-      return res.status(400).json({});
-    } else {
-      const {
-        uuid,
-        user_id,
-        created_at,
-      }: { uuid: string; user_id: string; created_at: Date } = orgInfo;
-      const access_token: string = signToken(
-        { uuid, user_id, created_at },
-        "1d"
-      );
-      const refresh_token: string = signToken(
-        { uuid, user_id, created_at },
-        "1h"
-      );
+      return res.status(400).json({ message: "Data not found." });
+    }
+    else {
+      const { uuid, user_id,created_at } = orgInfo;
+      const data = { uuid, user_id, created_at, permission: 'org' };
+      const access_token:string = signToken(data, "1d");
+      const refresh_token:string = signToken(data, "1h");
 
       return res
         .cookie("refresh_Token", refresh_token, { httpOnly: true })
         .status(200)
-        .json({ access_token: `Bearer ${access_token}` });
+        .json({
+          access_token,
+          token_type: 'Bearer',
+          expires_in: 3600,
+          uuid,
+          permission: 'org',
+        });
     }
   },
 };

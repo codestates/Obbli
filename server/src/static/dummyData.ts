@@ -8,7 +8,7 @@ export default {
     ],
   },
   Person: {
-    columns: ['uuid', 'user_id', 'pw_hash', 'realname', 'professional', 'skill_uuid', 'history', 'email', 'cellular'],
+    columns: ['uuid', 'user_id', 'pw_hash', 'name', 'professional', 'skill_uuid', 'history', 'email', 'cellular'],
     rows: [
       ['654d1f39-a3f4-4f23-8312-ceafdaaa007d', 'choi', '1234', '최희준', true, 'f34a055c-34d3-4148-a2e3-c5e7ed715036', null, 'choi@director.com', null],
       ['8d74acce-3b44-42ad-a739-237cc7c1b098', 'yoon', '5678', '윤소영', true, '0f42cfd2-fb3b-4f32-b9d5-765ae77ae290', null, 'yoon@violin.com', null],

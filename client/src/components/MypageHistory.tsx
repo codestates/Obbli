@@ -1,20 +1,20 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 
-interface mypageInfoType {
-    uuid: string,
-    name: string,
-    professional: boolean,
-    skill: string,
-    history: string
-}
+// interface mypageInfoType {
+//     user_id: string,
+//     name: string,
+//     professional: boolean,
+//     instrument: string,
+//     history: string
+// }
 
-interface historyType {
-    mypageInfo: mypageInfoType
-    setMypageInfo: React.Dispatch<React.SetStateAction<mypageInfoType>>
-}
+// interface historyType {
+//     mypageInfo: mypageInfoType
+//     setMypageInfo: React.Dispatch<React.SetStateAction<mypageInfoType>>
+// }
 
-function MypageHistory(props:historyType):JSX.Element {
+function MypageHistory(props):JSX.Element {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [pwChange, setPwChange] = useState({
     pw:'',

@@ -2,10 +2,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color:#FFE6CF;
+    // background-color: white;
+    // border: 5px solid black;
 }
 
 .logoImg {
     width: 13%;
+}
+.logoImg:hover{
+    cursor: pointer;
 }
 
 .naviList {
@@ -16,11 +22,130 @@
 }
 
 .naviButtom{
-    padding: 1vh 2.5vh;
+    padding: 5px 2.5vh;
+    border-radius: 10px;
+    background-color:  white;
+    flex: auto;
+    margin-left: 0px;
+    margin-right: 30px;
+    font: italic 1.1em "Hi Melody";
+    color:#FFBB7C;
+    border: 1px solid #FFBB7C;
+    opacity:1;
+}
+.naviButtom:hover{
+    background-color: #FFBB7C;
+    color: white;
+    cursor:pointer;
 }
 
 footer {
     position: fixed;
     bottom: 0;
     padding: 3vh;
+}
+
+.homeWrap {
+    display: block;
+    height: 80vh;
+    width: 167vh;
+    position:absolute;
+    right: 0;
+    z-index: 1;
+}
+
+.homeWrap::after {
+    height: 80vh;
+    width: 167vh;
+    content: "";
+    background-image: url(./img/mainimg.jpg);
+    background-repeat : no-repeat;
+    background-size : cover;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.buttonWrap {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logButtonWrap {
+    display: flex;
+    height: 35vh;
+    width: 30vh;
+    border-radius: 25% 10%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-family: 'Hi Melody', cursive;
+    font-size: 3vh;
+    margin-left: 15vh;
+}
+
+.homeBtu {
+    display:block;
+    width:18vh;
+    height:5vh;
+    border-radius: 20%;
+    line-height:5vh;
+    border:2px #D6B2B2 solid;
+    margin:15px;
+    text-align:center;
+    cursor: pointer;
+    color:#333;
+    transition:all 0.6s;
+}
+
+.hoverBtu:hover {
+    box-shadow:16vh 0 0 0 #D6B2B2 inset;
+    border:2px #D6B2B2 solid;
+    color: white;
+}
+
+.advButtonWrap {
+    display: flex;
+    height: 35vh;
+    width: 30vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Hi Melody', cursive;
+    font-size: 3vh;
+    margin-right: 50vh;
+}
+
+.advBtu {
+    width: 70vh;
+    height: 4vh;
+    border:2px #D6B2B2 solid;
+    background-color: #D6B2B2;
+    margin:15px;
+    text-align:center;
+    cursor: pointer;
+    color: white;
+    transition:all 0.6s;
+    font-weight: bold;
+    border-radius: 30% 10%;
+}
+
+.advBtu:hover {
+    box-shadow:70vh 0 0 0 whitesmoke inset;
+    border:2px whitesmoke solid;
+    color: black;
+}
+
+.homeLogoImg{
+    position:absolute;
+    cursor: pointer;
+    z-index: 2;
+    top: 2vh;
+    left: 60vh;
 }

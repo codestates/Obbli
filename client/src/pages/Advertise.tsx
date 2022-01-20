@@ -67,23 +67,38 @@ const Advertise: React.FC =  () => {
             uuid : "6fa85f64-5717-4562-b3fc-2c963f66afa6",
             location:'서울시 마포구',
             org_name:'하모니',
-            title:'하모니~~~하모니~~~',
+            title:'대!성당들의 시대가 찾아왔어~~',
             active_until:'2022-01-03',
         },
         {
             uuid : "6fa85f64-5717-4562-b3fc-2c963f66afa6",
             location:'서울시 마포구',
             org_name:'하모니',
-            title:'하모니~~~하모니~~~',
+            title:'암온더 넥스트 레벨',
             active_until:'2022-01-03',
         },
         {
             uuid : "6fa85f64-5717-4562-b3fc-2c963f66afa6",
             location:'서울시 마포구',
             org_name:'하모니',
-            title:'하모니~~~하모니~~~',
+            title:'동해물과 백두산이 마르고',
             active_until:'2022-01-03',
         },
+        {
+            uuid : "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+            location:'서울시 마포구',
+            org_name:'앙상블',
+            title:'우리 앙상블에서 연주자를 모집합니다!',
+            active_until:'2022-01-03',
+        },
+        {
+            uuid : "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+            location:'서울시 마포구',
+            org_name:'앙상블',
+            title:'우리 앙상블에서 연주자 구함!',
+            active_until:'2022-01-03',
+        }
+
     ]
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(5)
@@ -123,13 +138,15 @@ const Advertise: React.FC =  () => {
         <div className="advertise">
             <Filter/>
             {
-                dummy.length===0 ? <div>아직 작성된 글이 없습니다.</div> : <AdvList adverts={ adverts }/>
+                dummy.length===0 ? <div>아직 작성된 글이 없습니다.</div> : <AdvList adverts={ adverts } dummy={dummy}/>
             }
-
+        <div className="writeButtonArray">
             {
-                isAdmin ? <Link to={`/advert/write`}><button className="advwritebtn" type="button">작성하기</button></Link> : null
+                isAdmin ? <Link to={`/advert/write`}><button className="advwritebtn" type="button">작성하기</button></Link> 
+                : null
             }
             {/* <Pagination postsPerPage={postsPerPage} totalPosts={dummy.length} paginate={setCurrentPage}/> */}
+        </div>
         </div>
 
 

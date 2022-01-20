@@ -35,7 +35,7 @@ export default (server) => {
       it('Get person profile', async function() {
         const { data, status } = await axios.get('/person', authHeader);
         expect(status).to.equal(200);
-        expect(data).to.have.keys(['uuid', 'realname', 'professional', 'skill', 'history']);
+        expect(data).to.have.keys(['uuid', 'name', 'professional', 'skill', 'history']);
       });
 
       it('Access without token', async function() {
@@ -59,7 +59,7 @@ export default (server) => {
 
         const row = await Person.findOne({ user_id: newUser.user_id });
         expect(row).to.be.an.instanceof(Person);
-        expect(row.realname).to.equal(newUser.name);
+        expect(row.name).to.equal(newUser.name);
       });
 
       it('Invalid payload', async () => {
@@ -72,7 +72,7 @@ export default (server) => {
       });
 
       it('Duplicate ID', async () => {
-        const { user_id, realname: name, pw_hash: pw, pw_hash: pw_check } = dummyPerson;
+        const { user_id, name, pw_hash: pw, pw_hash: pw_check } = dummyPerson;
         await request(axios.post, '/person', 403, { user_id, name, pw, pw_check });
       });
     });

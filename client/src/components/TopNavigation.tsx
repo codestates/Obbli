@@ -1,39 +1,33 @@
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-interface UserStateType {
-  isSignedIn: boolean,
-  accessToken: string
-}
-
-interface UseModal {
-  setIsSignInVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  userState: UserStateType;
-  setUserState: React.Dispatch<React.SetStateAction<UserStateType>>
-}
-
-function TopNavigation(props: UseModal) {
+function TopNavigation({ userState, setUserState, setIsSignInVisible }) {
   const navigate = useNavigate();
 
   const handleModal = () => {
-    props.setIsSignInVisible(true)
+    setIsSignInVisible(true)
+  }
+  function signOut() {
+    setUserState(null);
+    localStorage.removeItem('auth');
+    axios.post('/sign-out')
+      .then((resp) => { setIsSignInVisible(false); navigate('/'); });
   }
 
   return (
     <div className="headWrapper">
       <img className="logoImg" src={require('../img/logo.png')} onClick={() => navigate('/')} />
       <div className="naviList">
-          {props.userState.isSignedIn
-          ? (
-          <ul className="naviList">
-            <li className="naviButtom" onClick={() => navigate('/advert')}>공고보기</li>
-            <li className="naviButtom" onClick={() => props.setUserState({...props.userState, isSignedIn:false})}>로그아웃</li>
-          </ul>
-          ) : (
-          <ul className="naviList">
-            <li className="naviButtom" onClick={() => navigate('/advert')}>공고보기</li>
-            <li className="naviButtom" onClick={handleModal}>로그인</li>
-          </ul>
-          )}
+        <ul className="naviList">
+          <li className="naviButtom" onClick={() => navigate('/advert')}>공고보기</li>
+          { userState
+            ? <>
+                <li className="naviButtom" onClick={() => navigate(`/mypage/${userState.permission}`)}>마이페이지</li>
+                <li className="naviButtom" onClick={signOut}>로그아웃</li>
+              </>
+            : <li className="naviButtom" onClick={handleModal}>로그인</li>
+          }
+        </ul>
       </div>
     </div>
   )

@@ -25,7 +25,7 @@ export class Person extends BaseEntity{
   pw_hash: string;
 
   @Column()
-  realname: string;
+  name: string;
 
   @Column({ default: false })
   professional: boolean;

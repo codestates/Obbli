@@ -1,26 +1,27 @@
 .modalBackground {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 2;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 3;
 }
 
 .signInWrap{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 280px;
-  height: 400px;
+  height: 50vh;
+  width: 45vh;
   background-color: white;
   position: relative;
   box-sizing: border-box;
-  margin: 17% auto;
+  margin: 13% auto;
   padding: 20px;
   background: #fff; 
   align-items: center;
+  border-radius: 10%;
 }
 
 .signInbutton {
@@ -35,6 +36,75 @@
   width: 100%;
 }
 
-.socialLoginNone {
+.permission {
+  width: calc(100%/3);
+  height: 5vh;
+  border-bottom: 3px solid #D6B2B2;
+  line-height: 5.5vh;
+  font-size: 2vh;
+  text-align: center;
+  color: #333333;
+  display: block;
+  float: left;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+.permission:hover {
+  opacity: 0.75;
+}
+
+input[name="permission"] {
   display: none;
+}
+
+.signInChoiseWrap input:checked + .permission {
+  background-color: #D6B2B2;
+  color: #fff;
+}
+
+.loginBtn {
+  display:block;
+  width:10vh;
+  height:5vh;
+  border-radius: 5%;
+  line-height:5vh;
+  border:2px #D6B2B2 solid;
+  margin:15px;
+  text-align:center;
+  cursor: pointer;
+  color:#333;
+  transition:all 0.6s;
+}
+
+.loginBtn:hover {
+  box-shadow:11vh 0 0 0 #D6B2B2 inset;
+  border:2px #D6B2B2 solid;
+  color: white;
+}
+
+.loginText{
+  color: rgb(83, 83, 83);
+}
+
+.signInInputWrap input{
+  width: 30vh;
+  margin-bottom: 1vh;
+  font-size: 1.8vh;
+}
+
+.signUpWrap{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 60vh;
+  width: 45vh;
+  background-color: white;
+  position: relative;
+  box-sizing: border-box;
+  margin: 10% auto;
+  padding: 20px;
+  background: #fff; 
+  align-items: center;
+  border-radius: 10%;
 }

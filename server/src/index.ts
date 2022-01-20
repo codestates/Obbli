@@ -7,15 +7,21 @@ import { createConnection, getConnectionOptions } from "typeorm";
 import {Advert,Application,Org,Org_review,Person,Person_review,Position,Skill } from "./entity";
 import dotenv from 'dotenv';
 
+import { cookieParser } from './Util';
+import * as Auth from './controllers/Auth';
+import skillController from './controllers/Skill';
+
 dotenv.config();
 const app = express();
 const port = process.env.APP_PORT;
+
+if (!module.parent) { app.use(morgan('dev')); }
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors({
   allowedHeaders: ['Authorization', 'Content-Type'],
-  origin: `http://${process.env.APP_DOMAIN}:${port}`,
+  origin: process.env.APP_DOMAIN,
   credentials: true,
   preflightContinue: false,
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
@@ -25,12 +31,15 @@ app.use("/person", indexRouter.Person);
 app.use("/org", indexRouter.Org);
 app.use("/advert", indexRouter.Advert);
 app.use("/application", indexRouter.Application);
-
+app.use(cookieParser);
+app.post('/auth', Auth.refreshToken);
+app.post('/sign-out', Auth.signOut);
+app.get('/skill', skillController);
+// TODO: move routing configs to router/index.ts
 
 export default app;
 
 if (!module.parent) {
-  app.use(morgan("dev"));
   getConnectionOptions().then((config) => {
     Object.assign(config, {
       entities: [Skill,Person,Org,Advert,Position,Application,Org_review,Person_review,],

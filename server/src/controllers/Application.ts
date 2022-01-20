@@ -87,7 +87,7 @@ const AppAdvert = {
         "Application.person_uuid as person_uuid",
         "pos.uuid as position_uuid",
         "Skill.name as skill_name",
-        "person.realname as person_name",
+        "person.name as person_name",
         "person.professional as professional",
       ])
       .leftJoin("pos.Application", "Application")

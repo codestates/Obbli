@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import TopNavigation from './components/TopNavigation';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import SignIn from './modal/SignIn';
 import SignUp from './modal/SignUp';
 import MypagePerson from './pages/MypagePerson';
@@ -15,24 +15,22 @@ import AdvertiseWrite from './pages/AdvertiseWrite';
 import AdvMap from './components/AdvMap';
 import axios from 'axios';
 
-export interface UserStateType {
-  isSignedIn: boolean,
-  accessToken: string,
+interface UserState {
+  uuid: string,
 }
 
+
 function App() {
-  const accessToken = localStorage.getItem('accessToken');
-  if (accessToken) {
-    axios.defaults.headers.common.authorization = accessToken;
+  const navigate = useNavigate();
+  const auth = JSON.parse(localStorage.getItem('auth') ?? null as unknown as string);
+  if (auth) {
+    axios.defaults.headers.common['Authorization'] = `${auth.token_type} ${auth.access_token}`;
   }
 
   const [isSignInVisible, setIsSignInVisible] = useState<boolean>(false)
   const [isSignUpVisible, setIsSignUpVisible] = useState<boolean>(false)
-  const navigate = useNavigate();
-  const [userState, setUserState] = useState<UserStateType>({
-    isSignedIn: Boolean(accessToken),
-    accessToken: accessToken ?? '',
-  })
+  const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false)
+  const [userState, setUserState] = useState(JSON.parse(localStorage.getItem('auth') as string));
 
   const onClickSignOut = () => {
     axios.post(`/sign-out`, {})
@@ -48,18 +46,22 @@ function App() {
     }
 
   return (
+    
     <div className="App">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet" /> 
       <nav>
-        <TopNavigation {...{ userState, setUserState, setIsSignInVisible, onClickSignOut}} />
+        <TopNavigation {...{ userState, setUserState, setIsSignInVisible}} />
       </nav>
       <div className="body">
         <SignIn {... {isSignInVisible, setIsSignInVisible, setIsSignUpVisible, setUserState}} />
         <SignUp {... {isSignUpVisible, setIsSignUpVisible, setUserState}} />
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
-            <Route path="/mypageperson" element={<MypagePerson {... {userState, setUserState }}/>} />
-            <Route path="/mypageorg" element={<MypageOrg {... {userState, setUserState }}/>} />
+            <Route index element={<Home {... { userState, setUserState, setIsSignInVisible, setIsSignUpVisible, onClickSignOut }} />} />
+            <Route path="/mypage/person" element={<MypagePerson {... {userState, setUserState }}/>} />
+            <Route path="/mypage/org" element={<MypageOrg {... {userState, setUserState }}/>} />
             <Route path="advert" element={<Advertise/>}></Route>
             <Route path="advert/:uuid" element={<AdvView />} />
             <Route path="advert/write" element={<AdvertiseWrite />} />
@@ -68,9 +70,9 @@ function App() {
           </Route>
         </Routes>
       </div>
-      <footer>
+      {/* <footer>
         <Footer />
-      </footer>
+      </footer> */}
     </div>
   );
 }

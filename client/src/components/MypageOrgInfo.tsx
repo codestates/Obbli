@@ -14,7 +14,7 @@ interface historyType {
     setMypageInfo: React.Dispatch<React.SetStateAction<mypageInfoType>>
 }
 
-function MypageOrgInfo(props:historyType):JSX.Element {
+function MypageOrgInfo(props):JSX.Element {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [pwChange, setPwChange] = useState({
     pw:'',

@@ -28,7 +28,7 @@ const AdvView : React.FC =  () => {
     const navigate = useNavigate();
     // TODO: error handling for invalid url
     
-    const [advert, setAdvert] = useState({ reviews: [] as unknown, positions:[] as unknown} as Advert);
+    const [advert, setAdvert] = useState({ reviews: [], positions:[]} as any);
     
     const [isAdmin, setIsAdmin] = useState(true);
 
@@ -38,11 +38,17 @@ const AdvView : React.FC =  () => {
           navigate('/advert')
         })
     }
-    console.log(advert)
+
+    function apply(uuid) {
+      axios.post(`/application/${uuid}`)
+        .then(resp => navigate('/'));
+    }
+
     useEffect(() => {
         axios.get(`/advert/${uuid}`)
-            .then((resp) => { setAdvert(resp.data as Advert); });
+            .then((resp) => { setAdvert(resp.data); });
     }, []);
+
     return (
         <div className="advView">
             <h1>{ advert.title }</h1>
@@ -72,10 +78,17 @@ const AdvView : React.FC =  () => {
                 <thead>
                     <th>모집 악기</th>
                     <th>모집 인원</th>
+                    <th></th>
                 </thead>
-                {advert.positions.map(({skill_name, quota})=>{
+                {advert.positions.map(({uuid, skill_name, quota})=>{
                             return (
-                                <tr><td>{skill_name}</td><td>{quota}</td></tr>
+                                <tr>
+                                    <td>{skill_name}</td>
+                                    <td>{quota}</td>
+                                    <td>
+                                        <button type="button" onClick={() => apply(uuid)}>지원하기</button>
+                                    </td>
+                                </tr>
                             )
                         })}
             </table>

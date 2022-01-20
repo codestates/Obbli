@@ -4,7 +4,7 @@ import React from "react";
 const Filter: React.FC =  () => {
     return(
         <div className="filter">
-            <h2>Filter</h2>
+
             <div>
             <ul>
                 <li>
@@ -48,10 +48,10 @@ const Filter: React.FC =  () => {
                 </li>
             </ul>
             <ul>
-                <li>
-                    <input type="text" placeholder="Insert text here"/>
-                    <button type="button">검색</button>
-                </li>
+                <div className="searchBar">
+                <input type="text" placeholder="Insert text here"/>
+                <button className="searchBtn" type="button">검색</button>
+                </div>
             </ul>
                 
             

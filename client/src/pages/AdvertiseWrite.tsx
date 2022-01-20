@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import AdvPositionAdd from '../components/AdvPositionAdd'
-import { useNavigate, useParams } from 'react-router-dom';
+import AdvPositionAdd from "../components/AdvPositionAdd";
+import { useNavigate, useParams } from "react-router-dom";
 import AdvMap from "../components/AdvMap";
 const  kakao  = (window as any).kakao;
 const  daum  = (window as any).daum;
@@ -12,7 +12,8 @@ const AdvertiseWrite: React.FC =  () => {
 
     const {uuid} =useParams();
     const navigate = useNavigate();
-
+    const [skills, setSkills] = useState([]);
+    const [positions, setPositions] = useState([]);
     
 
     const [userInput, setUserInput] = useState({
@@ -130,7 +131,7 @@ const AdvertiseWrite: React.FC =  () => {
     
     useEffect(()=>{
         if(uuid) {fetchAdvertise();}
-        
+      axios.get('/skill').then(resp => setSkills(resp.data));
     }, [])
 
     return(
@@ -181,52 +182,76 @@ const AdvertiseWrite: React.FC =  () => {
                     {/* <tr>
                         <td><AdvMap location={userInput.location} /></td>
                     </tr> */}
-                    
-            </table>
+      </table>
 
-            <table className="advWriteTable">
-                <thead>
-                    <tr>
-                        <th>모집 기한</th>
-                        <th>공연 일시</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="datetime-local" value={userInput.active_until} onChange={(e)=>{controlInputValue(e, 'active_until')}}></input></td>
-                        <td><input type="datetime-local" value={userInput.event_at} onChange={(e)=>{controlInputValue(e, 'event_at')}}></input></td>
-                    </tr>
-                </tbody>    
-            </table>
-            <table className="advWriteTable">                
-                <thead>
-                    <tr>
-                        <th>모집 악기</th>
-                        <th>모집 인원</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        addPosition.map((el, key)=>{
-                            return <AdvPositionAdd key={key} userPosition={userInput.positions} addPosition={addPosition} setaddPosition={setaddPosition} position={position} setPosition={setPosition} />
-                        })
-                    }
-                </tbody>
-            </table>
-            
-            <div><button  className="advwritebtn" type="button" onClick={()=>{onClickWrite()}}>작성 하기</button></div>
-        
-        </div>
-
-
-    ) 
-    
-}
-
-
+      <table className="advWriteTable">
+        <thead>
+          <tr>
+            <th>모집 기한</th>
+            <th>공연 일시</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input
+                type="datetime-local"
+                value={userInput.active_until}
+                onChange={(e) => {
+                  controlInputValue(e, "active_until");
+                }}
+              ></input>
+            </td>
+            <td>
+              <input
+                type="datetime-local"
+                value={userInput.event_at}
+                onChange={(e) => {
+                  controlInputValue(e, "event_at");
+                }}
+              ></input>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table className="advWriteTable">
+        <thead>
+          <tr>
+            <th>모집 악기</th>
+            <th>모집 인원</th>
+          </tr>
+        </thead>
+        <tbody>
+          {addPosition.map((el, key) => {
+            return (
+              <AdvPositionAdd
+                key={key}
+                userPosition={userInput.positions}
+                addPosition={addPosition}
+                setaddPosition={setaddPosition}
+                position={position}
+                setPosition={setPosition}
+              />
+            );
+          })}
+        </tbody>
+        <button
+          className="advwritebtn"
+          type="button"
+          onClick={() => {
+            onClickWrite();
+          }}
+        >
+          작성 하기
+        </button>
+      
+      </table>
+    </div>
+  );
+};
 
 export default AdvertiseWrite;
+
 
 
 

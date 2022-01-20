@@ -2,9 +2,11 @@
 @import "SignModal";
 @import "Review";
 @import "Mypage";
+@import "AdvertPage";
+@import "AdvertWrite";
 
 .App{
-    height: 100vh;
+    height: 90vh;
 }
 
 nav {
@@ -15,6 +17,8 @@ nav {
 }
 
 .body {
+    display: flex;
+    justify-content: center;
     margin-top: 10vh;
 }
 
@@ -25,7 +29,9 @@ section {
 }
 
 footer {
-    margin-top: 30px;
+    display: flex;
+    position: relative;
+    padding-bottom: 0%;
 }
 
 
@@ -34,7 +40,14 @@ body {
 }
 
 .advertise{
-    
+    display: flex;
+    flex-direction: column;
+    // margin: 0px 20px;
+
+    margin: auto;
+    // width:70rem;
+    width:900px;
+    padding: 10px 20px;
 }
 
 
@@ -85,18 +98,15 @@ Table tr td{
 }
 
 
-.advertise{
-    margin: 0px 20px;
-    padding: 10px 20px;
-}
-
-.advListTable tr:hover {
-    background-color: #eee;
-}
-
-.filter {
-    width:70rem;
-    
+.filter { 
+    margin-left:100px ;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding-bottom: 2%;
+    width:75%;
+    height: 100px;
+    border: 2px solid black;
+    border-radius: 10px;
     
 }
 

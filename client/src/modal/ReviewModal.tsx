@@ -25,7 +25,7 @@ interface ReviewType {
   mypageInfo: MypageInfoType
 }
 
-function ReviewModal(props: ReviewType):JSX.Element {
+function ReviewModal(props):JSX.Element {
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [reviewInfo, setReviewInfo] = useState({
     rating:props.data.rating,

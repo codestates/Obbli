@@ -26,15 +26,22 @@ const SignIn = {
         return res.status(400).send();
       }
       const { uuid, user_id, created_at } = result;
-      const access_token = signToken({ uuid, user_id, created_at }, "1h");
-      const refresh_token = signToken({ uuid, user_id, created_at }, "1d");
+      const data = { uuid, user_id, created_at, permission: 'person' };
+      const access_token = signToken(data, "1h");
+      const refresh_token = signToken(data, "1d");
 
       return res
         .cookie("refresh_token", refresh_token, {
           httpOnly: true,
         })
         .status(200)
-        .send({ access_token: `Bearer ${access_token}` });
+        .send({
+          access_token,
+          token_type: 'Bearer',
+          expires_in: 3600,
+          uuid,
+          permission: 'person',
+        });
     });
   },
 };
@@ -57,7 +64,7 @@ const SignUp = {
     }
 
     // TODO: hash pw
-    await Person.insert({ user_id, pw_hash: pw, realname: name });
+    await Person.insert({ user_id, pw_hash: pw, name });
 
     Person.findOne({ user_id }).then((result) => {
       const { uuid, user_id, created_at } = result;
@@ -96,7 +103,7 @@ const UserInfo = {
     }
     const row = await Person.findOne({
       where: { uuid: person.uuid },
-      select: ["uuid", "realname", "professional", "history"],
+      select: ["uuid", "name", "professional", "history"],
       relations: ["Skill"],
     });
 
@@ -104,7 +111,7 @@ const UserInfo = {
       return res.status(404).json({});
     } else {
       const {
-        realname,
+        name,
         professional,
         history,
         Skill: { name: skill },
@@ -112,7 +119,7 @@ const UserInfo = {
 
       return res
         .status(200)
-        .json({ realname, professional, history, skill, uuid: person });
+        .json({ name, professional, history, skill, uuid: person });
     }
   },
 
@@ -133,8 +140,8 @@ const UserInfo = {
         delete targetData[el[0]];
       }
     });
-    targetData.realname = targetData.name;
-    delete targetData.name;
+    // targetData.name = targetData.name;
+    // delete targetData.name;
     const skill_name = targetData.skill;
     delete targetData.skill;
 
@@ -152,7 +159,7 @@ const UserInfo = {
     // TODO: use one DB call for update and select?
     const row = await Person.findOne({
       where: { uuid: person.uuid },
-      select: ["uuid", "history", "professional", "realname"],
+      select: ["uuid", "history", "professional", "name"],
       relations: ["Skill"],
     });
 
@@ -164,7 +171,7 @@ const UserInfo = {
       return res.status(200).send({
         history: row.history,
         professional: row.professional,
-        name: row.realname,
+        name: row.name,
         skill: row.Skill.name,
         uuid: person.uuid,
       });

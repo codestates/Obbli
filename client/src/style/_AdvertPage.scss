@@ -1,0 +1,172 @@
+
+
+
+.Listhead{
+    border-radius: 5px;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+    font: italic 1.1em "Hi Melody";
+    margin-top: -1px;
+    margin-bottom: 0px;
+}
+
+.col1{
+    width: 15%;  
+    border: 2px solid #FFBB7C;  
+    
+}
+
+.col2{
+    width: 50%;
+    border: 2px solid #FFBB7C;
+    
+}
+
+.col3{
+    width: 25%;
+    border: 2px solid #FFBB7C;
+}
+
+.col4{
+    width: 15%;
+    border: 2px solid #FFBB7C;
+}
+
+.advList{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 2px solid #FFBB7C;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+
+
+
+
+.Listele{
+    height: 30px;
+    font: italic 1.1em "Hi Melody";
+    display: flex; 
+    border-bottom: 1px dotted #FFBB7C;  
+}
+.Listele:hover{
+    background-color:#FFE6CF ;
+    opacity: 0.5;
+}
+
+.Advele {
+    text-align: center;
+    margin: auto;
+}
+
+.advTitle{
+    text-decoration-line: none;
+    color: black;
+}
+
+.advcol1{
+    width: 15%;  
+}
+
+.advcol2{
+   
+    width: 50%;
+}
+
+.advcol3{
+    width: 25%;
+  
+}
+
+.advcol4{
+    width: 15%;
+ 
+}
+
+
+
+
+.writeButtonArray{
+    margin-top: 30px;
+    height: 30px;
+    width: 900px;
+}
+
+.advwritebtn{
+    font: italic 1.1em "Hi Melody";
+    background-color:#FFBB7C;
+    color:#fff;
+    border:none;
+    position:relative;
+    height:30px;
+    font-size:1.2em;
+    margin-left: 10px;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+}
+.advwritebtn{
+    background:#FFBB7C;
+    color:white;
+    border-radius: 3px;
+}
+.advwritebtn:before,.advwritebtn:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #FFBB7C;
+    transition:400ms ease all;
+}
+.advwritebtn:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+.advwritebtn:hover:before,.advwritebtn:hover:after{
+    width:100%;
+    transition:800ms ease all;
+    font-size:1.0em;
+}
+
+.searchBar{
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+}
+
+.searchBtn{
+    font: italic 1.5em "Hi Melody";
+    margin-left: 20px;
+    border: 1px solid #FFBB7C;
+    background-color: #FFBB7C;
+    color: white;
+    cursor:pointer;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px gray ;
+    font-size: 20px;
+    border: none;
+    border-radius: 3px;
+}
+
+.searchBtn:hover{
+    font-size: 20px;
+    color: #FFBB7C;
+}
+
+.searchBtn:active{
+    font-size: 15px;
+    color: #FFBB7C;
+    box-shadow: none;
+    
+}
+
+
