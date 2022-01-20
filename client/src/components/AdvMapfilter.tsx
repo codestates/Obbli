@@ -5,9 +5,11 @@ import AdvMapFilterView from "./AdvMapFilterView";
 const  kakao  = (window as any).kakao;
 
 export default function AdvMapFilter ({ adverts, setAdverts }: { adverts: any ; setAdverts:any }) {
+    const [mapState, setMapState] = useState();
     const [result, setResult] = useState([] as any);
     const [userInfo, setUserInfo] = useState([] as any);
-    useEffect(() => { mapScript() }, [adverts]);
+    // useEffect(() => { mapScript() }, [adverts]);
+    useEffect(() => setMapState(mapScript()), []);
 
     const mapScript = () => {
         const container = document.querySelector('.advMapFilter_location');
@@ -62,10 +64,13 @@ export default function AdvMapFilter ({ adverts, setAdverts }: { adverts: any ; 
 
             setUserInfo(visibleAdverts);
         });
+
+        return map;
     } // end of mapScript()
 
     return(
         <div className="advMapFilter">
+            <p>{ (mapState as any)?.getDraggable() }</p>
             <div className="advMapFilter_location"></div>
             { userInfo.length===0 ? <AdvMapFilterView userInfo={adverts}/>:<AdvMapFilterView userInfo={userInfo}/> }
        </div>

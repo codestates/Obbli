@@ -1,7 +1,7 @@
 import React from "react";
 import AdvListItem from "./AdvListItem";
 
-const AdvList = ({ adverts,dummy }: { adverts: any, dummy:any }) => {
+const AdvList = ({ adverts }: { adverts: any }) => {
   return (
     <div >
       <div className="Listhead">
@@ -11,7 +11,7 @@ const AdvList = ({ adverts,dummy }: { adverts: any, dummy:any }) => {
         <p className="Listhead col4">단체명</p>
       </div>
     <div className="advList">
-        {dummy.map((el: any) => {
+        {adverts.map((el: any) => {
           return (
             <AdvListItem
               uuid={el.uuid}

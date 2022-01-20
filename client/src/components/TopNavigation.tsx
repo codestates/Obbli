@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function TopNavigation({ userState, setUserState, setIsSignInVisible }) {
   const navigate = useNavigate();
+  if (window.location.pathname === '/') { return null; }
 
   const handleModal = () => {
     setIsSignInVisible(true)

@@ -46,11 +46,7 @@ function App() {
     }
 
   return (
-    
     <div className="App">
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet" /> 
       <nav>
         <TopNavigation {...{ userState, setUserState, setIsSignInVisible}} />
       </nav>
@@ -58,21 +54,16 @@ function App() {
         <SignIn {... {isSignInVisible, setIsSignInVisible, setIsSignUpVisible, setUserState}} />
         <SignUp {... {isSignUpVisible, setIsSignUpVisible, setUserState}} />
         <Routes>
-          <Route path="/">
-            <Route index element={<Home {... { userState, setUserState, setIsSignInVisible, setIsSignUpVisible, onClickSignOut }} />} />
-            <Route path="/mypage/person" element={<MypagePerson {... {userState, setUserState }}/>} />
-            <Route path="/mypage/org" element={<MypageOrg {... {userState, setUserState }}/>} />
-            <Route path="advert" element={<Advertise/>}></Route>
-            <Route path="advert/:uuid" element={<AdvView />} />
-            <Route path="advert/write" element={<AdvertiseWrite />} />
-            <Route path="advert/edit/:uuid" element={<AdvertiseWrite />} />
-            <Route path="filter" element={<AdvFilter />} />
-          </Route>
+          <Route index element={<Home {... { userState, setUserState, setIsSignInVisible, setIsSignUpVisible, onClickSignOut }} />} />
+          <Route path="/mypage/person" element={<MypagePerson {... {userState, setUserState }}/>} />
+          <Route path="/mypage/org" element={<MypageOrg {... {userState, setUserState }}/>} />
+          <Route path="advert" element={<Advertise/>}></Route>
+          <Route path="advert/:uuid" element={<AdvView />} />
+          <Route path="advert/write" element={<AdvertiseWrite />} />
+          <Route path="advert/edit/:uuid" element={<AdvertiseWrite />} />
+          <Route path="filter" element={<AdvFilter />} />
         </Routes>
       </div>
-      {/* <footer>
-        <Footer />
-      </footer> */}
     </div>
   );
 }
