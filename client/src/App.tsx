@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Link } from 'react-router-dom';
 import TopNavigation from './components/TopNavigation';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import SignIn from './modal/SignIn';
 import SignUp from './modal/SignUp';
 import MypagePerson from './pages/MypagePerson';
@@ -20,7 +20,10 @@ export interface UserStateType {
   accessToken: string,
 }
 
+
 function App() {
+
+
   const accessToken = localStorage.getItem('accessToken');
   if (accessToken) {
     axios.defaults.headers.common.authorization = accessToken;
@@ -48,7 +51,10 @@ function App() {
     }
 
   return (
+    
     <div className="App">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet" />
       <nav>
         <TopNavigation {...{ userState, setUserState, setIsSignInVisible, onClickSignOut}} />
       </nav>
@@ -68,9 +74,9 @@ function App() {
           </Route>
         </Routes>
       </div>
-      <footer>
+      {/* <footer>
         <Footer />
-      </footer>
+      </footer> */}
     </div>
   );
 }

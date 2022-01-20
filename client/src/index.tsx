@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios'
 import config from './app.config';
+import Footer from './components/Footer';
 
 axios.defaults.baseURL = config.API_HOST;
 
@@ -13,6 +14,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
+      <footer>
+      <Footer />
+      </footer>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

@@ -2,10 +2,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color:#FFE6CF;
+    // background-color: white;
+    // border: 5px solid black;
 }
 
 .logoImg {
     width: 13%;
+}
+.logoImg:hover{
+    cursor: pointer;
 }
 
 .naviList {
@@ -16,11 +22,26 @@
 }
 
 .naviButtom{
-    padding: 1vh 2.5vh;
+    padding: 5px 2.5vh;
+    border-radius: 10px;
+    background-color:  white;
+    flex: auto;
+    margin-left: 0px;
+    margin-right: 30px;
+    font: italic 1.1em "Hi Melody";
+    color:#FFBB7C;
+    border: 1px solid #FFBB7C;
+    opacity:1;
+}
+.naviButtom:hover{
+    background-color: #FFBB7C;
+    color: white;
+    cursor:pointer;
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    padding: 3vh;
-}
+    font: italic 1.1em "Hi Melody";
+    background-color: #FFE6CF;
+    align-items: center;
+    
+}   

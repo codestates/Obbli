@@ -1,24 +1,30 @@
 import React from "react";
 import AdvListItem from "./AdvListItem";
 
-const AdvList = ({ adverts }: { adverts: any }) => {
-    return(
-        <div className="advList">
-            <h2>Adv</h2>
-            <table className="advListTable">
-                <thead>
-                        <th>행사 장소</th>
-                        <th>업체 이름</th>
-                        <th>공고 제목</th>
-                        <th>모집 기한</th>
-                        <th>비고</th>
-                </thead>
-                {adverts.map((el: any)=>{
-                    return <AdvListItem uuid={el.uuid} location={el.location} org_name={el.org_name} title={el.title} active_until={el.active_until}></AdvListItem>
-                })}
-            </table>
-        </div>
-    )
-}
+const AdvList = ({ adverts,dummy }: { adverts: any, dummy:any }) => {
+  return (
+    <div >
+      <div className="Listhead">
+        <p className="Listhead col1">모집기한</p>
+        <p className="Listhead col2">제목</p>
+        <p className="Listhead col3">행사장소</p>
+        <p className="Listhead col4">단체명</p>
+      </div>
+    <div className="advList">
+        {dummy.map((el: any) => {
+          return (
+            <AdvListItem
+              uuid={el.uuid}
+              location={el.location}
+              org_name={el.org_name}
+              title={el.title}
+              active_until={el.active_until}
+            ></AdvListItem>
+          );
+        })}
+    </div>
+    </div>
+  );
+};
 
 export default AdvList;
