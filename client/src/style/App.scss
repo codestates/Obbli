@@ -36,17 +36,14 @@ footer {
 
 
 body {
-    margin-top: 15vh;
+    margin-top: 10vh;
 }
 
 .advertise{
     display: flex;
     flex-direction: column;
-    // margin: 0px 20px;
-
     margin: auto;
-    // width:70rem;
-    width:900px;
+    width:80em;
     padding: 10px 20px;
 }
 
@@ -90,10 +87,14 @@ Table tr td{
     margin: 0 5px;
     background-color: #000;
     outline: 0;
+    
 }
 
 .advwritebtn {
-    float: right;
+    height:3em;
+    width: 5em;
+    margin-top: 3em;
+    align-items: flex-start;
 }
 
 
@@ -147,22 +148,22 @@ Table tr td{
 }
 
 
-// button {
-//     cursor: pointer;
-//     background-color: #036;
-//     color: white;
-//     width:7rem;
-//     font-size: 1rem;
-//     font-weight: bold;
-// }
+button {
+    cursor: pointer;
+    background-color: #036;
+    color: white;
+    width:7rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
 
 
-// button:hover {
-//     background-color: #fff;
-//     color: #036;
-//     font-size: 1.1rem;
-//     font-weight: bold;
-// }
+button:hover {
+    background-color: #fff;
+    color: #036;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
 
 textarea {
     width: 90%;
@@ -250,19 +251,21 @@ input {
 }
 
 .inputAddress {
-    width:70%;
+    width:30em;
+    height: 2em;
     
 }
 .inputAddressbtn {
-    margin-left: 20px;
-    width:10%
+    background-color: #444;
+    border:none;
+    width: 5em;
 }
 
 
-.inputMap {
-    width:90%;
-    margin:10px auto;
-    height:300px;
-    border: 1px solid #000;
+// .inputMap {
+//     width:20em;
+//     margin:10px auto;
+//     height:300px;
+//     border: 1px solid #000;
     
-}
+// }

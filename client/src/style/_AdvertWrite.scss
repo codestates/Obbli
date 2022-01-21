@@ -1,20 +1,183 @@
+.advAndsubmit{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 60em;
+    height: 70em;
+}
+
+.submitbtn {
+    background-color:#FFBB7C ;
+    height: 3em;
+    width: 5em;
+    margin-top: 2em;
+    align-items: flex-start;
+    font-size: 1.5em;
+}
+
+.submitbtn:hover{
+    height: 3em;
+    width: 5em;
+    margin-top: 2em;
+    align-items: flex-start;
+    font-size: 1.5em;
+}
+
 .advertiseWrite {
-    margin: 0px 20px;
-    width:70rem;
+    margin: 0px 10px;
     padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 45em;
+    height: 70em;
+    // font: italic 1.5em "Hi Melody";
+    // border: orange solid 0.1em;
+}
+
+.PostTitle{
+    margin-top: 1em;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+}
+
+.InputTitle{
+    height: 2em;
+    width: 40em;
+    margin-left: 6.3em;
+}
+
+.PostContent{
+    margin-top: 1em;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+}
+
+.InputContent{ 
+    margin-left:  2.9em;
+    width: 40em;
+    height: 10em;
+}
+
+.advSkill{
+    margin-top: 1em;
+    width:  30em;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    flex-direction:row;
+}
+
+
+.selectSkill{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    border: black solid 0.1rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-left: 1.1em;
+    width: 22.4em
+}
+
+.skillName{
+    margin-left: 5em;
+    height: 2em;
+    width: 15em;
+    text-align: center;
+}
+
+.Quantity{
+    margin-right: 3em;
+    margin-left: 5em;
+    width: 5em;
+    height: 1.5em;
+    text-align:  center;
+    font-size: 0.6em;
+}
+
+.skill_quntity{
+    margin-right: 1em;
+    width: 20em;
+    height: 1.5em;
+}
+
+.skillPlus{
+    width: 0.5em;
+    height: 1em;
+    margin-top: -0.3em;
+}
+
+
+
+.time_Select{
+    margin-top: 3em;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+.timeTitle{
+    font-size: 1.5em;
+    width: 7em;
+    margin-right: 2.4em;
+}
+.atSelect{
+    margin-bottom: 1em ;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+
+.untillSelect{
+    height: 2em;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.advLocation{
+    margin-top: 1em;
+    font-size: 1.5em;
+    display: flex;
+    // align-items: center;
+    flex-direction: column; 
+}
+
+
+.advLocationTit{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 30em;
+    // padding-left: 6em;
+}
+
+.inputAddress {
+    // align-items: center;
+    width:10em;
+    height: 2em;
+    margin-left: 6.5em;
     
 }
-
-.advWriteTable {
-    margin-bottom: 4rem;
+.inputAddressbtn {
+    margin-left: 2em;
+    width:5%
 }
 
-.Post{
-    background-color: black
-;
-    font: italic 1.1em "Hi Melody";
+.emptyMap{
+    width: 10em;
 }
 
-.postTitle{
-
+.inputMap {
+    width:25em;
+    margin-left: 7.3em;
+    height:12em;
+    border: 1px solid #000;
 }
