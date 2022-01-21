@@ -1,5 +1,5 @@
 import { AppPerson } from '../controllers/Application';
-import { PersonReview } from '../controllers/Review'
+import { PersonReview, getPersonReview } from '../controllers/Review'
 import { SignIn, SignUp, SignOut, UserInfo } from '../controllers/Person'
 
 const router = require("express").Router();
@@ -19,11 +19,13 @@ router.delete("/", UserInfo.delete);
 //review 작성
 router.post("/review/:person_uuid", PersonReview.post);
 //user가 작성된 review 가져오기
-router.get("/review/:person_uuid", PersonReview.get);
+router.get("/review", PersonReview.get);
 //작성한 review 수정하기 (:query를 하나로 합치는것 건의 & || - 사용 )
 router.patch("/review/:person_uuid", PersonReview.patch);
 //작성한 review 삭제하기
 router.delete("/review/:person_uuid", PersonReview.delete);
+
+router.get('/review/:person_uuid', getPersonReview);
 
 //Application 부분
 //참여 목록 가져오기

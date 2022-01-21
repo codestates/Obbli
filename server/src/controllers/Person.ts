@@ -103,24 +103,51 @@ const UserInfo = {
     }
     const row = await Person.findOne({
       where: { uuid: person.uuid },
-      select: ["uuid", "name", "professional", "history"],
-      relations: ["Skill"],
+      // select: [
+      //   // 'uuid',
+      //   // 'user_id',
+      //   // 'name',
+      //   // 'professional',
+      //   // 'history',
+      //   // 'Skill',
+      //   // 'Application',
+      //   // 'Person_review',
+      //   // 'Org_review',
+      // ],
+      relations: ["Skill", "Org_review", "Application", "Application.Position", "Person_review", 'Application.Position.Skill', 'Application.Position.Advert', 'Application.Position.Advert.Org'],
     });
 
+    const data = {
+      uuid: row.uuid,
+      user_id: row.user_id,
+      name: row.name,
+      professional: row.professional,
+      history: row.history,
+      skill_name: row.Skill.name,
+      Application: row.Application.map(each => ({
+        org_uuid: each.Position.Advert.Org.uuid,
+        org_name: each.Position.Advert.Org.name,
+        skill_name: each.Position.Skill.name,
+        created_at: each.created_at,
+        received_at: each.received_at,
+        hired_at: each.hired_at,
+        active_until: each.Position.Advert.active_until,
+        event_at: each.Position.Advert.event_at,
+        // reviewed: TODO
+      })),
+      Person_review: row.Person_review,
+      Org_review: row.Org_review,
+    }
+
+    console.log(data);
     if (!row) {
       return res.status(404).json({});
-    } else {
-      const {
-        name,
-        professional,
-        history,
-        Skill: { name: skill },
-      } = row;
-
-      return res
-        .status(200)
-        .json({ name, professional, history, skill, uuid: person });
     }
+
+    return res
+      .status(200)
+      .send(data);
+      // .json({ name, professional, history, skill, uuid: person });
   },
 
   patch: async (req, res) => {

@@ -40,6 +40,10 @@ function ReviewModal(props):JSX.Element {
     width: `${24.5*props.data.rating}px`
   }
 
+  const styleModal = {
+    width: `${38.5*props.data.rating}px`
+  }
+
   const handleReview = () => {
     //TODO: axios post
     if(!reviewInfo.rating && !reviewInfo.comment){
@@ -89,8 +93,8 @@ function ReviewModal(props):JSX.Element {
       {props.isReviewVisible
         ? isEditing ? (
           <div className="modalBackground" onClick={() => props.setIsReviewVisible(false)}>
-            <div className="signInWrap" onClick={(e) => e.stopPropagation()}>
-              <div className="signInLogo">리뷰를 남겨보세요!</div>
+            <div className="reviewWrap" onClick={(e) => e.stopPropagation()}>
+              <h2 className="reviewLogo">리뷰를 남겨보세요!</h2>
               <div className="star-rating">
                 <input type="radio" id="5-stars" name="rating" value='5' v-model="ratings" onChange={controlInput('rating')} />
                 <label htmlFor="5-stars" className="star">★</label>
@@ -104,34 +108,34 @@ function ReviewModal(props):JSX.Element {
                 <label htmlFor="1-star" className="star">★</label>
               </div>
               <div className="comentWrap">
-                  <textarea onChange={()=>controlInput('comment')}>{props.data.comment}</textarea>
+                  <textarea className="reviewModalText" onChange={()=>controlInput('comment')}>{props.data.comment}</textarea>
               </div>
               <div className="reviewBtu">
-                <span className="btn" onClick={handleReview}>리뷰남기기</span>
-                <span className="btn" onClick={() => setIsEditing(false)}>취소</span>
+                <button type='button' className="reviewModalBtn" onClick={handleReview}>리뷰남기기</button>
+                <button type='button' className="reviewModalBtn" onClick={() => setIsEditing(false)}>취소</button>
               </div>
             </div>
           </div>
         ) : (
           <div className="modalBackground" onClick={() => props.setIsReviewVisible(false)}>
-            <div className="signInWrap" onClick={(e) => e.stopPropagation()}>
-              <div className="signInLogo">리뷰를 남겨보세요!</div>
-              <div className="reviewStars">
-                <div className="star-ratings-fill" style={style}>
+            <div className="reviewWrap" onClick={(e) => e.stopPropagation()}>
+              <h2 className="reviewLogo">리뷰를 남겨보세요!</h2>
+              <div className="reviewStarsModal">
+                <div className="star-ratings-fill-modal" style={styleModal}>
                   <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                 </div>
-                <div className="star-ratings-base">
+                <div className="star-ratings-base-modal">
                   <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                 </div>
               </div>
-              <div className="reviewComment">
+              <div className="reviewModalComment">
                 {props.data.comment}
               </div>
-              <div className="reviewBtu">
+              <div>
                 {props.selectMenu !== 'reviewToMe' ?
-                <div>
-                  <span className="btn" onClick={()=>setIsEditing(true)}>수정하기</span>
-                  <span className="btn" onClick={onClickDeleteRiview} >삭제하기</span>
+                <div className="reviewBtu">
+                  <button type='button' className="reviewModalBtn" onClick={()=>setIsEditing(true)}>수정하기</button>
+                  <button type='button' className="reviewModalBtn" onClick={onClickDeleteRiview} >삭제하기</button>
                 </div> : null}
               </div>
             </div>

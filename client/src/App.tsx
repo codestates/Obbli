@@ -15,6 +15,8 @@ import AdvertiseWrite from './pages/AdvertiseWrite';
 import AdvMap from './components/AdvMap';
 import axios from 'axios';
 
+import { storeAccessToken } from './utils';
+
 interface UserState {
   uuid: string,
 }
@@ -30,33 +32,38 @@ function App() {
   const [isSignInVisible, setIsSignInVisible] = useState<boolean>(false)
   const [isSignUpVisible, setIsSignUpVisible] = useState<boolean>(false)
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false)
-  const [userState, setUserState] = useState(JSON.parse(localStorage.getItem('auth') as string));
+  const [userState, setUserState] = useState(null);
+  // const [userState, setUserState] = useState(JSON.parse(localStorage.getItem('auth') as string));
 
-  const onClickSignOut = () => {
-    axios.post(`/sign-out`, {})
-    .then(res => {
-      setUserState({
-        isSignedIn: false,
-        accessToken: '',
+  function signOut() {
+    setUserState(null);
+    localStorage.removeItem('auth');
+    axios.post('/sign-out')
+      .then((resp) => { setIsSignInVisible(false); navigate('/'); });
+  }
+
+  useEffect(() => {
+    if (!auth) { return; }
+    axios.post('/auth')
+      .then((resp) => {
+        if (resp.status !== 200) { return; }
+        storeAccessToken(resp.data);
+        axios.defaults.headers.common['Authorization'] = resp.data.access_token;
       })
-    })
-    .then(()=> {
-      navigate('/')
-    })
-    }
+  }, []);
 
   return (
     <div className="App">
       <nav>
-        <TopNavigation {...{ userState, setUserState, setIsSignInVisible}} />
+        <TopNavigation {...{ auth, setIsSignInVisible, signOut }} />
       </nav>
       <div className="body">
         <SignIn {... {isSignInVisible, setIsSignInVisible, setIsSignUpVisible, setUserState}} />
         <SignUp {... {isSignUpVisible, setIsSignUpVisible, setUserState}} />
         <Routes>
-          <Route index element={<Home {... { userState, setUserState, setIsSignInVisible, setIsSignUpVisible, onClickSignOut }} />} />
-          <Route path="/mypage/person" element={<MypagePerson {... {userState, setUserState }}/>} />
-          <Route path="/mypage/org" element={<MypageOrg {... {userState, setUserState }}/>} />
+          <Route index element={<Home {... { auth, setIsSignInVisible, setIsSignUpVisible, signOut }} />} />
+          <Route path="/mypage/person" element={<MypagePerson {... { auth }}/>} />
+          <Route path="/mypage/org" element={<MypageOrg {... { auth }}/>} />
           <Route path="advert" element={<Advertise/>}></Route>
           <Route path="advert/:uuid" element={<AdvView />} />
           <Route path="advert/write" element={<AdvertiseWrite />} />

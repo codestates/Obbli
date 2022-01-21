@@ -1,18 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function TopNavigation({ userState, setUserState, setIsSignInVisible }) {
+function TopNavigation({ auth, setIsSignInVisible, signOut }) {
   const navigate = useNavigate();
   if (window.location.pathname === '/') { return null; }
 
   const handleModal = () => {
     setIsSignInVisible(true)
-  }
-  function signOut() {
-    setUserState(null);
-    localStorage.removeItem('auth');
-    axios.post('/sign-out')
-      .then((resp) => { setIsSignInVisible(false); navigate('/'); });
   }
 
   return (
@@ -21,9 +15,9 @@ function TopNavigation({ userState, setUserState, setIsSignInVisible }) {
       <div className="naviList">
         <ul className="naviList">
           <li className="naviButtom" onClick={() => navigate('/advert')}>공고보기</li>
-          { userState
+          { auth
             ? <>
-                <li className="naviButtom" onClick={() => navigate(`/mypage/${userState.permission}`)}>마이페이지</li>
+                <li className="naviButtom" onClick={() => navigate(`/mypage/${auth.permission}`)}>마이페이지</li>
                 <li className="naviButtom" onClick={signOut}>로그아웃</li>
               </>
             : <li className="naviButtom" onClick={handleModal}>로그인</li>

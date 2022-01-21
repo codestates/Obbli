@@ -36,9 +36,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    border-style: solid;
-    margin: 5px;
+    border: 0.5vh #D6B2B2 solid;
+    margin: 1vh;
     padding-top: 10px;
+    border-radius: 2vh 2vh 5vh 2vh;
+    box-shadow: 0.3vh 0.3vh 0.5vh 0.3vh #a78a8abe;
+
+    .userName {
+      font-size: 2vh;
+      font-weight: bold;
+    }
+  }
+
+  .reviewItemWrap:hover{
+    background-color: #d8bdbd3b
   }
 
   .reviewStars {
@@ -77,8 +88,12 @@
     margin-left: 12px;
   }
   
-  .reviewComment {
+  .reviewModalComment {
     white-space: pre-line;
+    border: 0.3vh solid #D6B2B2;
+    padding: 2.5vh 1vh;
+    border-radius: 1vh;
+    width: 25vh;
   }
 
   .showMore {
@@ -91,5 +106,76 @@
     display: flex;
     list-style: none;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    padding-inline-start:0%;
+    margin: 3vh 3vh;
   }
+
+.reviewWrap {
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  width: 40vh;
+  position: relative;
+  box-sizing: border-box;
+  margin: 13% auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.reviewModalBtn {
+border: 2px solid #D6B2B2;
+background-color: white;
+border-radius: 0.7vh;
+margin: 2vh 1vh 2vh 1vh;
+padding: 0.5vh 2.5vh;
+font-size: 2vh;
+}
+
+.reviewModalBtn:hover {
+  background-color: #D6B2B2;
+  color: white;
+  cursor:pointer;
+}
+
+.reviewModalText {
+  width: 15vw;
+  height: 5vh;
+  border: 0.3vh #D6B2B2 solid;
+  margin-top: 2vh;
+  border-radius: 1vh;
+  padding: 2.5vh 1vh;
+  outline: none;
+  resize: none;
+}
+
+.reviewBtu {
+  display: flex;
+}
+
+.star-ratings-fill-modal {
+  color: #fff58c;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  overflow: hidden;
+  -webkit-text-fill-color: gold;
+  font-size: 2.3rem;
+}
+ 
+.star-ratings-base-modal {
+  z-index: 0;
+  padding: 0;
+  position: relative;
+  bottom: 44px;
+  font-size: 2.3rem;
+}
+
+.reviewStarsModal {
+  height: 5vh;
+  margin-bottom: 2vh;
+}

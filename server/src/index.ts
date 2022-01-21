@@ -26,12 +26,12 @@ app.use(cors({
   preflightContinue: false,
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
 }));
+app.use(cookieParser);
 
 app.use("/person", indexRouter.Person);
 app.use("/org", indexRouter.Org);
 app.use("/advert", indexRouter.Advert);
 app.use("/application", indexRouter.Application);
-app.use(cookieParser);
 app.post('/auth', Auth.refreshToken);
 app.post('/sign-out', Auth.signOut);
 app.get('/skill', skillController);

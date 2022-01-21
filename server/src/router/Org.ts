@@ -1,5 +1,5 @@
 import * as route from "express";
-import { SignIn, SignUp,SignOut, OrgInfo } from '../controllers/Org'
+import { SignIn, SignUp,SignOut, OrgInfo, getOrgAdvert } from '../controllers/Org'
 import { OrgReview } from "../controllers/Review";
 
 const router = route.Router();
@@ -15,6 +15,9 @@ router.patch("/", OrgInfo.patch);
 //회원탈퇴
 router.delete("/", OrgInfo.delete);
 //review 작성
+
+router.get('/advert/:advert_uuid', getOrgAdvert);
+
 router.post("/review/:org_uuid", OrgReview.post);
 //단체가가 작성한 review 가져오기
 router.get("/review/:org_uuid", OrgReview.get);

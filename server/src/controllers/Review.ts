@@ -32,20 +32,16 @@ const PersonReview = {
   },
 
   get: async (req, res): Promise<void> => {
-    //user로 작성된 review 가져오기
+    if (!req.headers.authorization) { return res.status(401).send(); }
 
-    if(!req.headers.authorization){
-      return res.status(401).json({})
-    }
+    const auth = verifyToken(req.headers.authorization);
+    if (!auth) { return res.status(401).send(); }
+    const { uuid } = auth;
 
-    const org: TokenInfo = verifyToken(req.headers.authorization);
-    const person_uuid: string = req.params.person_uuid;
+    if (!auth) { return res.status(401).send(); }
 
-    if (!org || !person_uuid) {
-      return res.status(401).json({});
-    }
-    const reviewList = await Person_review.find({
-      where: { person_uuid },
+    const reviewList = await Org_review.find({
+      where: { person_uuid: uuid },
       select: ['comment','rating'],
     });
     return res.status(200).json(reviewList);
@@ -196,5 +192,16 @@ const OrgReview = {
     return res.status(204).send();
   },
 };
+
+export async function getPersonReview(req, res) {
+  const { person_uuid } = req.params;
+  const rows = await Person_review.find({
+    select: ['comment', 'rating'],
+    where: { person_uuid },
+  });
+
+  return res.status(200).send(rows);
+
+}
 
 export { PersonReview, OrgReview };

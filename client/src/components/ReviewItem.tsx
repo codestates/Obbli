@@ -10,7 +10,7 @@ interface propsType {
   data : ReviewInfoType
 }
 
-function ReviewItem(props:propsType): JSX.Element{
+function ReviewItem(props): JSX.Element{
 
   // TODO: props로 받아온 데이터로 리뷰 나타내기
 

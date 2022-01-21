@@ -1,18 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-interface UserStateType {
-  isSignedIn: boolean,
-  accessToken: string
-}
-
-interface UseModal {
-  setIsSignInVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  userState: UserStateType;
-  setUserState: React.Dispatch<React.SetStateAction<UserStateType>>;
-  setIsSignUpVisible:React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function Home(props:UseModal) {
+function Home(props) {
 const navigate = useNavigate();
 
   return(
@@ -20,10 +8,10 @@ const navigate = useNavigate();
       <img className="homeLogoImg" src={require('../img/logo.png')} onClick={() => navigate('/')} />
       <div className="homeWrap">
         <div className="buttonWrap">
-        { props.userState ? (
+        { props.auth ? (
           <div className="logButtonWrap">
-            <div className="homeBtu hoverBtu" onClick={()=>navigate('/mypage')}>마이페이지</div>
-            <div className="homeBtu hoverBtu">로그아웃</div>
+            <div className="homeBtu hoverBtu" onClick={()=>navigate(`/mypage/${props.auth.permission}`)}>마이페이지</div>
+            <div className="homeBtu hoverBtu" onClick={props.signOut}>로그아웃</div>
           </div>
         ) : (
           <div className="logButtonWrap">

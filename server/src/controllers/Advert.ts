@@ -1,5 +1,5 @@
 import { off } from "process";
-import { Advert, Org, Org_review, Position, Skill } from "../entity";
+import { Advert, Application, Org, Org_review, Position, Skill } from "../entity";
 import { verifyToken } from "../Util";
 
 interface TokenInfo {

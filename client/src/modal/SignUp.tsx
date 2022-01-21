@@ -31,7 +31,7 @@ function SignUp(props: any):JSX.Element {
     pw: '',
     pw_check: '',
     name: '',
-    permission: ''
+    permission: 'person'
   })
 
   const controlInput = (key:string) => (e:React.ChangeEvent<HTMLInputElement>) => {
