@@ -92,7 +92,50 @@ const AdvertiseWrite: React.FC =  () => {
                     }
                 });
             }
-        }).open();
+          }
+        );
+      },
+    }).open();
+  }
+
+  const controlInputValue = (e: any, key: string) => {
+    setUserInput({ ...userInput, [key]: e.target.value });
+  };
+  const fetchAdvertise = () => {
+    axios.get(`/advert/${uuid}`).then((res) => {
+      console.log(res.data);
+      setUserInput((prev) => ({ ...prev, ...res.data }));
+    });
+  };
+
+  const [addPosition, setaddPosition] = useState([1]);
+  const [position, setPosition] = useState([]);
+
+  const onClickWrite = () => {
+    const data = {
+      location: userLocation,
+      active_until: userInput.active_until,
+      event_at: userInput.event_at,
+      title: userInput.title,
+      body: userInput.body,
+      positions: position,
+    };
+
+    console.log(data);
+
+    (uuid ? axios.patch : axios.post)(`/advert/${uuid || ""}`, data).then(
+      (resp) => {
+        navigate(`/advert/${uuid || resp.data.uuid}`);
+      }
+    );
+    ///Users/jeonghun/Desktop/project/Obbli/server/build/Util.js:15
+    //const target = token.split(' ')[1]; 오류 발생했습니다....아마 액세스 토큰 문제인것 같아요...
+    //
+  };
+
+  useEffect(() => {
+    if (uuid) {
+      fetchAdvertise();
     }
     const fetchAdvertise = () => {
     }
@@ -233,9 +276,3 @@ const AdvertiseWrite: React.FC =  () => {
 };
 
 export default AdvertiseWrite;
-
-
-
-
-
-

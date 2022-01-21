@@ -250,19 +250,21 @@ input {
 }
 
 .inputAddress {
-    width:70%;
+    width:30em;
+    height: 2em;
     
 }
 .inputAddressbtn {
-    margin-left: 20px;
-    width:10%
+    background-color: plum;
+    border:none;
+    width: 5em;
 }
 
 
-.inputMap {
-    width:90%;
-    margin:10px auto;
-    height:300px;
-    border: 1px solid #000;
+// .inputMap {
+//     width:20em;
+//     margin:10px auto;
+//     height:300px;
+//     border: 1px solid #000;
     
-}
+// }
