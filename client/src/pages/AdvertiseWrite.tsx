@@ -140,89 +140,77 @@ const AdvertiseWrite: React.FC =  () => {
     const fetchAdvertise = () => {
     }
 
-    const onClickWrite = () => {
-        const data = {
-            location: userLocation,
-            active_until: userInput.active_until,
-            event_at: userInput.event_at,
-            title: userInput.title,
-            body: userInput.body,
-            positions: userInput.positions,
-        };
-        (uuid ? axios.patch : axios.post)(`/advert/${uuid || ''}`, data)
-          .then((resp) => { navigate(`/advert/${uuid || resp.data.uuid}`) })
-    }
-
-    useEffect(()=>{
-      if(uuid) {
-        axios.get(`/advert/${uuid}`)
-          .then((res) => {
-            setUserInput(prev => ({...prev, ...res.data}));
-          })
-      }
-      axios.get('/skill').then(resp => setSkills(resp.data));
-    }, [])
-
-    return(
-        <div className="advertiseWrite">
-            <h3>Write</h3>
-            <table className="advWriteTable">
-                <thead>
-                    <tr>
-                        <th>공고 제목</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input value={userInput.title} onChange={(e)=>{controlInput(e, 'title')}}></input></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table className="advWriteTable">
-                <thead>
-                    <tr>
-                        <th>공고 상세 내용</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><textarea value={userInput.body} onChange={(e)=>{controlInput(e, 'body')}}></textarea></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table className="advWriteTable">
-                <thead>
-                    <tr>
-                        <th>공연 장소</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                      {/* <td><input type="text" value={userInput.location} onChange={(e)=>{controlInput(e, 'location')}}></input></td> */}
-                      <td>
-                        <input className ="inputAddress" type="text" id="sample5_address" placeholder="주소" value={userLocation}/>
-                        <button className="inputAddressbtn" type="button"  value="주소 검색" onClick={()=>{sample5_execDaumPostcode()}}>검색</button>
-                      </td>
-                    </tr>
-                        <tr>
-                        <td><div className="inputMap" ></div></td>
-                        </tr>
-                </tbody>
-                    {/* <tr>
-                        <td><AdvMap location={userInput.location} /></td>
-                    </tr> */}
-      </table>
-
-      <table className="advWriteTable">
-        <thead>
-          <tr>
-            <th>모집 기한</th>
-            <th>공연 일시</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
+  return (
+    <div className="advAndsubmit">
+      <div className="advertiseWrite">
+        <div className="PostTitle">
+          <div>
+            <p>공고 제목</p>
+          </div>
+          <input
+            className="InputTitle"
+            value={userInput.title}
+            onChange={(e) => {
+              controlInput(e, "title");
+            }}
+          ></input>
+        </div>
+        <div className="PostContent">
+          <p>공고 상세 내용</p>
+          <div>
+            <textarea
+              className="InputContent"
+              value={userInput.body}
+              onChange={(e) => {
+                controlInput(e, "body");
+              }}
+            ></textarea>
+          </div>
+        </div>
+        <div className="advSkill">
+          <div> 악기(종류/갯수)</div>
+          {userInput.positions.map((each) => {
+            return (
+              <tr>
+                <td>{each.skill_name}</td>
+                <td>{each.quota}</td>
+              </tr>
+            );
+          })}
+          <div className="selectSkill">
+            <div className="skill_quntity">
+              <select
+                className="skillName"
+                value={position.skill_name}
+                onChange={(e) =>
+                  setPosition((prev) => ({
+                    ...prev,
+                    skill_name: e.target.value,
+                  }))
+                }
+              >
+                <option value="">==== 악기 ====</option>
+                {skills.map((each) => (
+                  <option value={each.name}>{each.name}</option>
+                ))}
+              </select>
+              <input
+                className="Quantity"
+                type="number"
+                value={position.quota}
+                onChange={controlQuota}
+              ></input>
+            </div>
+              <div className="skillPlus" onClick={addPosition}>
+                {" "}
+                +{" "}
+              </div>
+          </div>
+        </div>
+        <div className="time_Select">
+          <div className="advTime">
+            <div className="atSelect">
+              <p className="timeTitle">공연 일시</p>
               <input
                 type="datetime-local"
                 value={userInput.active_until}

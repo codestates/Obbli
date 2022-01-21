@@ -544,8 +544,8 @@ input[name="mypageTab"] {
 
 .Listhead {
   border-radius: 5px;
-  width: 100%;
-  height: 50%;
+  width: 72.8em;
+  height: 1.5em;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -555,7 +555,7 @@ input[name="mypageTab"] {
   margin-bottom: 0px; }
 
 .col1 {
-  width: 15%;
+  width: 20%;
   border: 2px solid #FFBB7C; }
 
 .col2 {
@@ -579,7 +579,7 @@ input[name="mypageTab"] {
   margin-top: 5px; }
 
 .Listele {
-  height: 30px;
+  height: 3em;
   font: italic 1.1em "Hi Melody";
   display: flex;
   border-bottom: 1px dotted #FFBB7C; }
@@ -597,7 +597,7 @@ input[name="mypageTab"] {
   color: black; }
 
 .advcol1 {
-  width: 15%; }
+  width: 20%; }
 
 .advcol2 {
   width: 50%; }
@@ -678,79 +678,111 @@ input[name="mypageTab"] {
   color: #FFBB7C;
   box-shadow: none; }
 
+.advAndsubmit {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 60em;
+  height: 70em; }
+
+.submitbtn {
+  background-color: #FFBB7C;
+  height: 3em;
+  width: 5em;
+  margin-top: 2em;
+  align-items: flex-start;
+  font-size: 1.5em; }
+
+.submitbtn:hover {
+  height: 3em;
+  width: 5em;
+  margin-top: 2em;
+  align-items: flex-start;
+  font-size: 1.5em; }
+
 .advertiseWrite {
   margin: 0px 10px;
   padding: 10px 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 35em;
-  height: 40em; }
-
-.advWriteTable {
-  border: black 1px solid; }
+  align-items: flex-start;
+  width: 45em;
+  height: 70em; }
 
 .PostTitle {
+  margin-top: 1em;
+  font-size: 1.5em;
   display: flex;
   align-items: center; }
 
 .InputTitle {
   height: 2em;
-  width: 30em;
-  margin-left: 6.2em; }
+  width: 40em;
+  margin-left: 6.3em; }
 
 .PostContent {
+  margin-top: 1em;
+  font-size: 1.5em;
   display: flex;
   align-items: center; }
 
 .InputContent {
-  margin-left: 3em;
-  width: 30em;
+  margin-left: 2.9em;
+  width: 40em;
   height: 10em; }
 
-.advLocation {
+.advSkill {
+  margin-top: 1em;
+  width: 30em;
+  font-size: 1.5em;
   display: flex;
   align-items: center;
-  flex-direction: column; }
+  flex-direction: row; }
 
-.advLocationTit {
+.selectSkill {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border: black solid 0.1rem;
   display: flex;
   align-items: center;
   flex-direction: row;
-  width: 30em;
-  padding-left: 6em; }
+  margin-left: 1.1em;
+  width: 22.4em; }
 
-.inputAddress {
-  align-items: center;
-  width: 10em;
+.skillName {
+  margin-left: 5em;
   height: 2em;
-  margin-left: 6.5em; }
+  width: 15em;
+  text-align: center; }
 
-.inputAddressbtn {
-  margin-left: 2em;
-  width: 5%; }
+.Quantity {
+  margin-right: 3em;
+  margin-left: 5em;
+  width: 5em;
+  height: 1.5em;
+  text-align: center;
+  font-size: 0.6em; }
 
-.emptyMap {
-  width: 10em; }
+.skill_quntity {
+  margin-right: 1em;
+  width: 20em;
+  height: 1.5em; }
 
-.inputMap {
-  width: 25em;
-  margin: 10px auto;
-  height: 12em;
-  border: 1px solid #000; }
+.skillPlus {
+  width: 0.5em;
+  height: 1em;
+  margin-top: -0.3em; }
 
-.time_skill_Select {
+.time_Select {
+  margin-top: 3em;
   display: flex;
   align-items: center;
   flex-direction: row; }
 
 .timeTitle {
-  width: 5em; }
-
-.advTime {
-  display: flex;
-  align-items: center;
-  flex-direction: column; }
+  font-size: 1.5em;
+  width: 7em;
+  margin-right: 2.4em; }
 
 .atSelect {
   margin-bottom: 1em;
@@ -765,12 +797,35 @@ input[name="mypageTab"] {
   align-items: center;
   flex-direction: row; }
 
-.advSkill {
+.advLocation {
+  margin-top: 1em;
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: column; }
+
+.advLocationTit {
   display: flex;
   align-items: center;
-  flex-direction: column;
-  margin-bottom: 2em;
-  margin-left: 3em; }
+  flex-direction: row;
+  width: 30em; }
+
+.inputAddress {
+  width: 10em;
+  height: 2em;
+  margin-left: 6.5em; }
+
+.inputAddressbtn {
+  margin-left: 2em;
+  width: 5%; }
+
+.emptyMap {
+  width: 10em; }
+
+.inputMap {
+  width: 25em;
+  margin-left: 7.3em;
+  height: 12em;
+  border: 1px solid #000; }
 
 .App {
   height: 90vh; }
@@ -797,13 +852,13 @@ footer {
   padding-bottom: 0%; }
 
 body {
-  margin-top: 15vh; }
+  margin-top: 10vh; }
 
 .advertise {
   display: flex;
   flex-direction: column;
   margin: auto;
-  width: 900px;
+  width: 80em;
   padding: 10px 20px; }
 
 Table {
@@ -838,7 +893,10 @@ Table tr td {
   outline: 0; }
 
 .advwritebtn {
-  float: right; }
+  height: 3em;
+  width: 5em;
+  margin-top: 3em;
+  align-items: flex-start; }
 
 .filter {
   margin-left: 100px;
@@ -871,6 +929,20 @@ Table tr td {
   text-align: center;
   font-size: 30px;
   cursor: pointer; }
+
+button {
+  cursor: pointer;
+  background-color: #036;
+  color: white;
+  width: 7rem;
+  font-size: 1rem;
+  font-weight: bold; }
+
+button:hover {
+  background-color: #fff;
+  color: #036;
+  font-size: 1.1rem;
+  font-weight: bold; }
 
 textarea {
   width: 90%;
@@ -935,6 +1007,6 @@ input {
   height: 2em; }
 
 .inputAddressbtn {
-  background-color: plum;
+  background-color: #444;
   border: none;
   width: 5em; }
