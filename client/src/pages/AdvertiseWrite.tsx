@@ -162,7 +162,7 @@ const AdvertiseWrite: React.FC = () => {
             );
           })}
           <div className="selectSkill">
-            <div>
+            <div className="skill_quntity">
               <select
                 className="skillName"
                 value={position.skill_name}
@@ -179,16 +179,16 @@ const AdvertiseWrite: React.FC = () => {
                 ))}
               </select>
               <input
-                className="skillQuantity"
+                className="Quantity"
                 type="number"
                 value={position.quota}
                 onChange={controlQuota}
               ></input>
+            </div>
               <div className="skillPlus" onClick={addPosition}>
                 {" "}
                 +{" "}
               </div>
-            </div>
           </div>
         </div>
         <div className="time_Select">
