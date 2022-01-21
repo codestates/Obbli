@@ -1,20 +1,123 @@
 .advertiseWrite {
-    margin: 0px 20px;
-    width:70rem;
+    margin: 0px 10px;
     padding: 10px 20px;
-    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // background-color:  #FFFAC9;
+    width: 35em;
+    height: 40em;
+    // font: italic 1.5em "Hi Melody";
+    // border: orange solid 0.1em;
 }
 
 .advWriteTable {
-    margin-bottom: 4rem;
+    border:black 1px solid
 }
 
-.Post{
-    background-color: black
-;
-    font: italic 1.1em "Hi Melody";
+.PostTitle{
+    display: flex;
+    align-items: center;
+
+    
 }
 
-.postTitle{
+.InputTitle{
+    height: 2em;
+    width: 30em;
+    margin-left: 6.2em;
+    // padding-left: 3em;
+}
 
+.PostContent{
+    display: flex;
+    align-items: center;
+}
+
+.InputContent{ 
+    margin-left:  3em;
+    // padding-left: 3em;
+    width: 30em;
+    height: 10em;
+}
+
+.advLocation{
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+}
+
+
+.advLocationTit{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 30em;
+    padding-left: 6em;
+}
+
+.inputAddress {
+    align-items: center;
+    width:10em;
+    height: 2em;
+    margin-left: 6.5em;
+    
+}
+.inputAddressbtn {
+    margin-left: 2em;
+    width:5%
+}
+
+.emptyMap{
+    width: 10em;
+}
+
+.inputMap {
+    width:25em;
+    margin:10px auto;
+    height:12em;
+    border: 1px solid #000;
+}
+
+.time_skill_Select{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    // margin-left: 3em;
+    // margin-top: 2em;
+}
+
+.timeTitle{
+    width: 5em;
+}
+
+.advTime{
+    // width: 30em;
+    // margin-top: 1em;
+    // margin-right: 9em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.atSelect{
+    margin-bottom: 1em ;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.untillSelect{
+    height: 2em;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.advSkill{
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+    margin-bottom:2em ;
+    margin-left: 3em;
 }

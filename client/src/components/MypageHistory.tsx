@@ -14,7 +14,7 @@ import React, {useState, useEffect} from 'react';
 //     setMypageInfo: React.Dispatch<React.SetStateAction<mypageInfoType>>
 // }
 
-function MypageHistory(props):JSX.Element {
+function MypageHistory(props:any):JSX.Element {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [pwChange, setPwChange] = useState({
     pw:'',

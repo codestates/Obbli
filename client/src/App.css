@@ -17,13 +17,12 @@
   list-style: none; }
 
 .naviButtom {
-  padding: 5px 2.5vh;
+  padding: 0.3em 1em;
   border-radius: 10px;
   background-color: white;
-  flex: auto;
   margin-left: 0px;
   margin-right: 30px;
-  font: italic 1.1em "Hi Melody";
+  font: italic 1.5em "Hi Melody";
   color: #FFBB7C;
   border: 1px solid #FFBB7C;
   opacity: 1; }
@@ -523,16 +522,98 @@ input[name="permission"] {
   box-shadow: none; }
 
 .advertiseWrite {
-  margin: 0px 20px;
-  width: 70rem;
-  padding: 10px 20px; }
+  margin: 0px 10px;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 35em;
+  height: 40em; }
 
 .advWriteTable {
-  margin-bottom: 4rem; }
+  border: black 1px solid; }
 
-.Post {
-  background-color: black;
-  font: italic 1.1em "Hi Melody"; }
+.PostTitle {
+  display: flex;
+  align-items: center; }
+
+.InputTitle {
+  height: 2em;
+  width: 30em;
+  margin-left: 6.2em; }
+
+.PostContent {
+  display: flex;
+  align-items: center; }
+
+.InputContent {
+  margin-left: 3em;
+  width: 30em;
+  height: 10em; }
+
+.advLocation {
+  display: flex;
+  align-items: center;
+  flex-direction: column; }
+
+.advLocationTit {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 30em;
+  padding-left: 6em; }
+
+.inputAddress {
+  align-items: center;
+  width: 10em;
+  height: 2em;
+  margin-left: 6.5em; }
+
+.inputAddressbtn {
+  margin-left: 2em;
+  width: 5%; }
+
+.emptyMap {
+  width: 10em; }
+
+.inputMap {
+  width: 25em;
+  margin: 10px auto;
+  height: 12em;
+  border: 1px solid #000; }
+
+.time_skill_Select {
+  display: flex;
+  align-items: center;
+  flex-direction: row; }
+
+.timeTitle {
+  width: 5em; }
+
+.advTime {
+  display: flex;
+  align-items: center;
+  flex-direction: column; }
+
+.atSelect {
+  margin-bottom: 1em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  flex-direction: row; }
+
+.untillSelect {
+  height: 2em;
+  display: flex;
+  align-items: center;
+  flex-direction: row; }
+
+.advSkill {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 2em;
+  margin-left: 3em; }
 
 .App {
   height: 90vh; }
@@ -707,14 +788,10 @@ input {
   background-color: #036; }
 
 .inputAddress {
-  width: 70%; }
+  width: 30em;
+  height: 2em; }
 
 .inputAddressbtn {
-  margin-left: 20px;
-  width: 10%; }
-
-.inputMap {
-  width: 90%;
-  margin: 10px auto;
-  height: 300px;
-  border: 1px solid #000; }
+  background-color: plum;
+  border: none;
+  width: 5em; }
