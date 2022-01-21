@@ -70,11 +70,12 @@ const AdvertiseWrite: React.FC =  () => {
         new daum.Postcode({
             oncomplete: function(data: { address: any; }) {
                 var addr = data.address; // 최종 주소 변수
-                setUserLocation(addr)
+                
+                setUserInput({...userInput, location:addr})
                 // 주소 정보를 해당 필드에 넣는다.
                 // document.getElementById("sample5_address").value = addr;
                 // 주소로 상세 정보를 검색
-                geocoder.addressSearch(data.address, function(results: any[], status: any) {
+                geocoder.addressSearch(addr, function(results: any[], status: any) {
                     // 정상적으로 검색이 완료됐으면
                     if (status === kakao.maps.services.Status.OK) {
 
@@ -92,14 +93,14 @@ const AdvertiseWrite: React.FC =  () => {
                     }
                 });
             }
-        }).open();
+        }).open({q:userInput.location});
     }
     const fetchAdvertise = () => {
     }
 
     const onClickWrite = () => {
         const data = {
-            location: userLocation,
+            location: userInput.location,
             active_until: userInput.active_until,
             event_at: userInput.event_at,
             title: userInput.title,
@@ -157,8 +158,8 @@ const AdvertiseWrite: React.FC =  () => {
                     <tr>
                       {/* <td><input type="text" value={userInput.location} onChange={(e)=>{controlInput(e, 'location')}}></input></td> */}
                       <td>
-                        <input className ="inputAddress" type="text" id="sample5_address" placeholder="주소" value={userLocation}/>
-                        <button className="inputAddressbtn" type="button"  value="주소 검색" onClick={()=>{sample5_execDaumPostcode()}}>검색</button>
+                        <input className ="inputAddress" type="text" id="sample5_address" placeholder="주소" value={userInput.location} onChange={(e)=>{controlInput(e, 'location')}}/>
+                        <button className="inputAddressbtn" type="button"  value={userInput.location} onClick={()=>{sample5_execDaumPostcode()}}>검색</button>
                       </td>
                     </tr>
                         <tr>
