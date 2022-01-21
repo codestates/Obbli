@@ -4,6 +4,7 @@
 @import "Mypage";
 @import "AdvertPage";
 @import "AdvertWrite";
+@import "AdvertView";
 
 .App{
     height: 90vh;
@@ -29,9 +30,9 @@ section {
 }
 
 footer {
-    display: flex;
     position: relative;
-    padding-bottom: 0%;
+
+
 }
 
 
@@ -51,18 +52,14 @@ body {
 Table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 10px;
+    margin-bottom: 2em;
     word-break: break-all;
 }
 Table thead {
-
     height: 30px;
     color: #036;
     font-weight: bold;
     border-bottom: 3px solid #036;
-    
-    
-    
 }
 
 Table tr td{
@@ -74,13 +71,6 @@ Table tr td{
 }
 
 
-.advViewTable {
-    table-layout: fixed;
-}
-
-.advViewTable .col1 {
-    width: 50%;
-}
 
 .advViewbtn button {
     float: right;
@@ -115,10 +105,7 @@ Table tr td{
     padding-left: 10px;
 }
 
-.advView{
-    margin: 0px 20px;
-    padding: 10px 20px;
-}
+
 
 
 .advertiseWrite {
@@ -174,22 +161,6 @@ input {
     width:90%;
     height: 3vh;
 }
-
-
-.advMap {
-    width:90vw;
-    margin: auto;
-    padding-bottom: 20px;
-
-}
-.advMap .location{
-    width:90vw;
-    height:50vh;
-    margin: 0 auto;
-    border: 1px solid #000;
-}
-
-
 
 .advMapFilter{
     

@@ -71,7 +71,7 @@ const AdvertiseWrite: React.FC = () => {
     new daum.Postcode({
       oncomplete: function (data: { address: any }) {
         var addr = data.address; // 최종 주소 변수
-        setUserLocation(addr);
+        setUserInput({...userInput, location:addr})
         // 주소 정보를 해당 필드에 넣는다.
         // document.getElementById("sample5_address").value = addr;
         // 주소로 상세 정보를 검색
@@ -92,28 +92,23 @@ const AdvertiseWrite: React.FC = () => {
               // 마커를 결과값으로 받은 위치로 옮긴다.
               marker.setPosition(coords);
             }
-          }
-        );
-      },
-    }).open();
-  }
-  const fetchAdvertise = () => {};
+        }).open({q:userInput.location});
+    }
+    const fetchAdvertise = () => {
+    }
 
-  const onClickWrite = () => {
-    const data = {
-      location: userLocation,
-      active_until: userInput.active_until,
-      event_at: userInput.event_at,
-      title: userInput.title,
-      body: userInput.body,
-      positions: userInput.positions,
-    };
-    (uuid ? axios.patch : axios.post)(`/advert/${uuid || ""}`, data).then(
-      (resp) => {
-        navigate(`/advert/${uuid || resp.data.uuid}`);
-      }
-    );
-  };
+    const onClickWrite = () => {
+        const data = {
+            location: userInput.location,
+            active_until: userInput.active_until,
+            event_at: userInput.event_at,
+            title: userInput.title,
+            body: userInput.body,
+            positions: userInput.positions,
+        };
+        (uuid ? axios.patch : axios.post)(`/advert/${uuid || ''}`, data)
+          .then((resp) => { navigate(`/advert/${uuid || resp.data.uuid}`) })
+    }
 
   useEffect(() => {
     if (uuid) {

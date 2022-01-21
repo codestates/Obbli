@@ -29,6 +29,7 @@ const AdvView : React.FC =  () => {
     // TODO: error handling for invalid url
     
     const [advert, setAdvert] = useState({ reviews: [], positions:[]} as any);
+    console.log(advert)
     
     const [isAdmin, setIsAdmin] = useState(true);
 
@@ -51,50 +52,56 @@ const AdvView : React.FC =  () => {
 
     return (
         <div className="advView">
-            <h1>{ advert.title }</h1>
+            <h2>{ advert.title }</h2>
             {isAdmin ? 
                 <div className="advViewbtn">
                     <button type="button" onClick={()=>navigate(`/advert/edit/${uuid}`)}>수정하기</button>
                     <button type="button" onClick={()=>onClickDelete()}>삭제하기</button>
                 </div>
                 : null}    
-            <h3>Content</h3>
             <table className="advViewTable">
                 <colgroup>
                     <col className="col1"></col>
+                    <col className="col2"></col>
                 </colgroup>
                 <thead>
                     <th>상세 내용</th>
                     <th>모집 기한</th>
                     <th></th>
                 </thead>
-                    <tr>
+                    <tr className="advViewbtn join">
                         <td>{ advert.body }</td>
                         <td>{ advert.active_until }</td>
-                        <td><button type="button" >지원하기</button></td>
+                        <td>
+                            <select>
+                                {advert.positions.map((el)=>{
+                                    return <option>{el.skill_name}</option>
+                                })}
+                            </select>
+                            <button type="button" >지원하기</button>
+                        </td>
                     </tr>
             </table>
-            <table>
+            <table className="advViewTable">
                 <thead>
                     <th>모집 악기</th>
                     <th>모집 인원</th>
-                    <th></th>
                 </thead>
                 {advert.positions.map(({uuid, skill_name, quota})=>{
                             return (
                                 <tr>
                                     <td>{skill_name}</td>
                                     <td>{quota}</td>
-                                    <td>
+                                    {/* <td>
+                                    
                                         <button type="button" onClick={() => apply(uuid)}>지원하기</button>
-                                    </td>
+                                    </td> */}
                                 </tr>
                             )
                         })}
+                        
             </table>
-            <h3>Performance place</h3>
-            <AdvMap location={ advert.location }/>
-            <h3>Review</h3>
+            <AdvMap location={ advert.location } event_at={advert.event_at}/>
             <table className="advViewTable">
                 <thead>
                     <th>리뷰</th>
@@ -108,8 +115,7 @@ const AdvView : React.FC =  () => {
                                 </tr>
                             )
                         })}
-            </table>
-            <h3>Org</h3>
+            </table >
             <table className="advViewTable">
                 <thead>
                     <th></th>
@@ -122,7 +128,6 @@ const AdvView : React.FC =  () => {
                         <td>{ advert.location }</td>
                     </tr>
             </table>
-            <h3>Since</h3>
             <table className="advViewTable">
                 <thead>
                     <th>연혁</th>
@@ -137,3 +142,5 @@ const AdvView : React.FC =  () => {
 
 
 export default AdvView
+
+

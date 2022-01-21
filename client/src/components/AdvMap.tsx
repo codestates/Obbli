@@ -2,12 +2,13 @@ import React, {useEffect} from "react";
 const  kakao  = (window as any).kakao;
 
 type AddressProps = {
-    location:string
+    location:string,
+    event_at:string,
 }
 
 
 
-const AdvMap: React.FC<AddressProps> =  ({location}) => {
+const AdvMap: React.FC<AddressProps> =  ({location, event_at}) => {
 
     
 
@@ -71,7 +72,18 @@ const AdvMap: React.FC<AddressProps> =  ({location}) => {
 
     return(
         <div className="advMap">
-            <div><span>공연 장소 : {location}</span></div>
+            <table>
+                <thead>
+                    <tr>
+                        <td>공연 장소</td>
+                        <td>공연 시간</td>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>{location}</td>
+                        <td>{event_at}</td>
+                    </tr>
+            </table>
             <div  className="advMap location"></div>
        </div>
         

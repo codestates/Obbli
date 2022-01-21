@@ -1,0 +1,68 @@
+.advViewTable {
+    table-layout: fixed;
+}
+
+
+.advViewTable .col1 {
+    width: 50%;
+    border: none;
+}
+
+.advViewTable .col2 {
+    width: 20%;
+    border: none;
+    
+}
+
+.advViewbtn button {
+    float: right;
+    margin:0 0.3em;
+    background-color: #000;
+    color: white;
+    font-weight: bold;
+    width:6em;
+    border:none;
+    padding: 0.3em 0.6em;
+
+}
+
+.advViewbtn button:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: #000;
+    border:1px solid #000;
+
+}
+
+.advView{
+    margin: 0px 20px;
+    padding: 10px 20px;
+    width:50em;
+}
+
+.advMap {
+    margin: auto;
+    padding-bottom: 20px;
+
+}
+.advMap .location{
+    width:49em;
+    height:50vh;
+    margin: 0 auto;
+    border: 1px solid #000;
+    z-index: 0;
+}
+
+
+.join button{
+    background-color: #036;
+    color: white;
+    
+
+}
+.join button:hover{
+    background-color: #FFF;
+    color: #036;
+    font-weight: bold;
+    
+}

@@ -827,6 +827,58 @@ input[name="mypageTab"] {
   height: 12em;
   border: 1px solid #000; }
 
+.advViewTable {
+  table-layout: fixed; }
+
+.advViewTable .col1 {
+  width: 50%;
+  border: none; }
+
+.advViewTable .col2 {
+  width: 20%;
+  border: none; }
+
+.advViewbtn button {
+  float: right;
+  margin: 0 0.3em;
+  background-color: #000;
+  color: white;
+  font-weight: bold;
+  width: 6em;
+  border: none;
+  padding: 0.3em 0.6em; }
+
+.advViewbtn button:hover {
+  cursor: pointer;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000; }
+
+.advView {
+  margin: 0px 20px;
+  padding: 10px 20px;
+  width: 50em; }
+
+.advMap {
+  margin: auto;
+  padding-bottom: 20px; }
+
+.advMap .location {
+  width: 49em;
+  height: 50vh;
+  margin: 0 auto;
+  border: 1px solid #000;
+  z-index: 0; }
+
+.join button {
+  background-color: #036;
+  color: white; }
+
+.join button:hover {
+  background-color: #FFF;
+  color: #036;
+  font-weight: bold; }
+
 .App {
   height: 90vh; }
 
@@ -847,9 +899,7 @@ section {
   height: 100vh; }
 
 footer {
-  display: flex;
-  position: relative;
-  padding-bottom: 0%; }
+  position: relative; }
 
 body {
   margin-top: 10vh; }
@@ -864,7 +914,7 @@ body {
 Table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 10px;
+  margin-bottom: 2em;
   word-break: break-all; }
 
 Table thead {
@@ -879,18 +929,6 @@ Table tr td {
   height: 35px;
   text-align: center;
   border-bottom: 1px solid #ccc; }
-
-.advViewTable {
-  table-layout: fixed; }
-
-.advViewTable .col1 {
-  width: 50%; }
-
-.advViewbtn button {
-  float: right;
-  margin: 0 5px;
-  background-color: #000;
-  outline: 0; }
 
 .advwritebtn {
   height: 3em;
@@ -911,10 +949,6 @@ Table tr td {
 .filter ul li {
   display: inline-block;
   padding-left: 10px; }
-
-.advView {
-  margin: 0px 20px;
-  padding: 10px 20px; }
 
 .advertiseWrite {
   margin: 0px 20px;
@@ -951,17 +985,6 @@ textarea {
 input {
   width: 90%;
   height: 3vh; }
-
-.advMap {
-  width: 90vw;
-  margin: auto;
-  padding-bottom: 20px; }
-
-.advMap .location {
-  width: 90vw;
-  height: 50vh;
-  margin: 0 auto;
-  border: 1px solid #000; }
 
 .advMapFilter {
   width: 100%; }
