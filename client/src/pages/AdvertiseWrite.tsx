@@ -126,7 +126,7 @@ const AdvertiseWrite: React.FC = () => {
       <div className="advertiseWrite">
         <div className="PostTitle">
           <div>
-            <p>공고 제목</p>
+            <p className="titleTitle">공고 제목</p>
           </div>
           <input
             className="InputTitle"
@@ -137,7 +137,7 @@ const AdvertiseWrite: React.FC = () => {
           ></input>
         </div>
         <div className="PostContent">
-          <p>공고 상세 내용</p>
+          <p>상세 내용</p>
           <div>
             <textarea
               className="InputContent"
@@ -149,7 +149,7 @@ const AdvertiseWrite: React.FC = () => {
           </div>
         </div>
         <div className="positionWrapper">
-          <div> 악기(종류/갯수)</div>
+          <div className="skillTitle"> 악기(종류/갯수)</div>
           <div className="verticalWrapper">
               {userInput.positions.map((each) => {
                 return (
@@ -160,7 +160,7 @@ const AdvertiseWrite: React.FC = () => {
                 );
               })}
             <div className="controllerWrapper">
-              <select
+              <select 
                 className="skillName"
                 value={position.skill_name}
                 onChange={(e) => setPosition((prev) => ({ ...prev, skill_name: e.target.value, })) }
@@ -175,8 +175,7 @@ const AdvertiseWrite: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="time_Select">
-          <div className="advTime">
+        {/* <div className="time_Select">
             <div className="atSelect">
               <p className="timeTitle">공연 일시</p>
               <input
@@ -197,8 +196,7 @@ const AdvertiseWrite: React.FC = () => {
                 }}
               ></input>
             </div>
-          </div>
-        </div>
+        </div> */}
         <div className="advLocation">
           <div className="advLocationTit">
             <p className="locTitle">공연 장소</p>
@@ -206,7 +204,7 @@ const AdvertiseWrite: React.FC = () => {
               className="inputAddress"
               type="text"
               id="sample5_address"
-              placeholder="주소"
+              placeholder="검색을 클릭해주세요"
               value={userLocation}
             />
             <button
@@ -229,6 +227,7 @@ const AdvertiseWrite: React.FC = () => {
       </tr> */}
         </div>
       </div>
+      <div>
       <button
         className="submitbtn"
         type="button"
@@ -238,6 +237,40 @@ const AdvertiseWrite: React.FC = () => {
       >
         작성 하기
       </button>
+       <div className="tiSelect">
+            <div className="atSelect">
+              <p className="tiTitle">공연 일시</p>
+              <input
+                type="datetime-local"
+                value={userInput.event_at}
+                onChange={(e) => {
+                  controlInput(e, "event_at");
+                }}
+              ></input>
+            </div>
+            <div className="untillSelect">
+              <p className="tiTitle">모집 기한</p>
+              <input
+                type="datetime-local"
+                value={userInput.active_until}
+                onChange={(e) => {
+                  controlInput(e, "active_until");
+                }}
+              ></input>
+            </div>
+        </div>
+        <div className="skillChart">
+          <div>모집목록</div>
+        {userInput.positions.map((each) => {
+                return (
+                  <div className="skillelement">
+                    <span>{each.skill_name}</span>
+                    <span>{each.quota}</span>
+                  </div>
+                );
+              })}
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,39 +1,95 @@
+$elementcolor: rgb(233, 240, 252);
+$skillelement: rgb(233,255,512);
+$inputline: 1px solid rgba(0, 0, 0, 0.3);
+
+
 .advAndsubmit{
+    margin-top: 2em;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    width: 60em;
-    height: 70em;
+    justify-self: center;
+    width: 70vw;
+    height: 75vh;
+    font-family: 'NanumGothic', 'serif';
+    font-size: 1em;
+    justify-content: center;
 }
 
 .submitbtn {
-    background-color:#FFBB7C ;
-    height: 3em;
-    width: 5em;
-    margin-top: 2em;
-    align-items: flex-start;
+    background-color:rgb(187, 252, 174);
+    height: 5vh;
+    width: 8vw;
+    margin-top: 3em;
+    align-items: center;
     font-size: 1.5em;
+    margin-left: 3.5em;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px 3px gray;
 }
 
 .submitbtn:hover{
-    height: 3em;
-    width: 5em;
-    margin-top: 2em;
+    height: 5vh;
+    width: 8vw;
+    margin-top: 3em;
     align-items: flex-start;
     font-size: 1.5em;
+    border-radius: 5px;
+    box-shadow: 0px 0px 0px 0px ;
+}
+
+.tiSelect{
+    margin-top: 5vh;
+    padding-left: 1.5vw;
+    .tiTitle{
+        margin-top: 2.5vh;
+        margin-left: 4.8vw;
+    }
+}
+
+
+.skillChart{
+    background-color: $elementcolor;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3vw;
+    padding-bottom: 1.6vh;
+    padding-top: 1.3vh;
+    width: 15vw;
+
+    .skillelement{
+        margin-top: 1vh;
+        height: 3vh;
+        width: 15vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        span{
+            background-color: white;
+            border-radius: 10px;
+            padding-top: 0.3vw;
+            padding-left: 0.5vw;
+            text-align: center;
+            width: 6.5vw;
+            height: 2.5vh;
+            display: inline-block;
+        }
+    }
+
 }
 
 .advertiseWrite {
-    margin: 0px 10px;
-    padding: 10px 20px;
+    margin-top: 3px;
+    // margin: 0px 10px;
+    // padding: 10px 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 45em;
-    height: 70em;
-    // font: italic 1.5em "Hi Melody";
-    // border: orange solid 0.1em;
-}
+    width: 43vw;
+    height: 90vh;
+
 
 .PostTitle{
     margin-top: 1em;
@@ -42,127 +98,171 @@
     align-items: center;
 }
 
-.InputTitle{
-    height: 2em;
-    width: 40em;
-    margin-left: 6.3em;
+.titleTitle{
+    width: 6vw;
 }
+
+.InputTitle{
+    font-size: 0.9em;
+    height: 4vh;
+    width: 28vw;
+    margin-left: 3.5em;
+    border: 0px;
+    // border-bottom:$inputline;
+    background-color: $elementcolor;
+    outline: none;
+}
+
+
 
 .PostContent{
     margin-top: 1em;
     font-size: 1.5em;
     display: flex;
     align-items: center;
+    width: 50vw;
+    height: 20vh;
 }
 
+
 .InputContent{ 
-    margin-left:  2.9em;
-    width: 40em;
-    height: 10em;
+    margin-left: 5.8em;
+    width: 27.5vw;
+    height: 15vh;
+    border: 0px;
+    // border:$inputline;
+    background-color: $elementcolor;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+
+.skillTitle{
+    width: 10vw;
+    font-size: 0.9em;
 }
 
 .positionWrapper{
     margin-top: 1em;
-    width:  30em;
+    width:  42.5vw;
     font-size: 1.5em;
     display: flex;
     align-items: center;
     flex-direction:row;
 
     .verticalWrapper {
+        margin-left: -1.6vw;
         display: flex;
         flex-direction: column;
         align-items: center;
+        // background-color: $elementcolor;
+        outline: none;
+        border-radius: 15px;
+        width: 30vw;
 
         .addedPosition {
+            // border: black 0.1em solid;
+            padding-top: 0.8em;
+            padding-bottom: 1.2em;
+            margin-bottom: 0.5em;
+            height: 1vh;
+            width:  24.5vw;
             display: flex;
             flex-direction: row;
+            font-size: 0.7em;
+            border-radius: 10px;
+            background-color: $skillelement;
+            border-bottom:$inputline;
+
+         
 
             span {
+                padding-left:7.5em;
+                padding-bottom: 0.5em;
+                width: 6vw;
                 display: inline-block;
-                margin: auto 3em;
+                margin-bottom:  3em;
             }
         }
         .controllerWrapper {
+            width: 28vw;
             display: flex;
+            align-items: center;
             flex-direction: row;
             justify-content: space-between;
+            padding-bottom: 0.4em;
+            padding-top: 0.4em;
+            background-color: $elementcolor;
+            // border:$inputline;
+            border-radius: 10px;
+
+            .skillName{
+                font-size: 0.7.5em;
+                margin-left: 5em;
+                height: 3vh;
+                width: 11vw;
+                text-align: center;
+            }
+            
+            .Quantity{
+                margin-left: 1vw;
+                width: 3vw;
+                height: 2vh;
+                font-size: 0.7em;
+            }
+            
+            .skillPlus{
+                font-size: 1.5em;
+                width: 2vw;
+                height: 3.5vh;
+            }
+
         }
     }
-    // .skill_quntity{
-    //     margin-right: 1em;
-    //     width: 20em;
-    //     height: 1.5em;
-    // }
-
-    // .skillPlus{
-    //     width: 0.5em;
-    //     height: 1em;
-    //     margin-top: -0.3em;
-    // }
 }
 
 
-.selectSkill{
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    border: black solid 0.1rem;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    margin-left: 1.1em;
-    width: 22.4em
-}
-
-.skillName{
-    margin-left: 5em;
-    height: 2em;
-    width: 15em;
-    text-align: center;
-}
 
 .Quantity{
     margin-right: 3em;
-    margin-left: 5em;
-    width: 5em;
-    height: 1.5em;
+    margin-left: 7em;
+    width: 3vw;
+    height: 2vh;
     text-align:  center;
     font-size: 0.6em;
 }
 
 
+
+
 .time_Select{
     margin-top: 3em;
+    padding-bottom: 2em;
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
+    border: solid 1px black;
 }
 
 
 .timeTitle{
-    font-size: 1.5em;
-    width: 7em;
-    margin-right: 2.4em;
+  margin-left: 4vw;
 }
+
 .atSelect{
-    margin-bottom: 1em ;
-    height: 2em;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
+  margin-left: 1vw;
 }
-
-
 
 .untillSelect{
-    height: 2em;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
+  margin-top: 3vh;
+  margin-left: 1vw;
 }
 
+
+
+
 .advLocation{
-    margin-top: 1em;
+    margin-top: 2em;
     font-size: 1.5em;
     display: flex;
     // align-items: center;
@@ -174,29 +274,42 @@
     display: flex;
     align-items: center;
     flex-direction: row;
-    width: 30em;
+    width: 50vw;
     // padding-left: 6em;
 }
 
 .inputAddress {
-    // align-items: center;
-    width:10em;
-    height: 2em;
-    margin-left: 6.5em;
-    
+    width:22svw;
+    height: 3vh;
+    margin-left: 6.3em;
+    font-size: 0.7em;
+    background-color: $elementcolor;
+    border:0px;
+    // border-bottom: $inputline;
+    border-radius: 10px;
 }
+
+
 .inputAddressbtn {
     margin-left: 2em;
-    width:5%
+    width:6vw;
+    height:3vh;
+}
+
+.inputAddressbtn:hover{
+    margin-left: 2em;
+    width:5vw;
+    height:2.5vh;
 }
 
 .emptyMap{
-    width: 10em;
+    width: 10vw;
 }
 
 .inputMap {
-    width:25em;
-    margin-left: 7.3em;
-    height:12em;
+    width:30vw;
+    height:30vh;
+    margin-left: 9.3vw;
     border: 1px solid #000;
+}
 }
