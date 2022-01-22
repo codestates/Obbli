@@ -23,6 +23,7 @@ function MypagePerson(props: any):JSX.Element {
   const [file,setFile] =useState('')
   const clickReview = (data: any) => {
     setReviewModalData({
+      org_uuid:data.org_uuid,
       rating: data.rating,
       comment: data.comment
     })
@@ -38,8 +39,6 @@ function MypagePerson(props: any):JSX.Element {
     if (received_at) { return 'received'; }
     return 'pending';
   }
-
-  console.log(props)
   
   useEffect(() => {
     axios.get('/person').then(resp => {
@@ -69,7 +68,7 @@ function MypagePerson(props: any):JSX.Element {
 
   return (
     <div className="mypageWrap">
-      { reviewModalData ? <ReviewModal {... {isReviewVisible, setIsReviewVisible, data: reviewModalData, selectMenu}} /> : null }
+      { reviewModalData ? <ReviewModal {... {isReviewVisible, setIsReviewVisible, data: reviewModalData, selectMenu, target:'org', token:props.auth.access_token}} /> : null }
       { newReviewTarget ? <NewReviewModal {...{ target: newReviewTarget, setNewReviewTarget }}/> : null }
 
       <div className="mypageProfileWrap">

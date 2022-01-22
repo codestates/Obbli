@@ -35,7 +35,7 @@ function ReviewModal(props):JSX.Element {
   const controlInput = (key:string) => (e:any) => {
     setReviewInfo({ ...reviewInfo, [key]: e.target.value });
   };
-
+  
   const style = {
     width: `${24.5*props.data.rating}px`
   }
@@ -50,21 +50,16 @@ function ReviewModal(props):JSX.Element {
       alert('별점 혹은 내용을 작성해주세요!')
       return;
     }
-
-    if(props.selectMenu === "advPerson"){
-      axios.post(`/person/review/${props.mypageInfo.uuid}`, {
+    else{
+      console.log(props)
+      const key = `${props.target}_uuid`
+      axios.patch(`/${props.target}/review/${props.data[key]}`, {
         rating: reviewInfo.rating,
-        comment: reviewInfo.comment
-      })
-      .then(res => {
-        props.setIsReviewVisible(false)
-      })
-      .catch(err => console.log(err))
-    }else if(props.selectMenu === "advOrg"){
-      axios.post(`/org/review/${props.mypageInfo.uuid}`, {
-        rating: reviewInfo.rating,
-        comment: reviewInfo.comment
-      })
+        comment: reviewInfo.comment,
+      },{
+        headers:{
+        authorization:`Barer ${props.token}`
+      }})
       .then(res => {
         props.setIsReviewVisible(false)
       })
@@ -73,19 +68,14 @@ function ReviewModal(props):JSX.Element {
   }
 
   const onClickDeleteRiview = () => {
-    if(props.selectMenu === "advPerson"){
-      axios.delete(`/person/review/${props.mypageInfo.uuid}`)
+    const key = `${props.target}_uuid`
+   
+      axios.delete(`/${props.target}/review/${props.data[key]}`)
       .then(res => {
         props.setIsReviewVisible(false)
       })
       .catch(err => console.log(err))
-    }else if(props.selectMenu === "advOrg"){
-      axios.delete(`/org/review/${props.mypageInfo.uuid}`)
-      .then(res => {
-        props.setIsReviewVisible(false)
-      })
-      .catch(err => console.log(err))
-    }
+    
   }
   
   return (
@@ -108,7 +98,7 @@ function ReviewModal(props):JSX.Element {
                 <label htmlFor="1-star" className="star">★</label>
               </div>
               <div className="comentWrap">
-                  <textarea className="reviewModalText" onChange={()=>controlInput('comment')}>{props.data.comment}</textarea>
+                  <textarea className="reviewModalText" onChange={controlInput('comment')}>{props.data.comment}</textarea>
               </div>
               <div className="reviewBtu">
                 <button type='button' className="reviewModalBtn" onClick={handleReview}>리뷰남기기</button>
