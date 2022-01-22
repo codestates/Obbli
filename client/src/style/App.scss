@@ -5,6 +5,7 @@
 @import "AdvertPage";
 @import "AdvertWrite";
 @import "AdvertView";
+@import "AdvertModal";
 
 .App{
     height: 90vh;
@@ -72,6 +73,7 @@ Table tr td{
     text-align: center;
     border-bottom: 1px solid #ccc;
 }
+
 
 
 

@@ -50,7 +50,7 @@ const AdvertiseWrite: React.FC = () => {
     setPosition({ skill_name: "", quota: 1 });
   }
 
-  const [userLocation, setUserLocation] = useState();
+  
   //주소-좌표 변환 객체를 생성
 
   function sample5_execDaumPostcode() {
@@ -149,8 +149,8 @@ const AdvertiseWrite: React.FC = () => {
           </div>
           <div className="controller">
             <div className="addressInput">
-              <input className="inputAddress" type="text" id="sample5_address" placeholder="검색을 클릭해주세요" value={userLocation} />
-              <button className="inputAddressbtn" type="button" value="주소 검색" onClick={() => { sample5_execDaumPostcode(); }}>검색</button>
+              <input className="inputAddress" type="text" id="sample5_address" placeholder="검색을 클릭해주세요" value={userInput.location} onChange={(e) => { controlInput(e, "location"); }} />
+              <button className="inputAddressbtn" type="button" value={userInput.location} onClick={() => { sample5_execDaumPostcode(); }}>검색</button>
             </div>
             <div className="inputMap"></div>
           </div>

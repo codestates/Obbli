@@ -69,17 +69,24 @@ function MypageOrg(props) {
         </div>
         <div className="mypageMenu">
           { selectMenu === 'adv' ? (
-            <div>
-              <ul>
+            <div className='mypagetablewrab'>
+              <table className='mypagetable'>
+                <thead>
+                  <tr>
+                    <td>공연 일자</td>
+                    <td>모집 기한</td>
+                    <td>공고 제목</td>
+                  </tr>
+                </thead>
                 { data.Advert.map(advert => { return (
-                    <li onClick={() => popAdvertModal(advert.uuid)}>
-                      <span>{advert.event_at}</span>
-                      <span>{advert.active_until}</span>
-                      <span>{advert.title}</span>
-                    </li>
+                    <tr onClick={() => popAdvertModal(advert.uuid)} >
+                      <td>{advert.event_at}</td>
+                      <td>{advert.active_until}</td>
+                      <td>{advert.title}</td>
+                    </tr>
                   ); })
                 }
-              </ul>
+              </table>
             </div>
             ) : selectMenu === 'reviewToMe' ? (
             <ul className="reviewList">

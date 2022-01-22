@@ -69,12 +69,14 @@ function MypagePerson(props: any):JSX.Element {
         <div className="mypageMenu">
           { selectMenu === 'adv' ? (
               <table>
-                <tr>
-                  <th>단체명</th>
-                  <th>부문</th>
-                  <th>모집기한</th>
-                  <th>상태</th>
-                </tr>
+                <thead>
+                  <tr>
+                    <td>단체명</td>
+                    <td>부문</td>
+                    <td>모집기한</td>
+                    <td>상태</td>
+                  </tr>
+                </thead>
                 {data.Application.map(each =>
                 <tr>
                   <td>{ each.org_name }</td>

@@ -1,0 +1,99 @@
+.advertModalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 3;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width:100vw;
+    height:100vh;
+    display: block;
+    
+}
+
+@keyframes loadEffect {
+    0%{
+        top:-40em;
+    }
+    100% {
+        top:0em
+    }
+}
+
+.applicationWrap{
+    height: 50vh;
+    width: 30em;
+    background-color: white;
+    position: relative;
+    margin: 13% auto;
+    border-radius: 2em;
+    animation: 0.7s ease-in-out loadEffect;
+    
+}
+
+.reviewSideviewWrap {
+    width:200px;
+    background-color: #f00;
+    height:500px;
+}
+
+
+
+
+
+.modalcontent {
+    width:100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    
+}
+.modalcontent h3 {
+    padding-top: 1em;
+    text-align: center;
+
+}
+.modalcontent table {
+    width:100%
+}
+
+.modalcontent table td {
+    padding:0.2em 0.2em;
+    border-color: 1px solid #000;
+}
+
+
+.advertModalBtn {
+    cursor: pointer;
+    background-color: #fff;
+    color: #0d6efd;
+    border-color: #0d6efd;
+    font-weight: bold;
+    border-radius: 6px;
+    width:8em;
+    height: 2em;
+}
+
+.advertModalBtn:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+
+.advertModalBtn.confirm {
+    color: #dc3545;
+    border-color: #dc3545;
+
+}
+.advertModalBtn.confirm:hover {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+
+}
+
+
+
+
+
