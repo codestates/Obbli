@@ -4,14 +4,20 @@
 
 
 .advViewTable .col1 {
-    width: 50%;
+    width: 65%;
     border: none;
 }
 
 .advViewTable .col2 {
-    width: 20%;
     border: none;
     
+}
+
+.advViewTable thead {
+    height: 30px;
+    color: #036;
+    font-weight: bold;
+    border-bottom: 3px solid #036;
 }
 
 .advViewbtn button {
@@ -40,6 +46,7 @@
     margin: 0px 20px;
     padding: 10px 20px;
     width:50em;
+    display: flex;
 }
 
 .advMap {
@@ -52,7 +59,41 @@
     height:50vh;
     margin: 0 auto;
     border: 1px solid #000;
-    z-index: 0;
 }
 
+.advViewJoin {
+    margin: 3em 3em;
+    width: 10vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.advViewJoinSelect{
+    text-align: center;
+    select {
+        width:9.6em;
+        border: 1px solid #ccc;
+    }
+    
+}
+.advViewJoinBtn {
+    margin-top:0.5em;
+    button {
+        margin:0;
+        padding:0;
+        font-size: 1em;
+        width:8em;
+        font-weight: bold;
+        height:3em;
+        color: #fff;
+        background-color: #0d6efd;
+        border: none;
+    }
+    button:hover {
+        background-color: #fff;
+        color: #0a58ca;
+        border: 1px solid #0a58ca;
+        box-sizing: border-box;
+    }
+}
 

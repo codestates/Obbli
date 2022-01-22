@@ -27,6 +27,7 @@ const AdvView = ({ auth }) => {
     const { uuid } = useParams();
     const navigate = useNavigate();
     // TODO: error handling for invalid url
+    
 
     const [advert, setAdvert] = useState({ reviews: [], positions:[]} as any);
     const [position, setPosition] = useState('');
@@ -56,6 +57,7 @@ const AdvView = ({ auth }) => {
 
     return (
         <div className="advView">
+            <div>
             <h2>{ advert.title }</h2>
             {(auth?.permission === 'org' && auth?.uuid === uuid)
                 ? <div className="advViewbtn">
@@ -72,22 +74,10 @@ const AdvView = ({ auth }) => {
                 <thead>
                     <th>상세 내용</th>
                     <th>모집 기한</th>
-                    <th></th>
                 </thead>
                     <tr className="advViewbtn join">
                         <td>{ advert.body }</td>
                         <td>{ advert.active_until }</td>
-                        <td>
-                            { applied ? null : <>
-                                <select onChange={(e) => setPosition(e.target.value)}>
-                                    <option value="">==지원 부문==</option>
-                                    {advert.positions.map((el)=>{
-                                        return <option value={el.uuid}>{el.skill_name}</option>
-                                    })}
-                                </select>
-                                <button type="button" onClick={apply}>지원하기</button>
-                            </>}
-                        </td>
                     </tr>
             </table>
             <table className="advViewTable">
@@ -142,6 +132,21 @@ const AdvView = ({ auth }) => {
                 </thead>
                 <tr><td>{ 'Lorem ipsum dolor sit amet' }</td></tr>
             </table>
+            </div>
+            { applied ? null : 
+                <div className="advViewJoin">
+                    <div className="advViewJoinSelect">
+                        <select onChange={(e) => setPosition(e.target.value)}>
+                            <option value="">==지원 부문==</option>
+                            {advert.positions.map((el)=>{
+                                return <option value={el.uuid}>{el.skill_name}</option>
+                            })}
+                        </select>
+                    </div>
+                    <div className="advViewJoinBtn">
+                        <button type="button" onClick={apply}>지원하기</button>
+                    </div>
+                </div>}
             
             
         </div>

@@ -73,8 +73,8 @@ const AdvMap: React.FC<AddressProps> =  ({location, event_at}) => {
             <table>
                 <thead>
                     <tr>
-                        <td>공연 장소</td>
-                        <td>공연 시간</td>
+                        <th>공연 장소</th>
+                        <th>공연 시간</th>
                     </tr>
                 </thead>
                     <tr>
