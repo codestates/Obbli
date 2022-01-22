@@ -20,7 +20,7 @@ function MypagePerson(props: any):JSX.Element {
   const [reviewModalData, setReviewModalData] = useState(null as any);
   const [reviewModalVisibility, setReviewModalVilibility] = useState(false);
   const [newReviewTarget, setNewReviewTarget] = useState(null as any);
-
+  const [file,setFile] =useState('')
   const clickReview = (data: any) => {
     setReviewModalData({
       rating: data.rating,
@@ -39,11 +39,33 @@ function MypagePerson(props: any):JSX.Element {
     return 'pending';
   }
 
+  console.log(props)
+  
   useEffect(() => {
     axios.get('/person').then(resp => {
       setData(resp.data);
     });
   }, []);
+
+  const [imageURL, setImageURL] = useState(`https://obbli-image.s3.ap-northeast-2.amazonaws.com/${props.auth.uuid}`);
+
+  const upload = async (event) => {
+    event.preventDefault()
+    await saveImage(file)
+  }
+
+  const settingFile = (event) => {
+    const file = event.target.files[0]
+    setFile(file)
+  }
+
+  const saveImage = async (file) => {
+    const formData = new FormData();
+  formData.append("image",file)
+
+  await axios.post('/image', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+  }
+
 
   return (
     <div className="mypageWrap">
@@ -52,10 +74,14 @@ function MypagePerson(props: any):JSX.Element {
 
       <div className="mypageProfileWrap">
         <div className="mypageProfile">
-          <img className="profileImg" src={require('../img/user.png')} />
+          <img className="profileImg" alt="" src={imageURL} onError={() => setImageURL(require('../img/user.png'))} />
+          <form onSubmit={upload} encType="multipart/form-data">
+            <input onChange={settingFile} type="file" accept="image/*" />
+            <button type="submit" >사진 업로드하기</button>
+          </form>
         </div>
         <div className="mypageHistoryWrap">
-          { data ? <MypageHistory {...{ data }} /> : null }
+          { data ? <MypageHistory {...{ data }}  /> : null }
         </div>
       </div>
 
