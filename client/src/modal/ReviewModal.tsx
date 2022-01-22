@@ -56,10 +56,7 @@ function ReviewModal(props):JSX.Element {
       axios.patch(`/${props.target}/review/${props.data[key]}`, {
         rating: reviewInfo.rating,
         comment: reviewInfo.comment,
-      },{
-        headers:{
-        authorization:`Barer ${props.token}`
-      }})
+      })
       .then(res => {
         props.setIsReviewVisible(false)
       })
