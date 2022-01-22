@@ -1,46 +1,102 @@
+$FontStyle:'NanumGothic', 'serif';
+$elementcolor: rgb(233, 240, 252);
 
+
+.advertise{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:80em;
+    margin-top: 5vh;
+    font-family: $FontStyle;
+}
+
+
+.filter { 
+    width:65VW;
+    height: 8vh;
+    border: 7px double black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5vh;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    
+    .selectBoard{
+        width: 60vw;
+        display: flex;
+        flex-direction: row;  
+        
+        .selectEle{
+            margin-right: 1vw;
+            span{
+                width: 3.5vw;
+                margin-right: 0.5vw;
+                text-align: center;
+            }
+            select{
+                height: 3vh;
+                width: 6vw; 
+            }
+        }
+        }
+    
+        .searchBar{
+            width: 40%;
+            display: flex;
+            flex-direction: row;
+            width: 28vw; 
+
+
+            .searchBtn{
+            width: 4vw;
+            height: 3vh;  
+            margin-left: 20px;
+            cursor:pointer;
+            box-shadow: 0.5px 0.5px 0.5px 0.5px gray ;
+            font-size: 20px;
+            border-radius: 3px; 
+            }
+         }   
+        
+}
 
 
 .Listhead{
-    border-radius: 5px;
     width: 72.8em;
     height: 1.5em;
     display: flex;
     flex-direction: row;
     justify-content: center;
     flex-wrap: nowrap;
-    font: italic 1.1em "Hi Melody";
+    border-bottom: 2px solid black;
     margin-top: -1px;
     margin-bottom: 0px;
-}
 
-.col1{
-    width: 20%;  
-    border: 2px solid #FFBB7C;  
+    .col1{
+        width: 20%;  
+    }
     
-}
-
-.col2{
-    width: 50%;
-    border: 2px solid #FFBB7C;
+    .col2{
+        width: 50%;
+    }
     
+    .col3{
+        width: 25%;   
+    }
+    
+    .col4{
+        width: 15%;
+    }
 }
 
-.col3{
-    width: 25%;
-    border: 2px solid #FFBB7C;
-}
-
-.col4{
-    width: 15%;
-    border: 2px solid #FFBB7C;
-}
 
 .advList{
     display: flex;
     flex-direction: column;
     width: 100%;
-    border: 2px solid #FFBB7C;
+    
     border-radius: 5px;
     margin-top: 5px;
 }
@@ -51,122 +107,82 @@
 
 .Listele{
     height: 3em;
-    font: italic 1.1em "Hi Melody";
     display: flex; 
-    border-bottom: 1px dotted #FFBB7C;  
-}
-.Listele:hover{
-    background-color:#FFE6CF ;
-    opacity: 0.5;
-}
-
-.Advele {
-    text-align: center;
-    margin: auto;
-}
-
-.advTitle{
-    text-decoration-line: none;
-    color: black;
-}
-
-.advcol1{
-    width: 20%;  
-}
-
-.advcol2{
-   
-    width: 50%;
-}
-
-.advcol3{
-    width: 25%;
-  
-}
-
-.advcol4{
-    width: 15%;
- 
-}
-
-
-
-
-.writeButtonArray{
-    margin-top: 30px;
-    height: 30px;
-    width: 900px;
-}
-
-.advwritebtn{
-    font: italic 1.1em "Hi Melody";
-    background-color:#FFBB7C;
-    color:#fff;
-    border:none;
-    position:relative;
-    height:30px;
-    font-size:1.2em;
-    margin-left: 10px;
-    cursor:pointer;
-    transition:800ms ease all;
-    outline:none;
-}
-.advwritebtn{
-    background:#FFBB7C;
-    color:white;
-    border-radius: 3px;
-}
-.advwritebtn:before,.advwritebtn:after{
-    content:'';
-    position:absolute;
-    top:0;
-    right:0;
-    height:2px;
-    width:0;
-    background: #FFBB7C;
-    transition:400ms ease all;
-}
-.advwritebtn:after{
-    right:inherit;
-    top:inherit;
-    left:0;
-    bottom:0;
-}
-.advwritebtn:hover:before,.advwritebtn:hover:after{
-    width:100%;
-    transition:800ms ease all;
-    font-size:1.0em;
-}
-
-.searchBar{
-    width: 40%;
-    display: flex;
-    flex-direction: row;
-}
-
-.searchBtn{
-    font: italic 1.5em "Hi Melody";
-    margin-left: 20px;
-    border: 1px solid #FFBB7C;
-    background-color: #FFBB7C;
-    color: white;
-    cursor:pointer;
-    box-shadow: 0.5px 0.5px 0.5px 0.5px gray ;
-    font-size: 20px;
-    border: none;
-    border-radius: 3px;
-}
-
-.searchBtn:hover{
-    font-size: 20px;
-    color: #FFBB7C;
-}
-
-.searchBtn:active{
-    font-size: 15px;
-    color: #FFBB7C;
-    box-shadow: none;
+    border-bottom: 1px dotted $elementcolor;  
     
+    .Listele:hover{
+        background-color:#FFE6CF ;
+        opacity: 0.5;
+    }
+    
+    .Advele {
+        text-align: center;
+        margin: auto;
+    }
+    
+    .advTitle{
+        text-decoration-line: none;
+        color: black;
+    }
+    
+    .advcol1{
+        width: 20%;  
+    }
+    
+    .advcol2{
+       
+        width: 50%;
+    }
+    
+    .advcol3{
+        width: 25%;
+      
+    }
+    
+    .advcol4{
+        width: 15%;
+     
+    }
 }
+
+
+
+    .advwritebtn{
+        height:10vh;
+        width: 5vw;
+        border:none;
+        position:relative;
+        font-size:1.5em;
+        margin-left: 10px;
+        cursor:pointer;
+        transition:800ms ease all;
+        outline:none;
+        background:$elementcolor;
+        color:black;
+        border-radius: 3px;
+    }
+    
+    .advwritebtn:before,.advwritebtn:after{
+        content:'';
+        position:absolute;
+        top:0;
+        right:0;
+        height:2px;
+        width:0;
+        background: black;
+        transition:400ms ease all;
+    }
+    .advwritebtn:after{
+        right:inherit;
+        top:inherit;
+        left:0;
+        bottom:0;
+    }
+    .advwritebtn:hover:before,.advwritebtn:hover:after{
+        width:100%;
+        transition:800ms ease all;
+        font-size:1.0em;
+    }
+
 
 

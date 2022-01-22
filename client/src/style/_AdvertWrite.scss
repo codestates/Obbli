@@ -3,6 +3,7 @@ $skillelement: rgb(233,255,512);
 $inputline: 1px solid rgba(0, 0, 0, 0.3);
 $dimGray: rgba(30, 30, 30, 0.1);
 $sidebarVerticalMargin: 2.5vh auto;
+$FontStyle:'NanumGothic', 'serif';
 
 
 .advAndsubmit{
@@ -12,7 +13,7 @@ $sidebarVerticalMargin: 2.5vh auto;
     justify-self: center;
     width: 70vw;
     height: 75vh;
-    font-family: 'NanumGothic', 'serif';
+    font-family: $FontStyle;
     font-size: 1em;
     justify-content: center;
 }

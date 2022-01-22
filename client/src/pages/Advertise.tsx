@@ -21,12 +21,10 @@ const Advertise: React.FC =  () => {
               ? <div>아직 작성된 글이 없습니다.</div>
               : <AdvList adverts={ adverts }/>
             }
-            <div className="writeButtonArray">
                 { isAdmin
                   ? <Link to={`/advert/write`}><button className="advwritebtn" type="button">작성하기</button></Link>
                   : null
                 }
-            </div>
         </div>
     )
 }

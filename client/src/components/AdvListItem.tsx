@@ -16,6 +16,7 @@ const AdvListItem: React.FC<ItemProps> = ({
   title,
   active_until,
 }) => {
+
   return (
     <div className="Listele" >
       <p className='Advele advcol1'>{active_until}</p>
