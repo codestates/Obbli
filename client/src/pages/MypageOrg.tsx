@@ -40,12 +40,12 @@ function MypageOrg(props) {
       })
       .catch(() => {})
   }
-
+  
   useEffect(() => {
     if (!props.auth) { navigate('/'); }
     axios.get('/org').then(resp => { setData(resp.data); });
+    
   }, [])
-
   return (
     <div className="mypageWrap">
       { advertModalVisibility ? <AdvertModal {...{ data: advertModalData, setAdvertModalVisibility }}/> : null }
@@ -78,14 +78,16 @@ function MypageOrg(props) {
                     <td>공고 제목</td>
                   </tr>
                 </thead>
-                { data.Advert.map(advert => { return (
-                    <tr onClick={() => popAdvertModal(advert.uuid)} >
+                <tbody>
+                { data.Advert.map((advert, key) => { return (
+                    <tr onClick={() => popAdvertModal(advert.uuid)} key={key}>
                       <td>{advert.event_at}</td>
                       <td>{advert.active_until}</td>
                       <td>{advert.title}</td>
                     </tr>
                   ); })
                 }
+                </tbody>
               </table>
             </div>
             ) : selectMenu === 'reviewToMe' ? (

@@ -9,10 +9,9 @@
     width:100vw;
     height:100vh;
     display: block;
-    
 }
 
-@keyframes loadEffect {
+@keyframes applicationWrapEffect {
     0%{
         top:-40em;
     }
@@ -21,22 +20,65 @@
     }
 }
 
+@keyframes reviewSideviewEffect{
+    0%{
+        right:-40em;
+    }
+    100% {
+        right:0em
+    }
+    
+
+}
+
 .applicationWrap{
-    height: 50vh;
-    width: 30em;
+    height: 23em;
+    width: 35em;
     background-color: white;
     position: relative;
     margin: 13% auto;
     border-radius: 2em;
-    animation: 0.7s ease-in-out loadEffect;
+    animation: 0.7s ease-in-out applicationWrapEffect;
     
 }
 
 .reviewSideviewWrap {
-    width:200px;
-    background-color: #f00;
-    height:500px;
+    position: fixed;
+    right:0em;
+    width:18em;
+    background-color: #fff;
+    height:60em;
+    animation: 0.7s ease-in-out reviewSideviewEffect;
+    z-index: 5;
+    border-left: 1.8vh solid #036;
 }
+
+.reviewSideContent{
+    padding:1.5em 1.5em
+}
+.reviewSideContent h2 {
+    border-bottom: 2px solid #000;
+}
+.reviewSideList {
+    margin:0; 
+    padding:0;
+    list-style:none;
+    border-bottom: 1px solid #aaa;
+}
+
+.reviewSideRating {
+    font-size: 0.8em;
+    width:100%;
+    color:rgb(58, 58, 58);
+    
+}
+.reviewSidecomment {
+    margin: 0.4em 0;
+    font-weight: bold;
+    
+}
+
+
 
 
 
@@ -79,6 +121,13 @@
     background-color: #0d6efd;
     border-color: #0d6efd;
 }
+.advertModalBtn:focus {
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+
+}
 
 
 .advertModalBtn.confirm {
@@ -90,6 +139,13 @@
     color: #fff;
     background-color: #dc3545;
     border-color: #dc3545;
+
+}
+.advertModalBtn.confirm:focus {
+    color: #fff;
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+    box-shadow: 0 0 0 0.25rem rgba(225, 83, 97, 0.5);
 
 }
 

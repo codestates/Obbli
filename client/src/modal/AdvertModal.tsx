@@ -2,17 +2,21 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function ReviewsModal({ reviews }) {
+  const ratingStar = ['','★☆☆☆☆','★★☆☆☆','★★★☆☆','★★★★☆','★★★★★']
   return (
     <div className="reviewSideviewWrap" onClick={e => e.stopPropagation()}>
-      <ul>
-        {console.log(reviews)}
-        { reviews.map(review => 
-          <li>
-            <span>{ review.rating }</span>
-            <span>{ review.comment }</span>
-          </li>
-        )}
-      </ul>
+      <div className='reviewSideContent'>
+        <h2>Review</h2>
+        <ul className='reviewSideList'>
+          {console.log(reviews)}
+          { reviews.map(review => 
+            <li >
+              <span className='reviewSideRating'>{ ratingStar[review.rating] }</span>
+              <p className='reviewSidecomment'>{ review.comment }</p>
+            </li>
+          )}
+        </ul>
+      </div>
     </div>
   )
   // return reviews.map(review =>
@@ -44,10 +48,9 @@ export default function AdvertModal({ data, setAdvertModalVisibility }) {
   
   return (
     <div className="advertModalBackground " onClick={() => setAdvertModalVisibility(false)}>
-      
       { reviewsModalVisibility ? <ReviewsModal reviews={reviews} /> : null}
+        <div className='applicationWrap' onClick={e => e.stopPropagation()}>
       
-      <div className={reviewsModalVisibility ? 'applicationWrap':'applicationWrap fade'} onClick={e => e.stopPropagation()}>
         { data.map(({uuid, skill_name, person}) => { return (
           <div className="modalcontent">
             <h3>{ skill_name }</h3>  
@@ -75,6 +78,7 @@ export default function AdvertModal({ data, setAdvertModalVisibility }) {
           </div>
         ); })}
       </div>
+      
     </div>
   );
 }
