@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function ReviewsModal({ reviews }) {
   return (
-    <div className="reviewSideviewWrap">
+    <div className="reviewSideviewWrap" onClick={e => e.stopPropagation()}>
       <ul>
         {console.log(reviews)}
         { reviews.map(review => 
@@ -45,9 +45,9 @@ export default function AdvertModal({ data, setAdvertModalVisibility }) {
   return (
     <div className="advertModalBackground " onClick={() => setAdvertModalVisibility(false)}>
       
-      { reviewsModalVisibility ? <ReviewsModal reviews={reviews}/> : null}
+      { reviewsModalVisibility ? <ReviewsModal reviews={reviews} /> : null}
       
-      <div className={reviewsModalVisibility ? 'applicationWrap':'applicationWrap fade'}>
+      <div className={reviewsModalVisibility ? 'applicationWrap':'applicationWrap fade'} onClick={e => e.stopPropagation()}>
         { data.map(({uuid, skill_name, person}) => { return (
           <div className="modalcontent">
             <h3>{ skill_name }</h3>  
