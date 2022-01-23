@@ -29,7 +29,7 @@ const AdvFilter: React.FC =  () => {
                 adverts.length===0 ? <div>아직 작성된 글이 없습니다.</div> : <AdvMapFilter adverts={ adverts } setAdverts={setAdverts}/>
             }
             {
-                isAdmin ? <Link to={`/advert/write`}><button className="advwritebtn" type="button">작성하기</button></Link> : null
+                isAdmin ? <Link to={`/advert/write`}><button className="advfilterwritebtn" type="button">작성하기</button></Link> : null
             }
             
         </div>

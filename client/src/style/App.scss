@@ -17,6 +17,7 @@ nav {
     top: 0;
     left: 0;
     right: 0;
+    z-index: 2;
 }
 
 .body {
@@ -74,22 +75,49 @@ Table tr td{
     border-bottom: 1px solid #ccc;
 }
 
-
-
-
-.advViewbtn button {
-    float: right;
-    margin: 0 5px;
-    background-color: #000;
-    outline: 0;
-    
-}
-
 .advwritebtn {
     height:3em;
     width: 5em;
     margin-top: 3em;
     align-items: flex-start;
+}
+
+.advfilterwritebtn {
+    height:7vh;
+    width: 8vw;
+    border:none;
+    position:relative;
+    font-size:1.5em;
+    margin-left: 10px;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    background:$elementcolor;
+    color:black;
+    border-radius: 3px;
+    border: 1px solid #000;
+
+}
+.advfilterwritebtn:before,.advfilterwritebtn:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: black;
+    transition:400ms ease all;
+}
+.advfilterwritebtn:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+.advfilterwritebtn:hover:before,.advfilterwritebtn:hover:after{
+    width:100%;
+    transition:800ms ease all;
+    font-size:1.0em;
 }
 
 
@@ -157,21 +185,21 @@ input {
 }
 
 .advMapFilter{
-    
     width:100%;
 
 
 }
 .advMapFilter_location {
+    margin: 1em;
     float: left;
-    width:65%;
+    width:62%;
     height:70vh;
     border: 1px solid #000;
 
 }
 .advMapFilter_view{
     float: left;
-    margin-left: 20px;
+    margin-left: 1em;
     width:32%;
     height:70vh;
     

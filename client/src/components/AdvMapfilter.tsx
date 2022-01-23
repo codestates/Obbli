@@ -13,7 +13,7 @@ export default function AdvMapFilter ({ adverts, setAdverts }: { adverts: any ; 
 
     const mapScript = () => {
         const container = document.querySelector('.advMapFilter_location');
-        const options = { center: new kakao.maps.LatLng(33.450701, 126.570667) };
+        const options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 5 };
         const map = new kakao.maps.Map(container, options);
         const clusterer = new kakao.maps.MarkerClusterer({
             map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
@@ -33,7 +33,30 @@ export default function AdvMapFilter ({ adverts, setAdverts }: { adverts: any ; 
                 });
             });
         };
-
+        if (navigator.geolocation) {
+        
+            // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+            navigator.geolocation.getCurrentPosition(function(position) {
+                
+                var lat = position.coords.latitude, // 위도
+                    lon = position.coords.longitude; // 경도
+                
+                // 마커와 인포윈도우를 표시합니다
+                const marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(lat, lon),
+                });
+                const moveLatLon = new kakao.maps.LatLng(lat, lon);
+                const infoContent = `<div style="width:9em; text-align:center;">현재 위치</div>`
+                const infowindow = new kakao.maps.InfoWindow({
+                    position:moveLatLon,
+                    content:infoContent
+                })                
+                infowindow.open(map, marker)
+                map.setCenter(moveLatLon);
+            });
+            
+        }
 
         const markers: any[] = [];
         adverts.map(async (el: any) => {
@@ -47,8 +70,8 @@ export default function AdvMapFilter ({ adverts, setAdverts }: { adverts: any ; 
             });
             el.marker = marker;
             markers.push(marker);
-            bounds.extend(new kakao.maps.LatLng(position[0].lat, position[0].lng));
-            map.setBounds(bounds);
+            // bounds.extend(new kakao.maps.LatLng(position[0].lat, position[0].lng));
+            // map.setBounds(bounds);
             await clusterer.addMarkers(markers);
         });
 
